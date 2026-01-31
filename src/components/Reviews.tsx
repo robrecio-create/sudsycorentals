@@ -14,6 +14,12 @@ const reviews = [
     text: "Appliances were delivered on time and Rob even confirmed everything works as it should before leaving. Will definitely refer friends and family.",
     relative_time_description: "recently",
   },
+  {
+    author_name: "Bobby Beasley",
+    rating: 5,
+    text: "Great company, very nice, on time. Renting a washer and drier set and it has really help us out.",
+    relative_time_description: "recently",
+  },
 ];
 
 // Overall rating info
