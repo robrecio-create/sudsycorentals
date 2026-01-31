@@ -9,6 +9,7 @@ import FAQ from "@/components/FAQ";
 import Contact from "@/components/Contact";
 import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
+import { MessengerButton } from "@/components/MessengerButton";
 
 const Index = () => {
   return (
@@ -26,6 +27,7 @@ const Index = () => {
         <CTA />
       </main>
       <Footer />
+      <MessengerButton />
     </div>
   );
 };
