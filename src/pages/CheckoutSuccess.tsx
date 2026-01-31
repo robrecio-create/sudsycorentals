@@ -23,6 +23,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
 
 const timeSlots = [
   "9:00 AM - 11:00 AM",
@@ -57,14 +58,37 @@ const CheckoutSuccess = () => {
       return;
     }
 
+    if (!user) {
+      toast.error("You must be logged in to schedule a delivery");
+      return;
+    }
+
     setIsSubmitting(true);
 
-    // Simulate submission - in production this would save to database
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    try {
+      const { error } = await supabase.from("delivery_schedules").insert({
+        user_id: user.id,
+        scheduled_date: format(selectedDate, "yyyy-MM-dd"),
+        time_window: selectedTime,
+        street_address: address.trim(),
+        city: city.trim(),
+        zip_code: zipCode.trim(),
+        phone: phone.trim(),
+        notes: notes.trim() || null,
+      });
 
-    toast.success("Delivery scheduled! We'll see you soon.");
-    setIsSubmitting(false);
-    navigate("/");
+      if (error) {
+        throw error;
+      }
+
+      toast.success("Delivery scheduled! We'll see you soon.");
+      navigate("/");
+    } catch (error) {
+      console.error("Error scheduling delivery:", error);
+      toast.error("Failed to schedule delivery. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (step === "success") {
