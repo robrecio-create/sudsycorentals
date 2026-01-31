@@ -3,28 +3,16 @@ import { Star, Quote } from "lucide-react";
 // Add your reviews here - easy to update anytime!
 const reviews = [
   {
-    author_name: "Sarah M.",
+    author_name: "Yakeyla Daisean",
     rating: 5,
-    text: "Absolutely love this service! The washer and dryer work perfectly, delivery was quick, and the monthly price beats buying any day. Highly recommend!",
-    relative_time_description: "2 weeks ago",
-  },
-  {
-    author_name: "Mike T.",
-    rating: 5,
-    text: "Great experience from start to finish. The team was professional, set everything up quickly, and the machines are top quality. No more laundromat trips!",
-    relative_time_description: "1 month ago",
-  },
-  {
-    author_name: "Jennifer L.",
-    rating: 5,
-    text: "Perfect solution for our rental property. Installation was seamless and customer service has been excellent. Will definitely continue using Sudsy Co!",
-    relative_time_description: "3 weeks ago",
+    text: "Sudsy Co Is A Great company. Their Response Time Is Fast. Owner Was Nice And Professional. Delivery Was Prompt. I Look Forward To Continued Business With This Company.",
+    relative_time_description: "recently",
   },
 ];
 
 // Overall rating info
 const overallRating = 5.0;
-const totalReviews = 12;
+const totalReviews = 9;
 
 const StarRating = ({ rating }: { rating: number }) => {
   return (
