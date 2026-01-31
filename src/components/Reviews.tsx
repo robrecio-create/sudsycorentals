@@ -3,7 +3,7 @@ import { Star, Quote } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 
 // Your Google Business Place ID - you'll need to update this
-const PLACE_ID = "YOUR_PLACE_ID_HERE";
+const PLACE_ID = "ChIJ9SNomW8JnIgR4M_xsEd1qXU";
 
 interface Review {
   author_name: string;
@@ -90,9 +90,9 @@ export const Reviews = () => {
     retry: 1,
   });
 
-  // Don't show the section if there's an error or no place ID configured
-  if (error || PLACE_ID === "YOUR_PLACE_ID_HERE") {
-    console.log('Reviews not configured or error:', error);
+  // Don't show the section if there's an error
+  if (error) {
+    console.log('Reviews error:', error);
     return null;
   }
 
