@@ -107,6 +107,60 @@ export type Database = {
         }
         Relationships: []
       }
+      machines: {
+        Row: {
+          brand: string
+          created_at: string
+          customer: string | null
+          date_purchased: string | null
+          id: string
+          model_number: string | null
+          notes: string | null
+          photos_link: string | null
+          purchase_cost: number | null
+          purchase_from: string | null
+          serial_number: string | null
+          status: string
+          tested: boolean | null
+          type: string
+          updated_at: string
+        }
+        Insert: {
+          brand: string
+          created_at?: string
+          customer?: string | null
+          date_purchased?: string | null
+          id?: string
+          model_number?: string | null
+          notes?: string | null
+          photos_link?: string | null
+          purchase_cost?: number | null
+          purchase_from?: string | null
+          serial_number?: string | null
+          status?: string
+          tested?: boolean | null
+          type: string
+          updated_at?: string
+        }
+        Update: {
+          brand?: string
+          created_at?: string
+          customer?: string | null
+          date_purchased?: string | null
+          id?: string
+          model_number?: string | null
+          notes?: string | null
+          photos_link?: string | null
+          purchase_cost?: number | null
+          purchase_from?: string | null
+          serial_number?: string | null
+          status?: string
+          tested?: boolean | null
+          type?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           created_at: string
