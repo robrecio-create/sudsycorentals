@@ -8,6 +8,12 @@ const reviews = [
     text: "Sudsy Co Is A Great company. Their Response Time Is Fast. Owner Was Nice And Professional. Delivery Was Prompt. I Look Forward To Continued Business With This Company.",
     relative_time_description: "recently",
   },
+  {
+    author_name: "Janet Coombs",
+    rating: 5,
+    text: "Appliances were delivered on time and Rob even confirmed everything works as it should before leaving. Will definitely refer friends and family.",
+    relative_time_description: "recently",
+  },
 ];
 
 // Overall rating info
