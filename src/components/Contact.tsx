@@ -225,27 +225,34 @@ const Contact = () => {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="inquiry-type">Inquiry Type *</Label>
-                  <Select
-                    value={inquiryType}
-                    onValueChange={(value: InquiryType) => {
-                      setInquiryType(value);
-                      // Reset conditional fields when type changes
-                      setAppliance("");
-                      setProblemDescription("");
-                      setSelectedDate(undefined);
-                      setSelectedTime("");
-                    }}
-                  >
-                    <SelectTrigger id="inquiry-type">
-                      <SelectValue placeholder="Select inquiry type" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="general">General Questions</SelectItem>
-                      <SelectItem value="repair">Schedule a Repair</SelectItem>
-                      <SelectItem value="pickup">Schedule a Pick Up</SelectItem>
-                    </SelectContent>
-                  </Select>
+                  <Label>Inquiry Type *</Label>
+                  <div className="flex flex-wrap gap-3">
+                    {[
+                      { value: "general", label: "General Questions" },
+                      { value: "repair", label: "Schedule a Repair" },
+                      { value: "pickup", label: "Schedule a Pick Up" },
+                    ].map((option) => (
+                      <button
+                        key={option.value}
+                        type="button"
+                        onClick={() => {
+                          setInquiryType(option.value as InquiryType);
+                          setAppliance("");
+                          setProblemDescription("");
+                          setSelectedDate(undefined);
+                          setSelectedTime("");
+                        }}
+                        className={cn(
+                          "px-4 py-2 rounded-lg border-2 font-medium transition-all",
+                          inquiryType === option.value
+                            ? "border-primary bg-primary text-primary-foreground"
+                            : "border-border bg-background text-foreground hover:border-primary/50"
+                        )}
+                      >
+                        {option.label}
+                      </button>
+                    ))}
+                  </div>
                 </div>
               </div>
 
