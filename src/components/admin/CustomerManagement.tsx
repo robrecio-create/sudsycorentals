@@ -58,7 +58,9 @@ interface Customer {
   name: string;
   email: string | null;
   phone: string;
+  apartment_name: string | null;
   street_address: string | null;
+  apartment_number: string | null;
   city: string | null;
   state: string | null;
   zip_code: string | null;
@@ -91,7 +93,9 @@ const customerSchema = z.object({
   name: z.string().min(1, "Name is required").max(200, "Name must be less than 200 characters"),
   email: z.string().regex(emailRegex, "Invalid email format").max(255).optional().nullable().or(z.literal("")),
   phone: z.string().regex(phoneRegex, "Phone format: (123) 456-7890"),
+  apartment_name: z.string().max(200).optional().nullable(),
   street_address: z.string().max(300).optional().nullable(),
+  apartment_number: z.string().max(20).optional().nullable(),
   city: z.string().max(100).optional().nullable(),
   state: z.string().max(50).optional().nullable(),
   zip_code: z.string().max(10).optional().nullable(),
@@ -104,7 +108,9 @@ const defaultFormData: CustomerFormData = {
   name: "",
   email: "",
   phone: "",
+  apartment_name: "",
   street_address: "",
+  apartment_number: "",
   city: "",
   state: "",
   zip_code: "",
@@ -184,7 +190,9 @@ export const CustomerManagement = () => {
       name: customer.name,
       email: customer.email || "",
       phone: customer.phone,
+      apartment_name: customer.apartment_name || "",
       street_address: customer.street_address || "",
+      apartment_number: customer.apartment_number || "",
       city: customer.city || "",
       state: customer.state || "",
       zip_code: customer.zip_code || "",
@@ -209,7 +217,9 @@ export const CustomerManagement = () => {
     const result = customerSchema.safeParse({
       ...formData,
       email: formData.email || null,
+      apartment_name: formData.apartment_name || null,
       street_address: formData.street_address || null,
+      apartment_number: formData.apartment_number || null,
       city: formData.city || null,
       state: formData.state || null,
       zip_code: formData.zip_code || null,
@@ -233,7 +243,9 @@ export const CustomerManagement = () => {
         name: formData.name.trim(),
         email: formData.email?.trim() || null,
         phone: formData.phone.trim(),
+        apartment_name: formData.apartment_name?.trim() || null,
         street_address: formData.street_address?.trim() || null,
+        apartment_number: formData.apartment_number?.trim() || null,
         city: formData.city?.trim() || null,
         state: formData.state?.trim() || null,
         zip_code: formData.zip_code?.trim() || null,
@@ -386,11 +398,17 @@ export const CustomerManagement = () => {
                         </div>
                       </TableCell>
                       <TableCell>
-                        {customer.street_address ? (
+                        {(customer.apartment_name || customer.street_address) ? (
                           <div className="flex items-start gap-1.5 text-sm">
                             <MapPin className="h-3.5 w-3.5 text-muted-foreground mt-0.5 shrink-0" />
                             <div>
-                              <div>{customer.street_address}</div>
+                              {customer.apartment_name && (
+                                <div className="font-medium">{customer.apartment_name}</div>
+                              )}
+                              <div>
+                                {customer.street_address}
+                                {customer.apartment_number && `, Apt ${customer.apartment_number}`}
+                              </div>
                               {(customer.city || customer.state || customer.zip_code) && (
                                 <div className="text-muted-foreground">
                                   {customer.city}{customer.city && customer.state ? ", " : ""}{customer.state}{(customer.city || customer.state) && customer.zip_code ? " " : ""}{customer.zip_code}
@@ -501,13 +519,35 @@ export const CustomerManagement = () => {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="street_address">Street Address</Label>
+              <Label htmlFor="apartment_name">Apartment/Complex Name</Label>
               <Input
-                id="street_address"
-                value={formData.street_address || ""}
-                onChange={(e) => setFormData({ ...formData, street_address: e.target.value })}
-                placeholder="123 Main St"
+                id="apartment_name"
+                value={formData.apartment_name || ""}
+                onChange={(e) => setFormData({ ...formData, apartment_name: e.target.value })}
+                placeholder="e.g., Sunset Apartments"
               />
+            </div>
+
+            <div className="grid grid-cols-3 gap-4">
+              <div className="col-span-2 space-y-2">
+                <Label htmlFor="street_address">Street Address</Label>
+                <Input
+                  id="street_address"
+                  value={formData.street_address || ""}
+                  onChange={(e) => setFormData({ ...formData, street_address: e.target.value })}
+                  placeholder="123 Main St"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="apartment_number">Apt #</Label>
+                <Input
+                  id="apartment_number"
+                  value={formData.apartment_number || ""}
+                  onChange={(e) => setFormData({ ...formData, apartment_number: e.target.value })}
+                  placeholder="101"
+                />
+              </div>
             </div>
 
             <div className="grid grid-cols-3 gap-4">

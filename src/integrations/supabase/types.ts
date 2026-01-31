@@ -64,6 +64,8 @@ export type Database = {
       }
       customers: {
         Row: {
+          apartment_name: string | null
+          apartment_number: string | null
           city: string | null
           created_at: string
           email: string | null
@@ -77,6 +79,8 @@ export type Database = {
           zip_code: string | null
         }
         Insert: {
+          apartment_name?: string | null
+          apartment_number?: string | null
           city?: string | null
           created_at?: string
           email?: string | null
@@ -90,6 +94,8 @@ export type Database = {
           zip_code?: string | null
         }
         Update: {
+          apartment_name?: string | null
+          apartment_number?: string | null
           city?: string | null
           created_at?: string
           email?: string | null
