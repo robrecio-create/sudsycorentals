@@ -1,34 +1,30 @@
-import { useQuery } from "@tanstack/react-query";
 import { Star, Quote } from "lucide-react";
-import { supabase } from "@/integrations/supabase/client";
 
-// Your Google Business Place ID - you'll need to update this
-const PLACE_ID = "ChIJ9SNomW8JnIgR4M_xsEd1qXU";
+// Add your reviews here - easy to update anytime!
+const reviews = [
+  {
+    author_name: "Sarah M.",
+    rating: 5,
+    text: "Absolutely love this service! The washer and dryer work perfectly, delivery was quick, and the monthly price beats buying any day. Highly recommend!",
+    relative_time_description: "2 weeks ago",
+  },
+  {
+    author_name: "Mike T.",
+    rating: 5,
+    text: "Great experience from start to finish. The team was professional, set everything up quickly, and the machines are top quality. No more laundromat trips!",
+    relative_time_description: "1 month ago",
+  },
+  {
+    author_name: "Jennifer L.",
+    rating: 5,
+    text: "Perfect solution for our rental property. Installation was seamless and customer service has been excellent. Will definitely continue using Sudsy Co!",
+    relative_time_description: "3 weeks ago",
+  },
+];
 
-interface Review {
-  author_name: string;
-  rating: number;
-  text: string;
-  time: number;
-  relative_time_description: string;
-  profile_photo_url?: string;
-}
-
-interface ReviewsData {
-  name: string;
-  rating: number;
-  total_ratings: number;
-  reviews: Review[];
-}
-
-const fetchReviews = async (): Promise<ReviewsData> => {
-  const { data, error } = await supabase.functions.invoke('get-google-reviews', {
-    body: { placeId: PLACE_ID },
-  });
-
-  if (error) throw error;
-  return data;
-};
+// Overall rating info
+const overallRating = 5.0;
+const totalReviews = 12;
 
 const StarRating = ({ rating }: { rating: number }) => {
   return (
@@ -47,23 +43,15 @@ const StarRating = ({ rating }: { rating: number }) => {
   );
 };
 
-const ReviewCard = ({ review }: { review: Review }) => {
+const ReviewCard = ({ review }: { review: typeof reviews[0] }) => {
   return (
     <div className="bg-card rounded-xl p-6 shadow-sm border border-border hover:shadow-md transition-shadow">
       <div className="flex items-start gap-4">
-        {review.profile_photo_url ? (
-          <img
-            src={review.profile_photo_url}
-            alt={review.author_name}
-            className="w-12 h-12 rounded-full object-cover"
-          />
-        ) : (
-          <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-            <span className="text-primary font-semibold text-lg">
-              {review.author_name.charAt(0)}
-            </span>
-          </div>
-        )}
+        <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+          <span className="text-primary font-semibold text-lg">
+            {review.author_name.charAt(0)}
+          </span>
+        </div>
         <div className="flex-1">
           <div className="flex items-center justify-between">
             <h4 className="font-semibold text-foreground">{review.author_name}</h4>
@@ -76,26 +64,13 @@ const ReviewCard = ({ review }: { review: Review }) => {
       </div>
       <div className="mt-4 relative">
         <Quote className="absolute -top-2 -left-1 h-6 w-6 text-primary/20" />
-        <p className="text-muted-foreground pl-6 line-clamp-4">{review.text}</p>
+        <p className="text-muted-foreground pl-6">{review.text}</p>
       </div>
     </div>
   );
 };
 
 export const Reviews = () => {
-  const { data, isLoading, error } = useQuery({
-    queryKey: ['google-reviews'],
-    queryFn: fetchReviews,
-    staleTime: 1000 * 60 * 60, // Cache for 1 hour
-    retry: 1,
-  });
-
-  // Don't show the section if there's an error
-  if (error) {
-    console.log('Reviews error:', error);
-    return null;
-  }
-
   return (
     <section id="reviews" className="py-16 md:py-24 bg-muted/30">
       <div className="container mx-auto px-4">
@@ -103,54 +78,28 @@ export const Reviews = () => {
           <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
             What Our Customers Say
           </h2>
-          {data && (
-            <div className="flex items-center justify-center gap-3">
-              <div className="flex items-center gap-1">
-                <Star className="h-6 w-6 fill-yellow-400 text-yellow-400" />
-                <span className="text-2xl font-bold text-foreground">
-                  {data.rating?.toFixed(1)}
-                </span>
-              </div>
-              <span className="text-muted-foreground">
-                based on {data.total_ratings} reviews on Google
+          <div className="flex items-center justify-center gap-3">
+            <div className="flex items-center gap-1">
+              <Star className="h-6 w-6 fill-yellow-400 text-yellow-400" />
+              <span className="text-2xl font-bold text-foreground">
+                {overallRating.toFixed(1)}
               </span>
             </div>
-          )}
+            <span className="text-muted-foreground">
+              based on {totalReviews} reviews on Google
+            </span>
+          </div>
         </div>
 
-        {isLoading ? (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[1, 2, 3].map((i) => (
-              <div
-                key={i}
-                className="bg-card rounded-xl p-6 shadow-sm border border-border animate-pulse"
-              >
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-full bg-muted" />
-                  <div className="flex-1">
-                    <div className="h-4 bg-muted rounded w-24 mb-2" />
-                    <div className="h-3 bg-muted rounded w-16" />
-                  </div>
-                </div>
-                <div className="mt-4 space-y-2">
-                  <div className="h-3 bg-muted rounded" />
-                  <div className="h-3 bg-muted rounded w-4/5" />
-                  <div className="h-3 bg-muted rounded w-3/5" />
-                </div>
-              </div>
-            ))}
-          </div>
-        ) : data?.reviews && data.reviews.length > 0 ? (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {data.reviews.slice(0, 6).map((review, index) => (
-              <ReviewCard key={index} review={review} />
-            ))}
-          </div>
-        ) : null}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {reviews.map((review, index) => (
+            <ReviewCard key={index} review={review} />
+          ))}
+        </div>
 
         <div className="text-center mt-8">
           <a
-            href="https://g.page/r/YOUR_GOOGLE_REVIEW_LINK"
+            href="https://g.page/r/CXWpdUfxz8_xEAE/review"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 text-primary hover:text-primary/80 font-medium transition-colors"
