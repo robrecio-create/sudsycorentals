@@ -5,9 +5,9 @@ import Benefits from "@/components/Benefits";
 import Pricing from "@/components/Pricing";
 import HowItWorks from "@/components/HowItWorks";
 import FAQ from "@/components/FAQ";
+import Contact from "@/components/Contact";
 import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
-
 const Index = () => {
   return (
     <div className="min-h-screen bg-background">
@@ -19,6 +19,7 @@ const Index = () => {
         <Pricing />
         <HowItWorks />
         <FAQ />
+        <Contact />
         <CTA />
       </main>
       <Footer />
