@@ -71,6 +71,7 @@ export type Database = {
           name: string
           notes: string | null
           phone: string
+          state: string | null
           street_address: string | null
           updated_at: string
           zip_code: string | null
@@ -83,6 +84,7 @@ export type Database = {
           name: string
           notes?: string | null
           phone: string
+          state?: string | null
           street_address?: string | null
           updated_at?: string
           zip_code?: string | null
@@ -95,6 +97,7 @@ export type Database = {
           name?: string
           notes?: string | null
           phone?: string
+          state?: string | null
           street_address?: string | null
           updated_at?: string
           zip_code?: string | null

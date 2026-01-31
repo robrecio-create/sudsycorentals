@@ -60,6 +60,7 @@ interface Customer {
   phone: string;
   street_address: string | null;
   city: string | null;
+  state: string | null;
   zip_code: string | null;
   notes: string | null;
   created_at: string;
@@ -92,6 +93,7 @@ const customerSchema = z.object({
   phone: z.string().regex(phoneRegex, "Phone format: (123) 456-7890"),
   street_address: z.string().max(300).optional().nullable(),
   city: z.string().max(100).optional().nullable(),
+  state: z.string().max(50).optional().nullable(),
   zip_code: z.string().max(10).optional().nullable(),
   notes: z.string().max(1000).optional().nullable(),
 });
@@ -104,6 +106,7 @@ const defaultFormData: CustomerFormData = {
   phone: "",
   street_address: "",
   city: "",
+  state: "",
   zip_code: "",
   notes: "",
 };
@@ -183,6 +186,7 @@ export const CustomerManagement = () => {
       phone: customer.phone,
       street_address: customer.street_address || "",
       city: customer.city || "",
+      state: customer.state || "",
       zip_code: customer.zip_code || "",
       notes: customer.notes || "",
     });
@@ -207,6 +211,7 @@ export const CustomerManagement = () => {
       email: formData.email || null,
       street_address: formData.street_address || null,
       city: formData.city || null,
+      state: formData.state || null,
       zip_code: formData.zip_code || null,
       notes: formData.notes || null,
     });
@@ -230,6 +235,7 @@ export const CustomerManagement = () => {
         phone: formData.phone.trim(),
         street_address: formData.street_address?.trim() || null,
         city: formData.city?.trim() || null,
+        state: formData.state?.trim() || null,
         zip_code: formData.zip_code?.trim() || null,
         notes: formData.notes?.trim() || null,
       };
@@ -385,9 +391,9 @@ export const CustomerManagement = () => {
                             <MapPin className="h-3.5 w-3.5 text-muted-foreground mt-0.5 shrink-0" />
                             <div>
                               <div>{customer.street_address}</div>
-                              {(customer.city || customer.zip_code) && (
+                              {(customer.city || customer.state || customer.zip_code) && (
                                 <div className="text-muted-foreground">
-                                  {customer.city}{customer.city && customer.zip_code ? ", " : ""}{customer.zip_code}
+                                  {customer.city}{customer.city && customer.state ? ", " : ""}{customer.state}{(customer.city || customer.state) && customer.zip_code ? " " : ""}{customer.zip_code}
                                 </div>
                               )}
                             </div>
@@ -504,7 +510,7 @@ export const CustomerManagement = () => {
               />
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-3 gap-4">
               <div className="space-y-2">
                 <Label htmlFor="city">City</Label>
                 <Input
@@ -512,6 +518,17 @@ export const CustomerManagement = () => {
                   value={formData.city || ""}
                   onChange={(e) => setFormData({ ...formData, city: e.target.value })}
                   placeholder="City"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="state">State</Label>
+                <Input
+                  id="state"
+                  value={formData.state || ""}
+                  onChange={(e) => setFormData({ ...formData, state: e.target.value })}
+                  placeholder="TX"
+                  maxLength={2}
                 />
               </div>
 
