@@ -62,6 +62,45 @@ export type Database = {
         }
         Relationships: []
       }
+      customers: {
+        Row: {
+          city: string | null
+          created_at: string
+          email: string | null
+          id: string
+          name: string
+          notes: string | null
+          phone: string
+          street_address: string | null
+          updated_at: string
+          zip_code: string | null
+        }
+        Insert: {
+          city?: string | null
+          created_at?: string
+          email?: string | null
+          id?: string
+          name: string
+          notes?: string | null
+          phone: string
+          street_address?: string | null
+          updated_at?: string
+          zip_code?: string | null
+        }
+        Update: {
+          city?: string | null
+          created_at?: string
+          email?: string | null
+          id?: string
+          name?: string
+          notes?: string | null
+          phone?: string
+          street_address?: string | null
+          updated_at?: string
+          zip_code?: string | null
+        }
+        Relationships: []
+      }
       delivery_schedules: {
         Row: {
           city: string
@@ -112,6 +151,7 @@ export type Database = {
           brand: string
           created_at: string
           customer: string | null
+          customer_id: string | null
           date_purchased: string | null
           id: string
           model_number: string | null
@@ -129,6 +169,7 @@ export type Database = {
           brand: string
           created_at?: string
           customer?: string | null
+          customer_id?: string | null
           date_purchased?: string | null
           id?: string
           model_number?: string | null
@@ -146,6 +187,7 @@ export type Database = {
           brand?: string
           created_at?: string
           customer?: string | null
+          customer_id?: string | null
           date_purchased?: string | null
           id?: string
           model_number?: string | null
@@ -159,7 +201,69 @@ export type Database = {
           type?: string
           updated_at?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "machines_customer_id_fkey"
+            columns: ["customer_id"]
+            isOneToOne: false
+            referencedRelation: "customers"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      rental_history: {
+        Row: {
+          created_at: string
+          customer_id: string
+          id: string
+          machine_id: string
+          monthly_rate: number | null
+          notes: string | null
+          rental_end_date: string | null
+          rental_start_date: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          customer_id: string
+          id?: string
+          machine_id: string
+          monthly_rate?: number | null
+          notes?: string | null
+          rental_end_date?: string | null
+          rental_start_date: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          customer_id?: string
+          id?: string
+          machine_id?: string
+          monthly_rate?: number | null
+          notes?: string | null
+          rental_end_date?: string | null
+          rental_start_date?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "rental_history_customer_id_fkey"
+            columns: ["customer_id"]
+            isOneToOne: false
+            referencedRelation: "customers"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "rental_history_machine_id_fkey"
+            columns: ["machine_id"]
+            isOneToOne: false
+            referencedRelation: "machines"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       user_roles: {
         Row: {
