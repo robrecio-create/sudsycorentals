@@ -76,7 +76,7 @@ const Contact = () => {
     setIsSubmitting(true);
 
     try {
-      const { error } = await supabase.from("contact_submissions").insert({
+      const submissionData = {
         name: name.trim(),
         email: email.trim(),
         phone: phone.trim(),
@@ -86,9 +86,18 @@ const Contact = () => {
         problem_description: isRepair ? problemDescription.trim() || null : null,
         preferred_date: needsScheduling && selectedDate ? format(selectedDate, "yyyy-MM-dd") : null,
         preferred_time: needsScheduling ? selectedTime || null : null,
-      });
+      };
+
+      const { error } = await supabase.from("contact_submissions").insert(submissionData);
 
       if (error) throw error;
+
+      // Send email notification (fire and forget - don't block success)
+      supabase.functions.invoke("send-contact-notification", {
+        body: submissionData,
+      }).catch((err) => {
+        console.error("Failed to send email notification:", err);
+      });
 
       toast.success("Your inquiry has been submitted! We'll contact you soon.");
       
