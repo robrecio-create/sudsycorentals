@@ -1,7 +1,9 @@
 import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Menu, X, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
+import { useAdminRole } from "@/hooks/useAdminRole";
 
 const navLinks = [
   { name: "Home", href: "#home" },
@@ -14,6 +16,7 @@ const navLinks = [
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { isAdmin } = useAdminRole();
 
   return (
     <header className="sticky top-0 z-50 glass border-b border-border/50 shadow-soft">
@@ -43,6 +46,15 @@ const Header = () => {
                 {link.name}
               </a>
             ))}
+            {isAdmin && (
+              <Link
+                to="/admin"
+                className="flex items-center gap-1.5 font-medium text-primary hover:text-primary/80 transition-colors"
+              >
+                <Shield className="h-4 w-4" />
+                Admin
+              </Link>
+            )}
           </div>
 
 
@@ -76,6 +88,16 @@ const Header = () => {
                     {link.name}
                   </a>
                 ))}
+                {isAdmin && (
+                  <Link
+                    to="/admin"
+                    className="flex items-center gap-1.5 font-medium text-primary hover:text-primary/80 transition-colors py-2"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    <Shield className="h-4 w-4" />
+                    Admin
+                  </Link>
+                )}
               </div>
             </motion.div>
           )}
