@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Menu, X, Shield } from "lucide-react";
+import { Menu, X, Shield, LogOut, LogIn } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAdminRole } from "@/hooks/useAdminRole";
+import { useAuth } from "@/contexts/AuthContext";
 
 const navLinks = [
   { name: "Home", href: "#home" },
@@ -17,6 +18,7 @@ const navLinks = [
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { isAdmin } = useAdminRole();
+  const { user, signOut } = useAuth();
 
   return (
     <header className="sticky top-0 z-50 glass border-b border-border/50 shadow-soft">
@@ -53,6 +55,24 @@ const Header = () => {
               >
                 <Shield className="h-4 w-4" />
                 Admin
+              </Link>
+            )}
+            {user ? (
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={signOut}
+                className="flex items-center gap-1.5"
+              >
+                <LogOut className="h-4 w-4" />
+                Logout
+              </Button>
+            ) : (
+              <Link to="/auth">
+                <Button variant="outline" size="sm" className="flex items-center gap-1.5">
+                  <LogIn className="h-4 w-4" />
+                  Login
+                </Button>
               </Link>
             )}
           </div>
@@ -96,6 +116,27 @@ const Header = () => {
                   >
                     <Shield className="h-4 w-4" />
                     Admin
+                  </Link>
+                )}
+                {user ? (
+                  <button
+                    onClick={() => {
+                      signOut();
+                      setIsMenuOpen(false);
+                    }}
+                    className="flex items-center gap-1.5 font-medium text-muted-foreground hover:text-primary transition-colors py-2"
+                  >
+                    <LogOut className="h-4 w-4" />
+                    Logout
+                  </button>
+                ) : (
+                  <Link
+                    to="/auth"
+                    className="flex items-center gap-1.5 font-medium text-primary hover:text-primary/80 transition-colors py-2"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    <LogIn className="h-4 w-4" />
+                    Login
                   </Link>
                 )}
               </div>
