@@ -225,7 +225,7 @@ const Pricing = () => {
                 ) : subscription.subscribed ? (
                   "Already Subscribed"
                 ) : (
-                  "Get Started"
+                  "Lease Now"
                 )}
               </Button>
             </motion.div>
