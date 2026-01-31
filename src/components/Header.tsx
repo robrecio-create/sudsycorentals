@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAdminRole } from "@/hooks/useAdminRole";
 import { useAuth } from "@/contexts/AuthContext";
+import logoImage from "@/assets/logo.png";
 
 const navLinks = [
   { name: "Home", href: "#home" },
@@ -25,16 +26,12 @@ const Header = () => {
       <div className="container mx-auto px-4 py-4">
         <nav className="flex items-center justify-between">
           {/* Logo */}
-          <a href="#home" className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-xl hero-gradient flex items-center justify-center shadow-md">
-              <span className="text-2xl">🧺</span>
-            </div>
-            <div>
-              <h1 className="font-display font-bold text-xl text-foreground leading-tight">
-                SUDSY CO.
-              </h1>
-              <p className="text-xs font-medium text-primary tracking-wider">RENTALS</p>
-            </div>
+          <a href="#home" className="flex items-center">
+            <img 
+              src={logoImage} 
+              alt="Sudsy Co. Rentals" 
+              className="h-14 w-auto"
+            />
           </a>
 
           {/* Desktop Navigation */}
