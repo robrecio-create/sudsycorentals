@@ -87,20 +87,23 @@ const AdminDashboard = () => {
   };
 
   useEffect(() => {
-    if (!authLoading && !adminLoading) {
-      if (!user) {
-        navigate("/auth");
-        return;
-      }
-      // Log user ID for admin setup (temporary for testing)
-      console.log("User ID for admin setup:", user.id);
-      if (!isAdmin) {
-        toast.error("Access denied. Admin privileges required.");
-        navigate("/");
-        return;
-      }
-      fetchDeliveries();
+    // Wait for both auth and admin role checks to complete
+    if (authLoading || adminLoading) {
+      return;
     }
+
+    if (!user) {
+      navigate("/auth");
+      return;
+    }
+
+    if (!isAdmin) {
+      toast.error("Access denied. Admin privileges required.");
+      navigate("/");
+      return;
+    }
+
+    fetchDeliveries();
   }, [user, isAdmin, authLoading, adminLoading, navigate]);
 
   const updateStatus = async (id: string, newStatus: string) => {
