@@ -76,6 +76,7 @@ interface Machine {
   serial_number: string | null;
   in_house_id: string | null;
   location: string | null;
+  customer_location: string | null;
   status: string;
   customer: string | null;
   customer_id: string | null;
@@ -109,6 +110,7 @@ const machineSchema = z.object({
   serial_number: z.string().max(100, "Serial # must be less than 100 characters").optional().nullable(),
   in_house_id: z.string().max(50, "In House ID must be less than 50 characters").optional().nullable(),
   location: z.enum(["Warehouse", "Storage", "Out"]),
+  customer_location: z.string().max(200, "Customer location must be less than 200 characters").optional().nullable(),
   status: z.enum(["available", "rented", "maintenance", "retired"]),
   customer_id: z.string().uuid().optional().nullable(),
   purchase_cost: z.number().min(0, "Cost must be positive").optional().nullable(),
@@ -150,6 +152,7 @@ const defaultFormData: MachineFormData = {
   serial_number: "",
   in_house_id: "",
   location: "Warehouse",
+  customer_location: "",
   status: "available",
   customer_id: null,
   purchase_cost: null,
@@ -270,6 +273,7 @@ export const MachineInventory = () => {
       serial_number: machine.serial_number || "",
       in_house_id: machine.in_house_id || "",
       location: (machine.location as "Warehouse" | "Storage" | "Out") || "Warehouse",
+      customer_location: machine.customer_location || "",
       status: machine.status as "available" | "rented" | "maintenance" | "retired",
       customer_id: machine.customer_id || null,
       purchase_cost: machine.purchase_cost,
@@ -338,6 +342,7 @@ export const MachineInventory = () => {
         serial_number: formData.serial_number?.trim() || null,
         in_house_id: formData.in_house_id?.trim() || null,
         location: formData.location,
+        customer_location: formData.customer_location?.trim() || null,
         status: formData.status,
         customer_id: formData.customer_id || null,
         purchase_cost: formData.purchase_cost,
@@ -618,6 +623,7 @@ export const MachineInventory = () => {
                     <TableHead>Model #</TableHead>
                     <TableHead>Serial #</TableHead>
                     <TableHead>Location</TableHead>
+                    <TableHead>Customer Location</TableHead>
                     <TableHead>Status</TableHead>
                     <TableHead>Customer</TableHead>
                     <TableHead>Cost</TableHead>
@@ -646,6 +652,9 @@ export const MachineInventory = () => {
                       </TableCell>
                       <TableCell className="text-sm">
                         {machine.location || "—"}
+                      </TableCell>
+                      <TableCell className="text-sm">
+                        {machine.customer_location || "—"}
                       </TableCell>
                       <TableCell>
                         <Badge variant="outline" className={statusColors[machine.status] || ""}>
@@ -887,6 +896,16 @@ export const MachineInventory = () => {
                   </SelectContent>
                 </Select>
               </div>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="customer_location">Customer Location</Label>
+              <Input
+                id="customer_location"
+                value={formData.customer_location || ""}
+                onChange={(e) => setFormData({ ...formData, customer_location: e.target.value })}
+                placeholder="e.g., 123 Main St, Gulfport, MS"
+              />
             </div>
 
             <div className="grid grid-cols-3 gap-4">
