@@ -154,6 +154,8 @@ export type Database = {
           customer_id: string | null
           date_purchased: string | null
           id: string
+          in_house_id: string | null
+          location: string | null
           model_number: string | null
           notes: string | null
           photos_link: string | null
@@ -172,6 +174,8 @@ export type Database = {
           customer_id?: string | null
           date_purchased?: string | null
           id?: string
+          in_house_id?: string | null
+          location?: string | null
           model_number?: string | null
           notes?: string | null
           photos_link?: string | null
@@ -190,6 +194,8 @@ export type Database = {
           customer_id?: string | null
           date_purchased?: string | null
           id?: string
+          in_house_id?: string | null
+          location?: string | null
           model_number?: string | null
           notes?: string | null
           photos_link?: string | null
