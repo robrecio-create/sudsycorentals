@@ -86,6 +86,8 @@ const AdminDashboard = () => {
         navigate("/auth");
         return;
       }
+      // Log user ID for admin setup (temporary for testing)
+      console.log("User ID for admin setup:", user.id);
       if (!isAdmin) {
         toast.error("Access denied. Admin privileges required.");
         navigate("/");
