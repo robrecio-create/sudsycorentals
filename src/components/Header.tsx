@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Menu, X, Shield, LogOut, LogIn } from "lucide-react";
+import { Menu, X, Shield, LogOut, LogIn, LayoutDashboard } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAdminRole } from "@/hooks/useAdminRole";
@@ -58,15 +58,22 @@ const Header = () => {
               </Link>
             )}
             {user ? (
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={signOut}
-                className="flex items-center gap-1.5"
-              >
-                <LogOut className="h-4 w-4" />
-                Logout
-              </Button>
+              <div className="flex items-center gap-3">
+                <Link to="/dashboard">
+                  <Button variant="outline" size="sm" className="flex items-center gap-1.5">
+                    <LayoutDashboard className="h-4 w-4" />
+                    My Dashboard
+                  </Button>
+                </Link>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={signOut}
+                  className="flex items-center gap-1.5"
+                >
+                  <LogOut className="h-4 w-4" />
+                </Button>
+              </div>
             ) : (
               <Link to="/auth">
                 <Button variant="outline" size="sm" className="flex items-center gap-1.5">
@@ -76,7 +83,6 @@ const Header = () => {
               </Link>
             )}
           </div>
-
 
           {/* Mobile Menu Button */}
           <button
@@ -119,16 +125,26 @@ const Header = () => {
                   </Link>
                 )}
                 {user ? (
-                  <button
-                    onClick={() => {
-                      signOut();
-                      setIsMenuOpen(false);
-                    }}
-                    className="flex items-center gap-1.5 font-medium text-muted-foreground hover:text-primary transition-colors py-2"
-                  >
-                    <LogOut className="h-4 w-4" />
-                    Logout
-                  </button>
+                  <>
+                    <Link
+                      to="/dashboard"
+                      className="flex items-center gap-1.5 font-medium text-primary hover:text-primary/80 transition-colors py-2"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      <LayoutDashboard className="h-4 w-4" />
+                      My Dashboard
+                    </Link>
+                    <button
+                      onClick={() => {
+                        signOut();
+                        setIsMenuOpen(false);
+                      }}
+                      className="flex items-center gap-1.5 font-medium text-muted-foreground hover:text-primary transition-colors py-2"
+                    >
+                      <LogOut className="h-4 w-4" />
+                      Logout
+                    </button>
+                  </>
                 ) : (
                   <Link
                     to="/auth"
