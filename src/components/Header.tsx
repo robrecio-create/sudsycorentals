@@ -26,12 +26,18 @@ const Header = () => {
       <div className="container mx-auto px-4 py-4">
         <nav className="flex items-center justify-between">
           {/* Logo */}
-          <a href="#home" className="flex items-center">
+          <a href="#home" className="flex items-center gap-3">
             <img 
               src={logoImage} 
               alt="Sudsy Co. Rentals" 
-              className="h-14 w-auto"
+              className="h-12 w-auto"
             />
+            <div>
+              <h1 className="font-display font-bold text-xl text-foreground leading-tight">
+                SUDSY CO.
+              </h1>
+              <p className="text-xs font-medium text-primary tracking-wider">RENTALS</p>
+            </div>
           </a>
 
           {/* Desktop Navigation */}
