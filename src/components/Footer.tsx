@@ -1,4 +1,5 @@
 import { Phone, Mail, MapPin, Facebook, Instagram } from "lucide-react";
+import logoImage from "@/assets/logo.png";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -9,16 +10,12 @@ const Footer = () => {
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Brand */}
           <div>
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-12 h-12 rounded-xl bg-primary flex items-center justify-center">
-                <span className="text-2xl">🧺</span>
-              </div>
-              <div>
-                <h3 className="font-display font-bold text-xl text-background">
-                  SUDSY CO.
-                </h3>
-                <p className="text-xs font-medium text-primary tracking-wider">RENTALS</p>
-              </div>
+            <div className="mb-6">
+              <img 
+                src={logoImage} 
+                alt="Sudsy Co. Rentals" 
+                className="h-16 w-auto brightness-0 invert"
+              />
             </div>
             <p className="text-background/70 leading-relaxed">
               Affordable washer and dryer rentals serving the Mississippi Gulf Coast. No credit check, free delivery, and maintenance included.
