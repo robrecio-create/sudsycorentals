@@ -10,6 +10,7 @@ import {
   ExternalLink,
   CheckCircle,
   XCircle,
+  History,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -61,6 +62,12 @@ import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { z } from "zod";
 
+interface Customer {
+  id: string;
+  name: string;
+  phone: string;
+}
+
 interface Machine {
   id: string;
   type: string;
@@ -69,6 +76,7 @@ interface Machine {
   serial_number: string | null;
   status: string;
   customer: string | null;
+  customer_id: string | null;
   purchase_cost: number | null;
   purchase_from: string | null;
   date_purchased: string | null;
@@ -77,6 +85,19 @@ interface Machine {
   photos_link: string | null;
   created_at: string;
   updated_at: string;
+  customers?: Customer | null;
+}
+
+interface RentalHistory {
+  id: string;
+  machine_id: string;
+  customer_id: string;
+  rental_start_date: string;
+  rental_end_date: string | null;
+  monthly_rate: number | null;
+  status: string;
+  notes: string | null;
+  customers?: { name: string };
 }
 
 const machineSchema = z.object({
@@ -85,7 +106,7 @@ const machineSchema = z.object({
   model_number: z.string().max(100, "Model # must be less than 100 characters").optional().nullable(),
   serial_number: z.string().max(100, "Serial # must be less than 100 characters").optional().nullable(),
   status: z.enum(["available", "rented", "maintenance", "retired"]),
-  customer: z.string().max(200, "Customer must be less than 200 characters").optional().nullable(),
+  customer_id: z.string().uuid().optional().nullable(),
   purchase_cost: z.number().min(0, "Cost must be positive").optional().nullable(),
   purchase_from: z.string().max(200, "Purchase from must be less than 200 characters").optional().nullable(),
   date_purchased: z.string().optional().nullable(),
@@ -95,6 +116,15 @@ const machineSchema = z.object({
 });
 
 type MachineFormData = z.infer<typeof machineSchema>;
+
+const rentalSchema = z.object({
+  customer_id: z.string().uuid("Please select a customer"),
+  rental_start_date: z.string().min(1, "Start date is required"),
+  monthly_rate: z.number().min(0, "Rate must be positive").optional().nullable(),
+  notes: z.string().max(500).optional().nullable(),
+});
+
+type RentalFormData = z.infer<typeof rentalSchema>;
 
 const statusColors: Record<string, string> = {
   available: "bg-green-100 text-green-800 border-green-200",
@@ -115,7 +145,7 @@ const defaultFormData: MachineFormData = {
   model_number: "",
   serial_number: "",
   status: "available",
-  customer: "",
+  customer_id: null,
   purchase_cost: null,
   purchase_from: "",
   date_purchased: "",
@@ -124,18 +154,36 @@ const defaultFormData: MachineFormData = {
   photos_link: "",
 };
 
+const defaultRentalFormData: RentalFormData = {
+  customer_id: "",
+  rental_start_date: new Date().toISOString().split("T")[0],
+  monthly_rate: null,
+  notes: "",
+};
+
 export const MachineInventory = () => {
   const [machines, setMachines] = useState<Machine[]>([]);
+  const [customers, setCustomers] = useState<Customer[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState<string>("all");
   const [typeFilter, setTypeFilter] = useState<string>("all");
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const [isRentalDialogOpen, setIsRentalDialogOpen] = useState(false);
+  const [isHistoryDialogOpen, setIsHistoryDialogOpen] = useState(false);
+  const [isEndRentalDialogOpen, setIsEndRentalDialogOpen] = useState(false);
   const [editingMachine, setEditingMachine] = useState<Machine | null>(null);
   const [deletingMachine, setDeletingMachine] = useState<Machine | null>(null);
+  const [rentingMachine, setRentingMachine] = useState<Machine | null>(null);
+  const [viewingMachine, setViewingMachine] = useState<Machine | null>(null);
+  const [endingRentalMachine, setEndingRentalMachine] = useState<Machine | null>(null);
+  const [rentalHistory, setRentalHistory] = useState<RentalHistory[]>([]);
+  const [historyLoading, setHistoryLoading] = useState(false);
   const [formData, setFormData] = useState<MachineFormData>(defaultFormData);
+  const [rentalFormData, setRentalFormData] = useState<RentalFormData>(defaultRentalFormData);
   const [formErrors, setFormErrors] = useState<Record<string, string>>({});
+  const [rentalFormErrors, setRentalFormErrors] = useState<Record<string, string>>({});
   const [saving, setSaving] = useState(false);
 
   const fetchMachines = async () => {
@@ -143,7 +191,10 @@ export const MachineInventory = () => {
     try {
       const { data, error } = await supabase
         .from("machines")
-        .select("*")
+        .select(`
+          *,
+          customers:customer_id (id, name, phone)
+        `)
         .order("created_at", { ascending: false });
 
       if (error) throw error;
@@ -156,8 +207,45 @@ export const MachineInventory = () => {
     }
   };
 
+  const fetchCustomers = async () => {
+    try {
+      const { data, error } = await supabase
+        .from("customers")
+        .select("id, name, phone")
+        .order("name", { ascending: true });
+
+      if (error) throw error;
+      setCustomers(data || []);
+    } catch (error) {
+      console.error("Error fetching customers:", error);
+    }
+  };
+
+  const fetchRentalHistory = async (machineId: string) => {
+    setHistoryLoading(true);
+    try {
+      const { data, error } = await supabase
+        .from("rental_history")
+        .select(`
+          *,
+          customers:customer_id (name)
+        `)
+        .eq("machine_id", machineId)
+        .order("rental_start_date", { ascending: false });
+
+      if (error) throw error;
+      setRentalHistory(data || []);
+    } catch (error) {
+      console.error("Error fetching rental history:", error);
+      toast.error("Failed to load rental history");
+    } finally {
+      setHistoryLoading(false);
+    }
+  };
+
   useEffect(() => {
     fetchMachines();
+    fetchCustomers();
   }, []);
 
   const openAddDialog = () => {
@@ -175,7 +263,7 @@ export const MachineInventory = () => {
       model_number: machine.model_number || "",
       serial_number: machine.serial_number || "",
       status: machine.status as "available" | "rented" | "maintenance" | "retired",
-      customer: machine.customer || "",
+      customer_id: machine.customer_id || null,
       purchase_cost: machine.purchase_cost,
       purchase_from: machine.purchase_from || "",
       date_purchased: machine.date_purchased || "",
@@ -192,14 +280,31 @@ export const MachineInventory = () => {
     setIsDeleteDialogOpen(true);
   };
 
+  const openRentalDialog = (machine: Machine) => {
+    setRentingMachine(machine);
+    setRentalFormData(defaultRentalFormData);
+    setRentalFormErrors({});
+    setIsRentalDialogOpen(true);
+  };
+
+  const openHistoryDialog = (machine: Machine) => {
+    setViewingMachine(machine);
+    fetchRentalHistory(machine.id);
+    setIsHistoryDialogOpen(true);
+  };
+
+  const openEndRentalDialog = (machine: Machine) => {
+    setEndingRentalMachine(machine);
+    setIsEndRentalDialogOpen(true);
+  };
+
   const handleSave = async () => {
-    // Validate form
     const result = machineSchema.safeParse({
       ...formData,
       photos_link: formData.photos_link || null,
       model_number: formData.model_number || null,
       serial_number: formData.serial_number || null,
-      customer: formData.customer || null,
+      customer_id: formData.customer_id || null,
       purchase_from: formData.purchase_from || null,
       date_purchased: formData.date_purchased || null,
       notes: formData.notes || null,
@@ -224,7 +329,7 @@ export const MachineInventory = () => {
         model_number: formData.model_number?.trim() || null,
         serial_number: formData.serial_number?.trim() || null,
         status: formData.status,
-        customer: formData.customer?.trim() || null,
+        customer_id: formData.customer_id || null,
         purchase_cost: formData.purchase_cost,
         purchase_from: formData.purchase_from?.trim() || null,
         date_purchased: formData.date_purchased || null,
@@ -278,13 +383,110 @@ export const MachineInventory = () => {
     }
   };
 
+  const handleCreateRental = async () => {
+    if (!rentingMachine) return;
+
+    const result = rentalSchema.safeParse({
+      ...rentalFormData,
+      monthly_rate: rentalFormData.monthly_rate || null,
+      notes: rentalFormData.notes || null,
+    });
+
+    if (!result.success) {
+      const errors: Record<string, string> = {};
+      result.error.errors.forEach((err) => {
+        if (err.path[0]) {
+          errors[err.path[0] as string] = err.message;
+        }
+      });
+      setRentalFormErrors(errors);
+      return;
+    }
+
+    setSaving(true);
+    try {
+      // Create rental history record
+      const { error: rentalError } = await supabase.from("rental_history").insert({
+        machine_id: rentingMachine.id,
+        customer_id: rentalFormData.customer_id,
+        rental_start_date: rentalFormData.rental_start_date,
+        monthly_rate: rentalFormData.monthly_rate,
+        notes: rentalFormData.notes?.trim() || null,
+        status: "active",
+      });
+
+      if (rentalError) throw rentalError;
+
+      // Update machine status and customer_id
+      const { error: machineError } = await supabase
+        .from("machines")
+        .update({
+          status: "rented",
+          customer_id: rentalFormData.customer_id,
+        })
+        .eq("id", rentingMachine.id);
+
+      if (machineError) throw machineError;
+
+      toast.success("Rental created successfully");
+      setIsRentalDialogOpen(false);
+      fetchMachines();
+    } catch (error) {
+      console.error("Error creating rental:", error);
+      toast.error("Failed to create rental");
+    } finally {
+      setSaving(false);
+    }
+  };
+
+  const handleEndRental = async () => {
+    if (!endingRentalMachine) return;
+
+    setSaving(true);
+    try {
+      // Update active rental to completed
+      const { error: rentalError } = await supabase
+        .from("rental_history")
+        .update({
+          status: "completed",
+          rental_end_date: new Date().toISOString().split("T")[0],
+        })
+        .eq("machine_id", endingRentalMachine.id)
+        .eq("status", "active");
+
+      if (rentalError) throw rentalError;
+
+      // Update machine status
+      const { error: machineError } = await supabase
+        .from("machines")
+        .update({
+          status: "available",
+          customer_id: null,
+        })
+        .eq("id", endingRentalMachine.id);
+
+      if (machineError) throw machineError;
+
+      toast.success("Rental ended successfully");
+      setIsEndRentalDialogOpen(false);
+      setEndingRentalMachine(null);
+      fetchMachines();
+    } catch (error) {
+      console.error("Error ending rental:", error);
+      toast.error("Failed to end rental");
+    } finally {
+      setSaving(false);
+    }
+  };
+
   const filteredMachines = machines.filter((machine) => {
     const searchLower = searchTerm.toLowerCase();
+    const customerName = machine.customers?.name?.toLowerCase() || "";
     const matchesSearch =
       machine.brand.toLowerCase().includes(searchLower) ||
       machine.model_number?.toLowerCase().includes(searchLower) ||
       machine.serial_number?.toLowerCase().includes(searchLower) ||
-      machine.customer?.toLowerCase().includes(searchLower);
+      customerName.includes(searchLower);
 
     const matchesStatus = statusFilter === "all" || machine.status === statusFilter;
     const matchesType = typeFilter === "all" || machine.type === typeFilter;
@@ -297,6 +499,12 @@ export const MachineInventory = () => {
     available: machines.filter((m) => m.status === "available").length,
     rented: machines.filter((m) => m.status === "rented").length,
     maintenance: machines.filter((m) => m.status === "maintenance").length,
+  };
+
+  const rentalStatusColors: Record<string, string> = {
+    active: "bg-green-100 text-green-800 border-green-200",
+    completed: "bg-gray-100 text-gray-800 border-gray-200",
+    cancelled: "bg-red-100 text-red-800 border-red-200",
   };
 
   return (
@@ -427,7 +635,7 @@ export const MachineInventory = () => {
                         </Badge>
                       </TableCell>
                       <TableCell className="text-sm">
-                        {machine.customer || "—"}
+                        {machine.customers?.name || "—"}
                       </TableCell>
                       <TableCell className="text-sm">
                         {machine.purchase_cost
@@ -456,7 +664,35 @@ export const MachineInventory = () => {
                         )}
                       </TableCell>
                       <TableCell>
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-1">
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={() => openHistoryDialog(machine)}
+                            title="View rental history"
+                          >
+                            <History className="h-4 w-4" />
+                          </Button>
+                          {machine.status === "available" && (
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => openRentalDialog(machine)}
+                              className="text-primary"
+                            >
+                              Rent
+                            </Button>
+                          )}
+                          {machine.status === "rented" && (
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => openEndRentalDialog(machine)}
+                              className="text-orange-600"
+                            >
+                              End
+                            </Button>
+                          )}
                           <Button
                             variant="ghost"
                             size="icon"
@@ -582,13 +818,25 @@ export const MachineInventory = () => {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="customer">Customer</Label>
-                <Input
-                  id="customer"
-                  value={formData.customer || ""}
-                  onChange={(e) => setFormData({ ...formData, customer: e.target.value })}
-                  placeholder="Customer name (if rented)"
-                />
+                <Label htmlFor="customer_id">Current Customer</Label>
+                <Select
+                  value={formData.customer_id || "none"}
+                  onValueChange={(value) =>
+                    setFormData({ ...formData, customer_id: value === "none" ? null : value })
+                  }
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select customer" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="none">No customer</SelectItem>
+                    {customers.map((customer) => (
+                      <SelectItem key={customer.id} value={customer.id}>
+                        {customer.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </div>
             </div>
 
@@ -682,6 +930,176 @@ export const MachineInventory = () => {
         </DialogContent>
       </Dialog>
 
+      {/* Create Rental Dialog */}
+      <Dialog open={isRentalDialogOpen} onOpenChange={setIsRentalDialogOpen}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle>Create Rental</DialogTitle>
+            <DialogDescription>
+              Rent {rentingMachine?.brand} {rentingMachine?.type} to a customer.
+            </DialogDescription>
+          </DialogHeader>
+
+          <div className="grid gap-4 py-4">
+            <div className="space-y-2">
+              <Label htmlFor="rental_customer">Customer *</Label>
+              <Select
+                value={rentalFormData.customer_id}
+                onValueChange={(value) =>
+                  setRentalFormData({ ...rentalFormData, customer_id: value })
+                }
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Select customer" />
+                </SelectTrigger>
+                <SelectContent>
+                  {customers.map((customer) => (
+                    <SelectItem key={customer.id} value={customer.id}>
+                      {customer.name} - {customer.phone}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              {rentalFormErrors.customer_id && (
+                <p className="text-sm text-destructive">{rentalFormErrors.customer_id}</p>
+              )}
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="rental_start_date">Start Date *</Label>
+              <Input
+                id="rental_start_date"
+                type="date"
+                value={rentalFormData.rental_start_date}
+                onChange={(e) =>
+                  setRentalFormData({ ...rentalFormData, rental_start_date: e.target.value })
+                }
+              />
+              {rentalFormErrors.rental_start_date && (
+                <p className="text-sm text-destructive">{rentalFormErrors.rental_start_date}</p>
+              )}
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="monthly_rate">Monthly Rate ($)</Label>
+              <Input
+                id="monthly_rate"
+                type="number"
+                step="0.01"
+                min="0"
+                value={rentalFormData.monthly_rate || ""}
+                onChange={(e) =>
+                  setRentalFormData({
+                    ...rentalFormData,
+                    monthly_rate: e.target.value ? parseFloat(e.target.value) : null,
+                  })
+                }
+                placeholder="0.00"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="rental_notes">Notes</Label>
+              <Textarea
+                id="rental_notes"
+                value={rentalFormData.notes || ""}
+                onChange={(e) =>
+                  setRentalFormData({ ...rentalFormData, notes: e.target.value })
+                }
+                placeholder="Any rental notes..."
+                rows={2}
+              />
+            </div>
+          </div>
+
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setIsRentalDialogOpen(false)}>
+              Cancel
+            </Button>
+            <Button onClick={handleCreateRental} disabled={saving}>
+              {saving ? "Creating..." : "Create Rental"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Rental History Dialog */}
+      <Dialog open={isHistoryDialogOpen} onOpenChange={setIsHistoryDialogOpen}>
+        <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>
+              Rental History - {viewingMachine?.brand} {viewingMachine?.type}
+            </DialogTitle>
+            <DialogDescription>
+              {viewingMachine?.model_number && `Model: ${viewingMachine.model_number}`}
+              {viewingMachine?.serial_number && ` | Serial: ${viewingMachine.serial_number}`}
+            </DialogDescription>
+          </DialogHeader>
+
+          {historyLoading ? (
+            <div className="py-8 text-center text-muted-foreground">
+              Loading rental history...
+            </div>
+          ) : rentalHistory.length === 0 ? (
+            <div className="py-8 text-center text-muted-foreground">
+              No rental history found for this machine.
+            </div>
+          ) : (
+            <div className="space-y-4">
+              {rentalHistory.map((rental) => (
+                <Card key={rental.id}>
+                  <CardContent className="pt-4">
+                    <div className="flex justify-between items-start">
+                      <div>
+                        <div className="font-medium">{rental.customers?.name}</div>
+                        <div className="text-sm mt-1">
+                          {format(new Date(rental.rental_start_date), "MMM d, yyyy")}
+                          {rental.rental_end_date
+                            ? ` - ${format(new Date(rental.rental_end_date), "MMM d, yyyy")}`
+                            : " - Present"}
+                        </div>
+                        {rental.monthly_rate && (
+                          <div className="text-sm text-muted-foreground">
+                            ${rental.monthly_rate}/month
+                          </div>
+                        )}
+                      </div>
+                      <Badge variant="outline" className={rentalStatusColors[rental.status] || ""}>
+                        {rental.status}
+                      </Badge>
+                    </div>
+                    {rental.notes && (
+                      <div className="text-sm text-muted-foreground mt-2 pt-2 border-t">
+                        {rental.notes}
+                      </div>
+                    )}
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
+
+      {/* End Rental Confirmation Dialog */}
+      <AlertDialog open={isEndRentalDialogOpen} onOpenChange={setIsEndRentalDialogOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>End Rental</AlertDialogTitle>
+            <AlertDialogDescription>
+              Are you sure you want to end the rental for this {endingRentalMachine?.brand}{" "}
+              {endingRentalMachine?.type}? The machine will be marked as available.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction onClick={handleEndRental} disabled={saving}>
+              {saving ? "Ending..." : "End Rental"}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
       {/* Delete Confirmation Dialog */}
       <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
         <AlertDialogContent>
@@ -689,7 +1107,8 @@ export const MachineInventory = () => {
             <AlertDialogTitle>Delete Machine</AlertDialogTitle>
             <AlertDialogDescription>
               Are you sure you want to delete this {deletingMachine?.brand}{" "}
-              {deletingMachine?.type}? This action cannot be undone.
+              {deletingMachine?.type}? This will also delete all rental history for this machine.
+              This action cannot be undone.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
