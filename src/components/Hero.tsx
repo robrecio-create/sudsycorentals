@@ -105,9 +105,12 @@ const Hero = () => {
                 size="lg"
                 variant="outline"
                 className="bg-white/10 border-2 border-white text-primary-foreground hover:bg-white hover:text-primary font-semibold text-lg px-8 py-6"
+                asChild
               >
-                <Phone className="h-5 w-5 mr-2" />
-                Call Us
+                <a href="tel:+12283383455">
+                  <Phone className="h-5 w-5 mr-2" />
+                  Call Us
+                </a>
               </Button>
             </div>
           </motion.div>
