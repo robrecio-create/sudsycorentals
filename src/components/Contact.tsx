@@ -22,6 +22,7 @@ import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
 
 type InquiryType = "general" | "repair" | "pickup" | "";
 type ApplianceType = "washer" | "dryer" | "";
@@ -74,22 +75,39 @@ const Contact = () => {
 
     setIsSubmitting(true);
 
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1000));
+    try {
+      const { error } = await supabase.from("contact_submissions").insert({
+        name: name.trim(),
+        email: email.trim(),
+        phone: phone.trim(),
+        inquiry_type: inquiryType,
+        message: inquiryType === "general" ? message.trim() || null : null,
+        appliance: isRepair ? appliance || null : null,
+        problem_description: isRepair ? problemDescription.trim() || null : null,
+        preferred_date: needsScheduling && selectedDate ? format(selectedDate, "yyyy-MM-dd") : null,
+        preferred_time: needsScheduling ? selectedTime || null : null,
+      });
 
-    toast.success("Your inquiry has been submitted! We'll contact you soon.");
-    
-    // Reset form
-    setName("");
-    setEmail("");
-    setPhone("");
-    setMessage("");
-    setInquiryType("");
-    setAppliance("");
-    setProblemDescription("");
-    setSelectedDate(undefined);
-    setSelectedTime("");
-    setIsSubmitting(false);
+      if (error) throw error;
+
+      toast.success("Your inquiry has been submitted! We'll contact you soon.");
+      
+      // Reset form
+      setName("");
+      setEmail("");
+      setPhone("");
+      setMessage("");
+      setInquiryType("");
+      setAppliance("");
+      setProblemDescription("");
+      setSelectedDate(undefined);
+      setSelectedTime("");
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      toast.error("Failed to submit your inquiry. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
