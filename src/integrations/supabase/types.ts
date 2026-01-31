@@ -14,6 +14,54 @@ export type Database = {
   }
   public: {
     Tables: {
+      contact_submissions: {
+        Row: {
+          appliance: string | null
+          created_at: string
+          email: string
+          id: string
+          inquiry_type: string
+          message: string | null
+          name: string
+          phone: string
+          preferred_date: string | null
+          preferred_time: string | null
+          problem_description: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          appliance?: string | null
+          created_at?: string
+          email: string
+          id?: string
+          inquiry_type: string
+          message?: string | null
+          name: string
+          phone: string
+          preferred_date?: string | null
+          preferred_time?: string | null
+          problem_description?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          appliance?: string | null
+          created_at?: string
+          email?: string
+          id?: string
+          inquiry_type?: string
+          message?: string | null
+          name?: string
+          phone?: string
+          preferred_date?: string | null
+          preferred_time?: string | null
+          problem_description?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       delivery_schedules: {
         Row: {
           city: string
