@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
 import { Truck, Wrench, Calendar, Award } from "lucide-react";
 
+import { Heart } from "lucide-react";
+
 const benefits = [
   {
     icon: Truck,
@@ -26,6 +28,12 @@ const benefits = [
     description: "We carry washers and dryers from trusted brands you know and love.",
     color: "bg-primary/10 text-primary",
   },
+  {
+    icon: Heart,
+    title: "Locally Owned & Operated",
+    description: "Proudly based in Ocean Springs, MS. We're your neighbors, committed to serving our Gulf Coast community with care.",
+    color: "bg-accent/10 text-accent",
+  },
 ];
 
 const Benefits = () => {
@@ -50,7 +58,7 @@ const Benefits = () => {
           </p>
         </motion.div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-6">
           {benefits.map((benefit, index) => (
             <motion.div
               key={benefit.title}

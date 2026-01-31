@@ -9,6 +9,7 @@ import FAQ from "@/components/FAQ";
 import Contact from "@/components/Contact";
 import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
+import ServiceArea from "@/components/ServiceArea";
 import { FloatingChatButtons } from "@/components/FloatingChatButtons";
 
 const Index = () => {
@@ -23,6 +24,7 @@ const Index = () => {
         <HowItWorks />
         <Reviews />
         <FAQ />
+        <ServiceArea />
         <Contact />
         <CTA />
       </main>

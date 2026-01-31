@@ -116,13 +116,14 @@ const Pricing = () => {
 
   return (
     <section id="pricing" className="py-20 bg-muted/50">
+      <a id="pricing-anchor" className="scroll-mt-24" />
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="text-center mb-16"
+          className="text-center mb-12"
         >
           <span className="inline-block bg-primary/10 text-primary px-4 py-1.5 rounded-full text-sm font-semibold mb-4">
             PRICING
@@ -130,9 +131,32 @@ const Pricing = () => {
           <h2 className="font-display font-bold text-3xl md:text-4xl lg:text-5xl text-foreground mb-4">
             Simple, Affordable <span className="text-primary">Pricing</span>
           </h2>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+          <p className="text-muted-foreground text-lg max-w-2xl mx-auto mb-6">
             Choose the rental option that works best for you. No hidden fees, no surprises.
           </p>
+          
+          {/* Laundromat comparison */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4, delay: 0.2 }}
+            className="inline-flex flex-col sm:flex-row items-center gap-3 sm:gap-6 bg-gradient-to-r from-primary/5 via-accent/10 to-primary/5 border border-primary/20 rounded-2xl px-6 py-4"
+          >
+            <div className="text-center sm:text-left">
+              <div className="text-sm text-muted-foreground mb-1">Our Monthly Rental</div>
+              <div className="text-2xl font-bold text-primary">$59.99</div>
+            </div>
+            <div className="hidden sm:block text-2xl text-muted-foreground">vs</div>
+            <div className="sm:hidden text-sm text-muted-foreground">vs</div>
+            <div className="text-center sm:text-left">
+              <div className="text-sm text-muted-foreground mb-1">Avg. Laundromat Cost</div>
+              <div className="text-2xl font-bold text-muted-foreground line-through decoration-destructive/50">$89+/mo</div>
+            </div>
+            <div className="bg-accent text-accent-foreground px-3 py-1 rounded-full text-sm font-semibold">
+              Save 30%+
+            </div>
+          </motion.div>
         </motion.div>
 
         {subscription.subscribed && (
