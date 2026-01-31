@@ -12,6 +12,7 @@ import {
   ArrowLeft,
   RefreshCw,
   MessageSquare,
+  Package,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -44,6 +45,7 @@ import { useAdminRole } from "@/hooks/useAdminRole";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { ContactSubmissions } from "@/components/admin/ContactSubmissions";
+import { MachineInventory } from "@/components/admin/MachineInventory";
 import type { Tables } from "@/integrations/supabase/types";
 
 type DeliverySchedule = Tables<"delivery_schedules">;
@@ -163,7 +165,7 @@ const AdminDashboard = () => {
                 Admin Dashboard
               </h1>
               <p className="text-muted-foreground">
-                Manage deliveries and customer inquiries
+                Manage deliveries, inquiries, and inventory
               </p>
             </div>
           </div>
@@ -178,7 +180,11 @@ const AdminDashboard = () => {
             </TabsTrigger>
             <TabsTrigger value="contacts" className="gap-2">
               <MessageSquare className="h-4 w-4" />
-              Contact Submissions
+              Inquiries
+            </TabsTrigger>
+            <TabsTrigger value="machines" className="gap-2">
+              <Package className="h-4 w-4" />
+              Machines
             </TabsTrigger>
           </TabsList>
 
@@ -342,6 +348,10 @@ const AdminDashboard = () => {
 
           <TabsContent value="contacts">
             <ContactSubmissions />
+          </TabsContent>
+
+          <TabsContent value="machines">
+            <MachineInventory />
           </TabsContent>
         </Tabs>
       </div>
