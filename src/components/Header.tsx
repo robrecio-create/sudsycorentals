@@ -44,12 +44,6 @@ const Header = () => {
             ))}
           </div>
 
-          {/* CTA Button */}
-          <div className="hidden lg:flex items-center gap-4">
-            <Button size="lg" className="font-semibold shadow-md hover:shadow-lg transition-shadow">
-              Schedule Delivery
-            </Button>
-          </div>
 
           {/* Mobile Menu Button */}
           <button
@@ -81,9 +75,6 @@ const Header = () => {
                     {link.name}
                   </a>
                 ))}
-                <Button className="w-full font-semibold" size="lg">
-                  Schedule Delivery
-                </Button>
               </div>
             </motion.div>
           )}
