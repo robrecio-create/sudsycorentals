@@ -80,7 +80,7 @@ serve(async (req: Request): Promise<Response> => {
 
     const emailResponse = await resend.emails.send({
       from: "Sudsy Co. Rentals <onboarding@resend.dev>",
-      to: ["info@sudsycorentals.com"],
+      to: ["rob@sudsycorentals.com"],
       subject: `New ${inquiryLabels[data.inquiry_type] || "Contact"} from ${data.name}`,
       html: emailHtml,
       reply_to: data.email,
