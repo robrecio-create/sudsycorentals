@@ -9,7 +9,7 @@ import {
 const faqs = [
   {
     question: "What are the lease terms?",
-    answer: "We offer washer and dryer rentals on a month-to-month basis with a three-month minimum. Keep the machines as long as you need them; just call us for a free pickup when you're done. We provide flexibility with no long-term contracts required.",
+    answer: "We offer washer and dryer rentals on a month-to-month basis with a 6 month minimum. Keep the machines as long as you need them; just call us for a free pickup when you're done. We provide flexibility with no long-term contracts required.",
   },
   {
     question: "Will I ever own the machines?",
@@ -17,7 +17,7 @@ const faqs = [
   },
   {
     question: "Are there requirements to rent?",
-    answer: "We don't require credit checks. However, you must provide a bank-issued credit card for monthly automatic withdrawals. Prepaid credit cards are not accepted.",
+    answer: "We don't require credit checks.",
   },
   {
     question: "Can I choose my machines?",
@@ -29,7 +29,7 @@ const faqs = [
   },
   {
     question: "How do payments work?",
-    answer: "We require all customers to keep a card on file for automatic payments. Your monthly rental fee will be automatically charged on the same day of the month as your initial delivery.",
+    answer: "Your monthly rental fee will be automatically charged on the same day of the month as your initial delivery.",
   },
   {
     question: "What if my machine breaks?",
