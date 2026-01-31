@@ -74,6 +74,8 @@ interface Machine {
   brand: string;
   model_number: string | null;
   serial_number: string | null;
+  in_house_id: string | null;
+  location: string | null;
   status: string;
   customer: string | null;
   customer_id: string | null;
@@ -105,6 +107,8 @@ const machineSchema = z.object({
   brand: z.string().min(1, "Brand is required").max(100, "Brand must be less than 100 characters"),
   model_number: z.string().max(100, "Model # must be less than 100 characters").optional().nullable(),
   serial_number: z.string().max(100, "Serial # must be less than 100 characters").optional().nullable(),
+  in_house_id: z.string().max(50, "In House ID must be less than 50 characters").optional().nullable(),
+  location: z.enum(["Warehouse", "Storage", "Out"]),
   status: z.enum(["available", "rented", "maintenance", "retired"]),
   customer_id: z.string().uuid().optional().nullable(),
   purchase_cost: z.number().min(0, "Cost must be positive").optional().nullable(),
@@ -144,6 +148,8 @@ const defaultFormData: MachineFormData = {
   brand: "",
   model_number: "",
   serial_number: "",
+  in_house_id: "",
+  location: "Warehouse",
   status: "available",
   customer_id: null,
   purchase_cost: null,
@@ -262,6 +268,8 @@ export const MachineInventory = () => {
       brand: machine.brand,
       model_number: machine.model_number || "",
       serial_number: machine.serial_number || "",
+      in_house_id: machine.in_house_id || "",
+      location: (machine.location as "Warehouse" | "Storage" | "Out") || "Warehouse",
       status: machine.status as "available" | "rented" | "maintenance" | "retired",
       customer_id: machine.customer_id || null,
       purchase_cost: machine.purchase_cost,
@@ -328,6 +336,8 @@ export const MachineInventory = () => {
         brand: formData.brand.trim(),
         model_number: formData.model_number?.trim() || null,
         serial_number: formData.serial_number?.trim() || null,
+        in_house_id: formData.in_house_id?.trim() || null,
+        location: formData.location,
         status: formData.status,
         customer_id: formData.customer_id || null,
         purchase_cost: formData.purchase_cost,
@@ -602,10 +612,12 @@ export const MachineInventory = () => {
               <Table>
                 <TableHeader>
                   <TableRow>
+                    <TableHead>In House ID</TableHead>
                     <TableHead>Type</TableHead>
                     <TableHead>Brand</TableHead>
                     <TableHead>Model #</TableHead>
                     <TableHead>Serial #</TableHead>
+                    <TableHead>Location</TableHead>
                     <TableHead>Status</TableHead>
                     <TableHead>Customer</TableHead>
                     <TableHead>Cost</TableHead>
@@ -617,6 +629,9 @@ export const MachineInventory = () => {
                 <TableBody>
                   {filteredMachines.map((machine) => (
                     <TableRow key={machine.id}>
+                      <TableCell className="font-medium">
+                        {machine.in_house_id || "—"}
+                      </TableCell>
                       <TableCell>
                         <Badge variant="outline" className={typeColors[machine.type] || ""}>
                           {machine.type}
@@ -628,6 +643,9 @@ export const MachineInventory = () => {
                       </TableCell>
                       <TableCell className="text-sm text-muted-foreground">
                         {machine.serial_number || "—"}
+                      </TableCell>
+                      <TableCell className="text-sm">
+                        {machine.location || "—"}
                       </TableCell>
                       <TableCell>
                         <Badge variant="outline" className={statusColors[machine.status] || ""}>
@@ -815,6 +833,37 @@ export const MachineInventory = () => {
                   onChange={(e) => setFormData({ ...formData, serial_number: e.target.value })}
                   placeholder="Serial number"
                 />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="in_house_id">In House ID #</Label>
+                <Input
+                  id="in_house_id"
+                  value={formData.in_house_id || ""}
+                  onChange={(e) => setFormData({ ...formData, in_house_id: e.target.value })}
+                  placeholder="e.g., WH-001"
+                />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="location">Location *</Label>
+                <Select
+                  value={formData.location}
+                  onValueChange={(value) =>
+                    setFormData({ ...formData, location: value as "Warehouse" | "Storage" | "Out" })
+                  }
+                >
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Warehouse">Warehouse</SelectItem>
+                    <SelectItem value="Storage">Storage</SelectItem>
+                    <SelectItem value="Out">Out</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
 
               <div className="space-y-2">
