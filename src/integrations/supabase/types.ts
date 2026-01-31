@@ -14,7 +14,51 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      delivery_schedules: {
+        Row: {
+          city: string
+          created_at: string
+          id: string
+          notes: string | null
+          phone: string
+          scheduled_date: string
+          status: string
+          street_address: string
+          time_window: string
+          updated_at: string
+          user_id: string
+          zip_code: string
+        }
+        Insert: {
+          city: string
+          created_at?: string
+          id?: string
+          notes?: string | null
+          phone: string
+          scheduled_date: string
+          status?: string
+          street_address: string
+          time_window: string
+          updated_at?: string
+          user_id: string
+          zip_code: string
+        }
+        Update: {
+          city?: string
+          created_at?: string
+          id?: string
+          notes?: string | null
+          phone?: string
+          scheduled_date?: string
+          status?: string
+          street_address?: string
+          time_window?: string
+          updated_at?: string
+          user_id?: string
+          zip_code?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
