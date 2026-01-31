@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Phone, ArrowRight } from "lucide-react";
+import { Phone } from "lucide-react";
 
 const CTA = () => {
   return (
@@ -24,23 +24,14 @@ const CTA = () => {
             Get started today with free delivery and installation. No credit check required!
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button
-              size="lg"
-              className="bg-accent hover:bg-accent/90 text-accent-foreground font-bold text-lg px-8 py-6 shadow-lg hover:shadow-xl transition-all"
-            >
-              Schedule Delivery
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              className="bg-white/10 border-2 border-white text-primary-foreground hover:bg-white hover:text-primary font-semibold text-lg px-8 py-6"
-            >
-              <Phone className="h-5 w-5 mr-2" />
-              (228) 338-3455
-            </Button>
-          </div>
+          <Button
+            size="lg"
+            variant="outline"
+            className="bg-white/10 border-2 border-white text-primary-foreground hover:bg-white hover:text-primary font-semibold text-lg px-8 py-6"
+          >
+            <Phone className="h-5 w-5 mr-2" />
+            (228) 338-3455
+          </Button>
 
           <p className="mt-8 text-primary-foreground/70 text-sm">
             Serving Biloxi, Gulfport, Ocean Springs, and the entire Mississippi Gulf Coast
