@@ -75,7 +75,7 @@ const Hero = () => {
             </h1>
             
             <p className="text-lg md:text-xl text-primary-foreground/90 mb-8 max-w-lg mx-auto lg:mx-0">
-              Affordable appliance rentals with free delivery, professional installation, and complimentary maintenance.
+              Affordable Washer and Dryer Rentals in Gulfport, Biloxi, Diberville, Ocean Springs, Gautier and Pascagoula.
             </p>
 
             {/* Benefits */}
