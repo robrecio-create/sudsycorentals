@@ -14,7 +14,8 @@ const Footer = () => {
               <img 
                 src={logoImage} 
                 alt="Sudsy Co. Rentals" 
-                className="h-12 w-auto brightness-0 invert"
+                className="h-12 w-auto"
+                style={{ filter: 'brightness(0) invert(1)' }}
               />
               <div>
                 <h3 className="font-display font-bold text-xl text-background">
@@ -24,7 +25,7 @@ const Footer = () => {
               </div>
             </div>
             <p className="text-background/70 leading-relaxed">
-              Affordable washer and dryer rentals serving the Mississippi Gulf Coast. No credit check, free delivery, and maintenance included.
+              Locally Owned & Operated in Ocean Springs, MS. Sudsy Co. is South Mississippi's premier alternative to the laundromat. We provide affordable washer and dryer rentals with free next-day delivery to Gulfport, Biloxi, Ocean Springs, Long Beach, D'Iberville, and Pascagoula. Whether you are stationed at Keesler AFB, living in an apartment, or just tired of the coin laundry, our team delivers reliable, clean appliances directly to your door.
             </p>
           </div>
 
