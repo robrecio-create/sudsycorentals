@@ -1,5 +1,16 @@
 import { Phone, Mail, MapPin, Facebook, Instagram } from "lucide-react";
+import { Link } from "react-router-dom";
 import logoImage from "@/assets/logo.png";
+
+const serviceAreas = [
+  { name: "Biloxi", slug: "biloxi" },
+  { name: "Gulfport", slug: "gulfport" },
+  { name: "Ocean Springs", slug: "ocean-springs" },
+  { name: "D'Iberville", slug: "diberville" },
+  { name: "Gautier", slug: "gautier" },
+  { name: "Long Beach", slug: "long-beach" },
+  { name: "Pascagoula", slug: "pascagoula" },
+];
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -7,9 +18,9 @@ const Footer = () => {
   return (
     <footer id="contact" className="bg-foreground text-background">
       <div className="container mx-auto px-4 py-16">
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12">
+        <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-12">
           {/* Brand */}
-          <div>
+          <div className="lg:col-span-2">
             <div className="flex items-center gap-3 mb-6">
               <img 
                 src={logoImage} 
@@ -24,7 +35,7 @@ const Footer = () => {
               </div>
             </div>
             <p className="text-background/70 leading-relaxed">
-              Locally Owned & Operated in Ocean Springs, MS. Sudsy Co. is South Mississippi's premier alternative to the laundromat. We provide affordable washer and dryer rentals with free next-day delivery to Gulfport, Biloxi, Ocean Springs, Long Beach, D'Iberville, and Pascagoula. Whether you are stationed at Keesler AFB, living in an apartment, or just tired of the coin laundry, our team delivers reliable, clean appliances directly to your door.
+              Locally Owned & Operated in Ocean Springs, MS. Sudsy Co. is South Mississippi's premier alternative to the laundromat. We provide affordable washer and dryer rentals with free next-day delivery to the Mississippi Gulf Coast.
             </p>
           </div>
 
@@ -32,7 +43,7 @@ const Footer = () => {
           <div>
             <h4 className="font-display font-semibold text-lg mb-6">Quick Links</h4>
             <ul className="space-y-3">
-              {["Home", "Pricing", "How It Works", "About Us", "Contact"].map((link) => (
+              {["Home", "Pricing", "How It Works", "FAQ", "Contact"].map((link) => (
                 <li key={link}>
                   <a
                     href={`#${link.toLowerCase().replace(/\s+/g, "-")}`}
@@ -40,6 +51,23 @@ const Footer = () => {
                   >
                     {link}
                   </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Service Areas */}
+          <div>
+            <h4 className="font-display font-semibold text-lg mb-6">Service Areas</h4>
+            <ul className="space-y-3">
+              {serviceAreas.map((area) => (
+                <li key={area.slug}>
+                  <Link
+                    to={`/locations/${area.slug}`}
+                    className="text-background/70 hover:text-primary transition-colors"
+                  >
+                    {area.name}
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -69,20 +97,10 @@ const Footer = () => {
               </li>
               <li className="flex items-start gap-3 text-background/70">
                 <MapPin className="h-5 w-5 shrink-0 mt-0.5" />
-                <span>Mississippi Gulf Coast<br />Biloxi, Gulfport, Ocean Springs & more</span>
+                <span>Ocean Springs, MS<br />Mississippi Gulf Coast</span>
               </li>
             </ul>
-          </div>
-
-          {/* Hours & Social */}
-          <div>
-            <h4 className="font-display font-semibold text-lg mb-6">Business Hours</h4>
-            <ul className="space-y-2 text-background/70 mb-6">
-              <li>Monday - Friday: 9AM - 6PM</li>
-              <li>Saturday: 10AM - 4PM</li>
-              <li>Sunday: Closed</li>
-            </ul>
-            <div className="flex gap-4">
+            <div className="flex gap-4 mt-6">
               <a
                 href="https://www.facebook.com/profile.php?id=61583964994641"
                 target="_blank"
