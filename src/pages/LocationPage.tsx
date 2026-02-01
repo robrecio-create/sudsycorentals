@@ -184,8 +184,47 @@ const LocationPage = () => {
             </div>
           </section>
 
-          {/* Nearby Areas */}
+          {/* Map Section */}
           <section className="py-16 bg-background">
+            <div className="container mx-auto px-4">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+                className="text-center mb-8"
+              >
+                <h2 className="font-display font-bold text-2xl md:text-3xl text-foreground mb-4">
+                  Serving {location.name} & Surrounding Areas
+                </h2>
+                <p className="text-muted-foreground max-w-2xl mx-auto">
+                  We deliver washer and dryer rentals throughout {location.name} and the Mississippi Gulf Coast.
+                </p>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: 0.1 }}
+                className="rounded-2xl overflow-hidden shadow-lg border border-border/50"
+              >
+                <iframe
+                  src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=${encodeURIComponent(location.name + ", MS")}&center=${location.coordinates.lat},${location.coordinates.lng}&zoom=12`}
+                  width="100%"
+                  height="400"
+                  style={{ border: 0 }}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  title={`Map of ${location.name}, Mississippi`}
+                />
+              </motion.div>
+            </div>
+          </section>
+
+          {/* Nearby Areas */}
+          <section className="py-16 bg-muted/30">
             <div className="container mx-auto px-4">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
