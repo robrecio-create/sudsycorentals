@@ -61,4 +61,72 @@ export const locations: Record<string, LocationData> = {
     metaDescription:
       "Ocean Springs' own washer and dryer rental service. Locally owned, free delivery, no credit check. Skip the laundromat. Call Sudsy Co. at (228) 338-3455.",
   },
+  diberville: {
+    slug: "diberville",
+    name: "D'Iberville",
+    tagline: "Washer & Dryer Rentals in D'Iberville, MS",
+    description:
+      "Sudsy Co. Rentals delivers affordable washer and dryer rentals throughout D'Iberville. From the Promenade area to neighborhoods across the city, we provide hassle-free appliance rentals with free delivery and installation.",
+    highlights: [
+      "Convenient delivery to all D'Iberville areas",
+      "Perfect for apartment and condo living",
+      "No long-term contracts required",
+      "Free maintenance and repairs included",
+    ],
+    nearbyAreas: ["Biloxi", "Gulfport", "Ocean Springs", "Long Beach"],
+    metaTitle: "Washer & Dryer Rental D'Iberville MS | Free Delivery | Sudsy Co.",
+    metaDescription:
+      "Rent a washer and dryer in D'Iberville, MS. Free delivery, free installation, no credit check. Month-to-month rentals. Call Sudsy Co. at (228) 338-3455.",
+  },
+  gautier: {
+    slug: "gautier",
+    name: "Gautier",
+    tagline: "Washer & Dryer Rentals in Gautier, MS",
+    description:
+      "Sudsy Co. Rentals brings convenient washer and dryer rentals to Gautier residents. Whether you're near the Shepard State Park area or anywhere in Gautier, we deliver quality appliances right to your home.",
+    highlights: [
+      "Serving the entire Gautier community",
+      "Ideal for rental homes and apartments",
+      "Quick and reliable delivery service",
+      "Affordable monthly rates",
+    ],
+    nearbyAreas: ["Ocean Springs", "Pascagoula", "Biloxi", "Moss Point"],
+    metaTitle: "Washer & Dryer Rental Gautier MS | Free Delivery | Sudsy Co.",
+    metaDescription:
+      "Affordable washer and dryer rentals in Gautier, MS. Free next-day delivery and installation. No credit check required. Call Sudsy Co. at (228) 338-3455.",
+  },
+  "long-beach": {
+    slug: "long-beach",
+    name: "Long Beach",
+    tagline: "Washer & Dryer Rentals in Long Beach, MS",
+    description:
+      "Sudsy Co. Rentals serves Long Beach with reliable washer and dryer rentals. From the harbor area to residential neighborhoods, we provide free delivery and installation to make laundry day easy.",
+    highlights: [
+      "Fast delivery throughout Long Beach",
+      "Great for coastal living apartments",
+      "Flexible rental terms available",
+      "Quality appliances you can count on",
+    ],
+    nearbyAreas: ["Gulfport", "Pass Christian", "Biloxi", "D'Iberville"],
+    metaTitle: "Washer & Dryer Rental Long Beach MS | Free Delivery | Sudsy Co.",
+    metaDescription:
+      "Rent a washer and dryer in Long Beach, MS. Free delivery and installation. No credit check, no hassle. Month-to-month rentals. Call (228) 338-3455.",
+  },
+  pascagoula: {
+    slug: "pascagoula",
+    name: "Pascagoula",
+    tagline: "Washer & Dryer Rentals in Pascagoula, MS",
+    description:
+      "Sudsy Co. Rentals extends our washer and dryer rental service to Pascagoula. Whether you're working at the shipyard or living anywhere in the Pascagoula area, we deliver affordable appliances with no credit check required.",
+    highlights: [
+      "Convenient for shipyard workers and families",
+      "Serving all Pascagoula neighborhoods",
+      "Easy month-to-month rental plans",
+      "Free pickup when you're done",
+    ],
+    nearbyAreas: ["Gautier", "Moss Point", "Ocean Springs", "Biloxi"],
+    metaTitle: "Washer & Dryer Rental Pascagoula MS | Free Delivery | Sudsy Co.",
+    metaDescription:
+      "Washer and dryer rentals in Pascagoula, MS. Free delivery, free installation, no credit check. Perfect for apartments and rentals. Call (228) 338-3455.",
+  },
 };
