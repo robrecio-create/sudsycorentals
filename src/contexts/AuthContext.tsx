@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState, ReactNode } from "react";
+import { createContext, useCallback, useContext, useEffect, useState, ReactNode } from "react";
 import { User, Session } from "@supabase/supabase-js";
 import { supabase } from "@/integrations/supabase/client";
 
@@ -16,7 +16,7 @@ interface AuthContextType {
   signUp: (email: string, password: string) => Promise<{ error: Error | null }>;
   signIn: (email: string, password: string) => Promise<{ error: Error | null }>;
   signOut: () => Promise<void>;
-  checkSubscription: () => Promise<void>;
+  checkSubscription: (sessionOverride?: Session | null) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -39,27 +39,34 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     subscriptionEnd: null,
   });
 
-  const checkSubscription = async () => {
-    if (!session) {
-      setSubscription({ subscribed: false, productId: null, subscriptionEnd: null });
-      return;
-    }
+  const checkSubscription = useCallback(
+    async (sessionOverride?: Session | null) => {
+      // IMPORTANT: don't rely on React state being updated yet (Safari/iOS can be timing-sensitive)
+      const effectiveSession =
+        sessionOverride ?? (await supabase.auth.getSession()).data.session;
 
-    try {
-      const { data, error } = await supabase.functions.invoke("check-subscription");
-      if (error) {
-        console.error("Error checking subscription:", error);
+      if (!effectiveSession) {
+        setSubscription({ subscribed: false, productId: null, subscriptionEnd: null });
         return;
       }
-      setSubscription({
-        subscribed: data.subscribed || false,
-        productId: data.product_id || null,
-        subscriptionEnd: data.subscription_end || null,
-      });
-    } catch (err) {
-      console.error("Failed to check subscription:", err);
-    }
-  };
+
+      try {
+        const { data, error } = await supabase.functions.invoke("check-subscription");
+        if (error) {
+          console.error("Error checking subscription:", error);
+          return;
+        }
+        setSubscription({
+          subscribed: data?.subscribed || false,
+          productId: data?.product_id || null,
+          subscriptionEnd: data?.subscription_end || null,
+        });
+      } catch (err) {
+        console.error("Failed to check subscription:", err);
+      }
+    },
+    []
+  );
 
   useEffect(() => {
     // Set up auth state listener FIRST
@@ -69,10 +76,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         setUser(session?.user ?? null);
         setLoading(false);
 
-        // Defer subscription check
+        // Check subscription using the session object we already have
         if (session?.user) {
           setTimeout(() => {
-            checkSubscription();
+            checkSubscription(session);
           }, 0);
         } else {
           setSubscription({ subscribed: false, productId: null, subscriptionEnd: null });
@@ -88,13 +95,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
       if (session?.user) {
         setTimeout(() => {
-          checkSubscription();
+          checkSubscription(session);
         }, 0);
       }
     });
 
     return () => authSubscription.unsubscribe();
-  }, []);
+  }, [checkSubscription]);
 
   const signUp = async (email: string, password: string) => {
     const redirectUrl = `${window.location.origin}/`;
