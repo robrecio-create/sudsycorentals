@@ -86,6 +86,8 @@ const CheckoutSuccess = () => {
         zip_code: zipCode.trim(),
         phone: phone.trim(),
         notes: notes.trim() || null,
+        customer_name: user.user_metadata?.full_name || user.email?.split("@")[0] || null,
+        customer_email: user.email || null,
       });
 
       if (error) {

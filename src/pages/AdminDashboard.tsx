@@ -282,6 +282,7 @@ const AdminDashboard = () => {
                     <Table>
                       <TableHeader>
                         <TableRow>
+                          <TableHead>Customer</TableHead>
                           <TableHead>Date & Time</TableHead>
                           <TableHead>Address</TableHead>
                           <TableHead>Contact</TableHead>
@@ -293,6 +294,16 @@ const AdminDashboard = () => {
                       <TableBody>
                         {filteredDeliveries.map((delivery) => (
                           <TableRow key={delivery.id}>
+                            <TableCell>
+                              <div className="font-medium">
+                                {delivery.customer_name || "—"}
+                              </div>
+                              {delivery.customer_email && (
+                                <div className="text-sm text-muted-foreground">
+                                  {delivery.customer_email}
+                                </div>
+                              )}
+                            </TableCell>
                             <TableCell>
                               <div className="flex flex-col gap-1">
                                 <div className="flex items-center gap-1.5 font-medium">
