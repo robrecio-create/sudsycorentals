@@ -69,10 +69,12 @@ const Hero = () => {
               <span>Never Go to the Laundromat Again!</span>
             </div>
             
-            <h1 className="font-display font-bold text-4xl md:text-5xl lg:text-6xl text-primary-foreground leading-tight mb-6">
-              Washer & Dryer Rentals
-              <span className="block text-accent mt-2">Starting at $59.99/mo</span>
+            <h1 className="font-display font-bold text-4xl md:text-5xl lg:text-6xl text-primary-foreground leading-tight mb-4">
+              Reliable Washer & Dryer Rentals in South Mississippi
             </h1>
+            <h2 className="font-display font-semibold text-2xl md:text-3xl text-accent mb-6">
+              The Best Laundromat Alternative in Gulfport & Biloxi
+            </h2>
             
             <p className="text-lg md:text-xl text-primary-foreground/90 mb-8 max-w-lg mx-auto lg:mx-0">
               Affordable Washer and Dryer Rentals in Gulfport, Biloxi, Diberville, Ocean Springs, Gautier and Pascagoula.
