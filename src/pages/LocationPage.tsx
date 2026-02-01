@@ -75,7 +75,7 @@ const LocationPage = () => {
                     className="bg-white text-primary hover:bg-white/90 font-semibold text-lg px-8"
                     asChild
                   >
-                    <a href="/#pricing">View Pricing</a>
+                    <a href="https://sudsycorentals.com/#pricing">Rent Online</a>
                   </Button>
                 </div>
               </motion.div>

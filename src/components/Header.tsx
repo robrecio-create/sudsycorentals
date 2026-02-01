@@ -8,12 +8,12 @@ import { useAuth } from "@/contexts/AuthContext";
 import logoImage from "@/assets/logo.png";
 
 const navLinks = [
-  { name: "Home", href: "#home" },
-  { name: "Pricing", href: "#pricing" },
-  { name: "How It Works", href: "#how-it-works" },
-  { name: "FAQ", href: "#faq" },
-  { name: "About", href: "#about" },
-  { name: "Contact", href: "#contact" },
+  { name: "Home", href: "/#home" },
+  { name: "Pricing", href: "/#pricing" },
+  { name: "How It Works", href: "/#how-it-works" },
+  { name: "FAQ", href: "/#faq" },
+  { name: "About", href: "/#about" },
+  { name: "Contact", href: "/#contact" },
 ];
 
 const Header = () => {
