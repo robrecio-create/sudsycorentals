@@ -101,7 +101,7 @@ const Hero = () => {
                 onClick={handleLeaseNow}
                 disabled={loading}
               >
-                {loading ? <Loader2 className="h-5 w-5 animate-spin" /> : "Lease Now"}
+                {loading ? <Loader2 className="h-5 w-5 animate-spin" /> : "Rent Online"}
               </Button>
               <Button
                 size="lg"
