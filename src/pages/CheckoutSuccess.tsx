@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { motion } from "framer-motion";
-import { CheckCircle2, CalendarIcon, Truck, MapPin } from "lucide-react";
+import { CheckCircle2, CalendarIcon, Truck, MapPin, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -33,8 +33,10 @@ const timeSlots = [
 
 const CheckoutSuccess = () => {
   const navigate = useNavigate();
-  const { checkSubscription, user } = useAuth();
-  const [step, setStep] = useState<"success" | "schedule">("success");
+  const [searchParams] = useSearchParams();
+  const { checkSubscription, user, subscription } = useAuth();
+  const scheduleOnly = searchParams.get("schedule") === "true";
+  const [step, setStep] = useState<"success" | "schedule">(scheduleOnly ? "schedule" : "success");
   const [selectedDate, setSelectedDate] = useState<Date | undefined>();
   const [selectedTime, setSelectedTime] = useState("");
   const [address, setAddress] = useState("");
@@ -45,9 +47,19 @@ const CheckoutSuccess = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
-    // Refresh subscription status after successful checkout
-    checkSubscription();
-  }, []);
+    // Refresh subscription status after successful checkout (only if not schedule-only mode)
+    if (!scheduleOnly) {
+      checkSubscription();
+    }
+  }, [scheduleOnly]);
+
+  // Redirect non-subscribed users if they're trying to schedule directly
+  useEffect(() => {
+    if (scheduleOnly && !subscription.subscribed && user) {
+      toast.error("You need an active subscription to schedule a delivery");
+      navigate("/dashboard");
+    }
+  }, [scheduleOnly, subscription.subscribed, user, navigate]);
 
   const handleScheduleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -302,9 +314,16 @@ const CheckoutSuccess = () => {
                 type="button"
                 variant="outline"
                 size="lg"
-                onClick={() => setStep("success")}
+                onClick={() => scheduleOnly ? navigate("/dashboard") : setStep("success")}
               >
-                Back
+                {scheduleOnly ? (
+                  <>
+                    <ArrowLeft className="h-4 w-4 mr-2" />
+                    Back to Dashboard
+                  </>
+                ) : (
+                  "Back"
+                )}
               </Button>
             </div>
           </form>

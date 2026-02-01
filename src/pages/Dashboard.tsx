@@ -276,7 +276,7 @@ const Dashboard = () => {
                     No delivery scheduled yet
                   </p>
                   {subscription.subscribed && (
-                    <Button onClick={() => navigate("/checkout-success")}>
+                    <Button onClick={() => navigate("/checkout-success?schedule=true")}>
                       Schedule Delivery
                     </Button>
                   )}
