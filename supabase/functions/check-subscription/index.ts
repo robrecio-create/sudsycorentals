@@ -68,9 +68,23 @@ serve(async (req) => {
 
     if (hasActiveSub) {
       const subscription = subscriptions.data[0];
-      subscriptionEnd = new Date(subscription.current_period_end * 1000).toISOString();
+      
+      // Handle current_period_end - could be Unix timestamp (number) or already a date string
+      const periodEnd = subscription.current_period_end;
+      logStep("Raw period end value", { periodEnd, type: typeof periodEnd });
+      
+      if (typeof periodEnd === 'number') {
+        subscriptionEnd = new Date(periodEnd * 1000).toISOString();
+      } else if (typeof periodEnd === 'string') {
+        // Already an ISO string or similar
+        subscriptionEnd = periodEnd;
+      } else if (periodEnd) {
+        // Try to convert whatever it is
+        subscriptionEnd = String(periodEnd);
+      }
+      
       logStep("Active subscription found", { subscriptionId: subscription.id, endDate: subscriptionEnd });
-      productId = subscription.items.data[0].price.product;
+      productId = subscription.items.data[0]?.price?.product ?? null;
       logStep("Determined subscription product", { productId });
     } else {
       logStep("No active subscription found");
