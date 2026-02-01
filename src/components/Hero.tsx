@@ -1,12 +1,7 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Phone, CheckCircle2, Loader2 } from "lucide-react";
+import { Phone, CheckCircle2 } from "lucide-react";
 import washerDryerImage from "@/assets/washer-dryer-hero.png";
-import { useAuth } from "@/contexts/AuthContext";
-import { supabase } from "@/integrations/supabase/client";
-import { useToast } from "@/hooks/use-toast";
 
 const benefits = [
   "No Credit Check",
@@ -15,37 +10,10 @@ const benefits = [
 ];
 
 const Hero = () => {
-  const [loading, setLoading] = useState(false);
-  const { user } = useAuth();
-  const navigate = useNavigate();
-  const { toast } = useToast();
-
-  const handleLeaseNow = async () => {
-    if (!user) {
-      navigate("/auth");
-      return;
-    }
-
-    setLoading(true);
-    try {
-      const { data, error } = await supabase.functions.invoke("create-checkout", {
-        body: { priceKey: "washer-dryer" },
-      });
-
-      if (error) throw error;
-
-      if (data?.url) {
-        window.open(data.url, "_blank");
-      }
-    } catch (err) {
-      console.error("Checkout error:", err);
-      toast({
-        variant: "destructive",
-        title: "Checkout failed",
-        description: "Unable to start checkout. Please try again.",
-      });
-    } finally {
-      setLoading(false);
+  const handleRentOnlineClick = () => {
+    const pricingSection = document.getElementById('pricing');
+    if (pricingSection) {
+      pricingSection.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
@@ -98,10 +66,9 @@ const Hero = () => {
               <Button
                 size="lg"
                 className="bg-accent hover:bg-accent/90 text-accent-foreground font-bold text-lg px-8 py-6 shadow-lg hover:shadow-xl transition-all"
-                onClick={handleLeaseNow}
-                disabled={loading}
+                onClick={handleRentOnlineClick}
               >
-                {loading ? <Loader2 className="h-5 w-5 animate-spin" /> : "Rent Online"}
+                Rent Online
               </Button>
               <Button
                 size="lg"
