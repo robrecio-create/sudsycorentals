@@ -14,6 +14,7 @@ import {
   MessageSquare,
   Package,
   Users,
+  CreditCard,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -48,6 +49,7 @@ import { toast } from "sonner";
 import { ContactSubmissions } from "@/components/admin/ContactSubmissions";
 import { MachineInventory } from "@/components/admin/MachineInventory";
 import { CustomerManagement } from "@/components/admin/CustomerManagement";
+import { SubscriptionManagement } from "@/components/admin/SubscriptionManagement";
 import type { Tables } from "@/integrations/supabase/types";
 
 type DeliverySchedule = Tables<"delivery_schedules">;
@@ -182,6 +184,10 @@ const AdminDashboard = () => {
             <TabsTrigger value="deliveries" className="gap-2">
               <Truck className="h-4 w-4" />
               Deliveries
+            </TabsTrigger>
+            <TabsTrigger value="subscriptions" className="gap-2">
+              <CreditCard className="h-4 w-4" />
+              Subscriptions
             </TabsTrigger>
             <TabsTrigger value="contacts" className="gap-2">
               <MessageSquare className="h-4 w-4" />
@@ -353,6 +359,10 @@ const AdminDashboard = () => {
                 )}
               </CardContent>
             </Card>
+          </TabsContent>
+
+          <TabsContent value="subscriptions">
+            <SubscriptionManagement />
           </TabsContent>
 
           <TabsContent value="contacts">
