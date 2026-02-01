@@ -26,10 +26,9 @@ import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 
 const timeSlots = [
-  "9:00 AM - 11:00 AM",
-  "11:00 AM - 1:00 PM",
-  "1:00 PM - 3:00 PM",
-  "3:00 PM - 5:00 PM",
+  "Morning (8AM-12PM)",
+  "Afternoon (12PM-4PM)",
+  "Evening (4PM-7PM)",
 ];
 
 const CheckoutSuccess = () => {
