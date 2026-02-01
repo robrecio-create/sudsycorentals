@@ -46,7 +46,7 @@ const Footer = () => {
               {["Home", "Pricing", "How It Works", "FAQ", "Contact"].map((link) => (
                 <li key={link}>
                   <a
-                    href={`#${link.toLowerCase().replace(/\s+/g, "-")}`}
+                    href={`/#${link.toLowerCase().replace(/\s+/g, "-")}`}
                     className="text-background/70 hover:text-primary transition-colors"
                   >
                     {link}
