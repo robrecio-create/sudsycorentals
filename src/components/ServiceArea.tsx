@@ -8,8 +8,10 @@ const cities = [
   { name: "D'Iberville", slug: "diberville" },
   { name: "Ocean Springs", slug: "ocean-springs" },
   { name: "Long Beach", slug: "long-beach" },
+  { name: "Pass Christian", slug: "pass-christian" },
   { name: "Gautier", slug: "gautier" },
   { name: "Pascagoula", slug: "pascagoula" },
+  { name: "Moss Point", slug: "moss-point" },
 ];
 
 const ServiceArea = () => {
