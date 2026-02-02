@@ -1,13 +1,15 @@
 import { motion } from "framer-motion";
 import { MapPin } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const cities = [
-  "Gulfport",
-  "Biloxi", 
-  "Diberville",
-  "Ocean Springs",
-  "Gautier",
-  "Pascagoula",
+  { name: "Gulfport", slug: "gulfport" },
+  { name: "Biloxi", slug: "biloxi" },
+  { name: "D'Iberville", slug: "diberville" },
+  { name: "Ocean Springs", slug: "ocean-springs" },
+  { name: "Long Beach", slug: "long-beach" },
+  { name: "Gautier", slug: "gautier" },
+  { name: "Pascagoula", slug: "pascagoula" },
 ];
 
 const ServiceArea = () => {
@@ -41,15 +43,19 @@ const ServiceArea = () => {
         >
           {cities.map((city, index) => (
             <motion.div
-              key={city}
+              key={city.slug}
               initial={{ opacity: 0, scale: 0.9 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ duration: 0.3, delay: index * 0.05 }}
-              className="flex items-center gap-2 bg-card border border-border px-4 py-2.5 rounded-full shadow-sm hover:shadow-md hover:border-primary/30 transition-all"
             >
-              <MapPin className="h-4 w-4 text-primary" />
-              <span className="font-medium text-foreground">{city}</span>
+              <Link
+                to={`/locations/${city.slug}`}
+                className="flex items-center gap-2 bg-card border border-border px-4 py-2.5 rounded-full shadow-sm hover:shadow-md hover:border-primary/30 hover:bg-primary/5 transition-all"
+              >
+                <MapPin className="h-4 w-4 text-primary" />
+                <span className="font-medium text-foreground">{city.name}</span>
+              </Link>
             </motion.div>
           ))}
         </motion.div>
