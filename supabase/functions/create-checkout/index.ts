@@ -77,6 +77,14 @@ serve(async (req) => {
       mode: "subscription",
       success_url: `${origin}/checkout-success`,
       cancel_url: `${origin}/#pricing`,
+      metadata: {
+        user_id: user.id,
+        user_email: user.email,
+        price_key: priceKey,
+      },
+      phone_number_collection: {
+        enabled: true,
+      },
     });
 
     logStep("Checkout session created", { sessionId: session.id, url: session.url });
