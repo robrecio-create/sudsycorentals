@@ -51,6 +51,7 @@ export const locations: Record<string, LocationData> = {
     metaDescription:
       "Affordable washer and dryer rentals in Gulfport, MS. Free delivery and installation. No credit check required. The best laundromat alternative. Call (228) 338-3455.",
     coordinates: { lat: 30.3674, lng: -89.0928 },
+    landmark: "Jones Park, Gulfport, MS",
   },
   "ocean-springs": {
     slug: "ocean-springs",
@@ -69,6 +70,7 @@ export const locations: Record<string, LocationData> = {
     metaDescription:
       "Ocean Springs' own washer and dryer rental service. Locally owned, free delivery, no credit check. Skip the laundromat. Call Sudsy Co. at (228) 338-3455.",
     coordinates: { lat: 30.4113, lng: -88.8278 },
+    landmark: "Ocean Springs Front Beach, Ocean Springs, MS",
   },
   diberville: {
     slug: "diberville",
@@ -87,6 +89,7 @@ export const locations: Record<string, LocationData> = {
     metaDescription:
       "Rent a washer and dryer in D'Iberville, MS. Free delivery, free installation, no credit check. Month-to-month rentals. Call Sudsy Co. at (228) 338-3455.",
     coordinates: { lat: 30.4263, lng: -88.8906 },
+    landmark: "Promenade D'Iberville, D'Iberville, MS",
   },
   gautier: {
     slug: "gautier",
@@ -105,6 +108,7 @@ export const locations: Record<string, LocationData> = {
     metaDescription:
       "Affordable washer and dryer rentals in Gautier, MS. Free next-day delivery and installation. No credit check required. Call Sudsy Co. at (228) 338-3455.",
     coordinates: { lat: 30.3857, lng: -88.6117 },
+    landmark: "Shepard State Park, Gautier, MS",
   },
   "long-beach": {
     slug: "long-beach",
@@ -123,6 +127,7 @@ export const locations: Record<string, LocationData> = {
     metaDescription:
       "Rent a washer and dryer in Long Beach, MS. Free delivery and installation. No credit check, no hassle. Month-to-month rentals. Call (228) 338-3455.",
     coordinates: { lat: 30.3505, lng: -89.1528 },
+    landmark: "Long Beach Harbor, Long Beach, MS",
   },
   pascagoula: {
     slug: "pascagoula",
@@ -141,6 +146,7 @@ export const locations: Record<string, LocationData> = {
     metaDescription:
       "Washer and dryer rentals in Pascagoula, MS. Free delivery, free installation, no credit check. Perfect for apartments and rentals. Call (228) 338-3455.",
     coordinates: { lat: 30.3658, lng: -88.5561 },
+    landmark: "Pascagoula Beach Park, Pascagoula, MS",
   },
   "pass-christian": {
     slug: "pass-christian",
@@ -159,6 +165,7 @@ export const locations: Record<string, LocationData> = {
     metaDescription:
       "Rent a washer and dryer in Pass Christian, MS. Free delivery, free installation, no credit check. Month-to-month rentals for the Gulf Coast. Call (228) 338-3455.",
     coordinates: { lat: 30.3157, lng: -89.2475 },
+    landmark: "Pass Christian Harbor, Pass Christian, MS",
   },
   "moss-point": {
     slug: "moss-point",
@@ -177,5 +184,6 @@ export const locations: Record<string, LocationData> = {
     metaDescription:
       "Affordable washer and dryer rentals in Moss Point, MS. Free delivery and installation. No credit check required. Call Sudsy Co. at (228) 338-3455.",
     coordinates: { lat: 30.4113, lng: -88.5345 },
+    landmark: "Pelican Landing, Moss Point, MS",
   },
 };
