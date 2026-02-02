@@ -140,4 +140,40 @@ export const locations: Record<string, LocationData> = {
       "Washer and dryer rentals in Pascagoula, MS. Free delivery, free installation, no credit check. Perfect for apartments and rentals. Call (228) 338-3455.",
     coordinates: { lat: 30.3658, lng: -88.5561 },
   },
+  "pass-christian": {
+    slug: "pass-christian",
+    name: "Pass Christian",
+    tagline: "Washer & Dryer Rentals in Pass Christian, MS",
+    description:
+      "Sudsy Co. Rentals delivers affordable washer and dryer rentals to Pass Christian residents. From the historic downtown to beachfront properties, we bring quality appliances to your home with free delivery and installation.",
+    highlights: [
+      "Serving all Pass Christian neighborhoods",
+      "Perfect for beach cottages and vacation rentals",
+      "Quick delivery along the scenic coast",
+      "No long-term contracts required",
+    ],
+    nearbyAreas: ["Long Beach", "Gulfport", "Bay St. Louis", "Biloxi"],
+    metaTitle: "Washer & Dryer Rental Pass Christian MS | Free Delivery | Sudsy Co.",
+    metaDescription:
+      "Rent a washer and dryer in Pass Christian, MS. Free delivery, free installation, no credit check. Month-to-month rentals for the Gulf Coast. Call (228) 338-3455.",
+    coordinates: { lat: 30.3157, lng: -89.2475 },
+  },
+  "moss-point": {
+    slug: "moss-point",
+    name: "Moss Point",
+    tagline: "Washer & Dryer Rentals in Moss Point, MS",
+    description:
+      "Sudsy Co. Rentals extends our washer and dryer rental service to Moss Point. Whether you're near the Escatawpa River or anywhere in the Moss Point community, we deliver reliable appliances with no credit check required.",
+    highlights: [
+      "Serving all Moss Point neighborhoods",
+      "Convenient for Jackson County residents",
+      "Fast and reliable delivery service",
+      "Affordable month-to-month rates",
+    ],
+    nearbyAreas: ["Pascagoula", "Gautier", "Ocean Springs", "Biloxi"],
+    metaTitle: "Washer & Dryer Rental Moss Point MS | Free Delivery | Sudsy Co.",
+    metaDescription:
+      "Affordable washer and dryer rentals in Moss Point, MS. Free delivery and installation. No credit check required. Call Sudsy Co. at (228) 338-3455.",
+    coordinates: { lat: 30.4113, lng: -88.5345 },
+  },
 };
