@@ -308,7 +308,10 @@ const AdminDashboard = () => {
                               <div className="flex flex-col gap-1">
                                 <div className="flex items-center gap-1.5 font-medium">
                                   <Calendar className="h-3.5 w-3.5 text-primary" />
-                                  {format(new Date(delivery.scheduled_date), "MMM d, yyyy")}
+                                  {format((() => {
+                                    const [year, month, day] = delivery.scheduled_date.split("-").map(Number);
+                                    return new Date(year, month - 1, day);
+                                  })(), "MMM d, yyyy")}
                                 </div>
                                 <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
                                   <Clock className="h-3.5 w-3.5" />
