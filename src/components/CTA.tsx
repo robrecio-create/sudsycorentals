@@ -24,17 +24,26 @@ const CTA = () => {
             Get started today with free delivery and installation. No credit check required!
           </p>
 
-          <Button
-            size="lg"
-            variant="outline"
-            className="bg-white/10 border-2 border-white text-primary-foreground hover:bg-white hover:text-primary font-semibold text-lg px-8 py-6"
-            asChild
-          >
-            <a href="tel:+12283383455">
-              <Phone className="h-5 w-5 mr-2" />
-              (228) 338-3455
-            </a>
-          </Button>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button
+              size="lg"
+              variant="outline"
+              className="bg-white/10 border-2 border-white text-primary-foreground hover:bg-white hover:text-primary font-semibold text-lg px-8 py-6"
+              asChild
+            >
+              <a href="tel:+12283383455">
+                <Phone className="h-5 w-5 mr-2" />
+                (228) 338-3455
+              </a>
+            </Button>
+            <Button
+              size="lg"
+              className="bg-white text-primary hover:bg-white/90 font-semibold text-lg px-8 py-6"
+              asChild
+            >
+              <a href="#pricing">Rent Online</a>
+            </Button>
+          </div>
 
           <p className="mt-8 text-primary-foreground/70 text-sm">
             Serving Biloxi, Gulfport, Ocean Springs, and the entire Mississippi Gulf Coast
