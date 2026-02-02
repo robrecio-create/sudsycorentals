@@ -9,6 +9,8 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { FloatingChatButtons } from "@/components/FloatingChatButtons";
 import { locations } from "@/data/locationData";
+import Breadcrumbs from "@/components/Breadcrumbs";
+import LocalBusinessSchema from "@/components/seo/LocalBusinessSchema";
 
 // Helper to find location slug by city name
 const getSlugByName = (name: string): string | null => {
@@ -30,7 +32,30 @@ const LocationPage = () => {
         <title>{location.metaTitle}</title>
         <meta name="description" content={location.metaDescription} />
         <link rel="canonical" href={`https://sudsycorentals.com/locations/${location.slug}`} />
+        
+        {/* Open Graph */}
+        <meta property="og:title" content={location.metaTitle} />
+        <meta property="og:description" content={location.metaDescription} />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={`https://sudsycorentals.com/locations/${location.slug}`} />
+        <meta property="og:image" content="https://sudsycorentals.com/favicon.png" />
+        <meta property="og:site_name" content="Sudsy Co. Rentals" />
+        <meta property="og:locale" content="en_US" />
+        
+        {/* Twitter Card */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={location.metaTitle} />
+        <meta name="twitter:description" content={location.metaDescription} />
+        <meta name="twitter:image" content="https://sudsycorentals.com/favicon.png" />
+        
+        {/* Additional SEO */}
+        <meta name="geo.region" content="US-MS" />
+        <meta name="geo.placename" content={`${location.name}, Mississippi`} />
+        <meta name="geo.position" content={`${location.coordinates.lat};${location.coordinates.lng}`} />
+        <meta name="ICBM" content={`${location.coordinates.lat}, ${location.coordinates.lng}`} />
       </Helmet>
+      
+      <LocalBusinessSchema location={location} />
 
       <div className="min-h-screen bg-background">
         <TopBar />
@@ -38,7 +63,13 @@ const LocationPage = () => {
 
         <main>
           {/* Hero Section */}
-          <section className="hero-gradient py-16 md:py-24 relative overflow-hidden">
+          <section className="hero-gradient pt-0 pb-16 md:pb-24 relative overflow-hidden">
+            <Breadcrumbs
+              items={[
+                { label: "Locations", href: "/#service-area" },
+                { label: location.name }
+              ]}
+            />
             <div className="absolute top-0 left-0 w-72 h-72 bg-white/5 rounded-full blur-3xl" />
             <div className="absolute bottom-0 right-0 w-96 h-96 bg-accent/20 rounded-full blur-3xl" />
 
