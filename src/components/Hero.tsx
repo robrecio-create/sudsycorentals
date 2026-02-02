@@ -98,7 +98,7 @@ const Hero = () => {
             <div className="relative">
               <img
                 src={washerDryerImage}
-                alt="Washer and Dryer Set"
+                alt="White washer and dryer set available for rent in Gulfport, Biloxi, and Ocean Springs Mississippi - Sudsy Co. Rentals"
                 className="w-full max-w-lg animate-float drop-shadow-2xl"
               />
               

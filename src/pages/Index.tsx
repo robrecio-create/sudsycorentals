@@ -30,7 +30,7 @@ const Index = () => {
         <meta property="og:description" content="Skip the laundromat! Affordable washer and dryer rentals in South MS. Free delivery & repairs. No credit checks. Rent today in Gulfport & Biloxi." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://sudsycorentals.com/" />
-        <meta property="og:image" content="https://sudsycorentals.com/favicon.png" />
+        <meta property="og:image" content="https://sudsycorentals.com/og-image.png" />
         <meta property="og:site_name" content="Sudsy Co. Rentals" />
         <meta property="og:locale" content="en_US" />
         
@@ -38,7 +38,7 @@ const Index = () => {
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Washer & Dryer Rental Gulfport, Biloxi, Ocean Springs | Sudsy Co." />
         <meta name="twitter:description" content="Skip the laundromat! Affordable washer and dryer rentals in South MS. Free delivery & repairs. No credit checks." />
-        <meta name="twitter:image" content="https://sudsycorentals.com/favicon.png" />
+        <meta name="twitter:image" content="https://sudsycorentals.com/og-image.png" />
         
         {/* Additional SEO */}
         <meta name="geo.region" content="US-MS" />
