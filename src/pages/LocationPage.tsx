@@ -1,4 +1,4 @@
-import { useParams, Navigate } from "react-router-dom";
+import { useParams, Navigate, Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
 import { Phone, MapPin, Check, Truck, Shield, Clock } from "lucide-react";
@@ -9,6 +9,12 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { FloatingChatButtons } from "@/components/FloatingChatButtons";
 import { locations } from "@/data/locationData";
+
+// Helper to find location slug by city name
+const getSlugByName = (name: string): string | null => {
+  const entry = Object.entries(locations).find(([_, loc]) => loc.name === name);
+  return entry ? entry[0] : null;
+};
 
 const LocationPage = () => {
   const { city } = useParams<{ city: string }>();
@@ -240,15 +246,30 @@ const LocationPage = () => {
                   In addition to {location.name}, we deliver to these Gulf Coast communities:
                 </p>
                 <div className="flex flex-wrap justify-center gap-3">
-                  {location.nearbyAreas.map((area) => (
-                    <span
-                      key={area}
-                      className="inline-flex items-center gap-2 bg-muted px-4 py-2 rounded-full text-foreground font-medium"
-                    >
-                      <MapPin className="h-4 w-4 text-primary" />
-                      {area}
-                    </span>
-                  ))}
+                  {location.nearbyAreas.map((area) => {
+                    const slug = getSlugByName(area);
+                    if (slug) {
+                      return (
+                        <Link
+                          key={area}
+                          to={`/locations/${slug}`}
+                          className="inline-flex items-center gap-2 bg-muted px-4 py-2 rounded-full text-foreground font-medium hover:bg-primary/10 hover:border-primary/30 transition-colors"
+                        >
+                          <MapPin className="h-4 w-4 text-primary" />
+                          {area}
+                        </Link>
+                      );
+                    }
+                    return (
+                      <span
+                        key={area}
+                        className="inline-flex items-center gap-2 bg-muted px-4 py-2 rounded-full text-foreground font-medium"
+                      >
+                        <MapPin className="h-4 w-4 text-primary" />
+                        {area}
+                      </span>
+                    );
+                  })}
                 </div>
               </motion.div>
             </div>
