@@ -107,10 +107,10 @@ const Hero = () => {
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
                 transition={{ delay: 0.5, type: "spring" }}
-                className="absolute -top-4 -right-4 md:top-0 md:right-0 bg-accent rounded-full w-28 h-28 flex flex-col items-center justify-center shadow-xl text-white text-center p-2"
+                className="absolute -top-4 -right-4 md:top-0 md:right-0 bg-accent rounded-full w-32 h-32 flex flex-col items-center justify-center shadow-xl text-white text-center p-2"
               >
-                <span className="text-xl font-bold">$59.99/mo</span>
-                <span className="text-xs font-bold leading-tight">Washer & Dryer Set</span>
+                <span className="text-lg font-bold">$59.99/mo</span>
+                <span className="text-lg font-bold leading-tight">Washer & Dryer Set</span>
               </motion.div>
             </div>
           </motion.div>
