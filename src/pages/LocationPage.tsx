@@ -247,7 +247,7 @@ const LocationPage = () => {
                 className="rounded-2xl overflow-hidden shadow-lg border border-border/50"
               >
                 <iframe
-                  src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=${encodeURIComponent(location.name + ", MS")}&center=${location.coordinates.lat},${location.coordinates.lng}&zoom=12`}
+                  src={`https://www.google.com/maps/embed/v1/place?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=${encodeURIComponent(location.landmark || location.name + ", MS")}&center=${location.coordinates.lat},${location.coordinates.lng}&zoom=14`}
                   width="100%"
                   height="400"
                   style={{ border: 0 }}
