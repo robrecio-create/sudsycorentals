@@ -28,7 +28,7 @@ export const locations: Record<string, LocationData> = {
       "No credit check required",
     ],
     nearbyAreas: ["D'Iberville", "Ocean Springs", "Gulfport", "Gautier"],
-    metaTitle: "Washer & Dryer Rental Biloxi MS | Free Delivery | Sudsy Co.",
+    metaTitle: "Washer & Dryer Rental in Biloxi, MS | Sudsy Co.",
     metaDescription:
       "Rent a washer and dryer in Biloxi, MS with free next-day delivery. Perfect for apartments near Keesler AFB. No credit check. Locally owned. Call (228) 338-3455.",
     coordinates: { lat: 30.3902, lng: -88.8854 },
@@ -47,7 +47,7 @@ export const locations: Record<string, LocationData> = {
       "Flexible month-to-month rentals",
     ],
     nearbyAreas: ["Long Beach", "Biloxi", "Pass Christian", "D'Iberville"],
-    metaTitle: "Washer & Dryer Rental Gulfport MS | Free Delivery | Sudsy Co.",
+    metaTitle: "Gulfport Washer & Dryer Rentals | Next Day Delivery",
     metaDescription:
       "Affordable washer and dryer rentals in Gulfport, MS. Free delivery and installation. No credit check required. The best laundromat alternative. Call (228) 338-3455.",
     coordinates: { lat: 30.3674, lng: -89.0928 },
