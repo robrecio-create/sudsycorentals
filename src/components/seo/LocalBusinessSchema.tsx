@@ -14,7 +14,7 @@ const LocalBusinessSchema = ({ location }: LocalBusinessSchemaProps) => {
     "url": `https://sudsycorentals.com/locations/${location.slug}`,
     "telephone": "+1-228-338-3455",
     "priceRange": "$$",
-    "image": "https://sudsycorentals.com/favicon.png",
+    "image": "https://sudsycorentals.com/og-image.png",
     "address": {
       "@type": "PostalAddress",
       "addressLocality": location.name,

@@ -5,7 +5,7 @@ const HomePageSchema = () => {
     "@id": "https://sudsycorentals.com/#organization",
     "name": "Sudsy Co. Rentals",
     "url": "https://sudsycorentals.com",
-    "logo": "https://sudsycorentals.com/favicon.png",
+    "logo": "https://sudsycorentals.com/og-image.png",
     "description": "Affordable washer and dryer rentals on the Mississippi Gulf Coast. Free delivery, free installation, no credit checks.",
     "telephone": "+1-228-338-3455",
     "address": {
@@ -37,7 +37,7 @@ const HomePageSchema = () => {
     "url": "https://sudsycorentals.com",
     "telephone": "+1-228-338-3455",
     "priceRange": "$$",
-    "image": "https://sudsycorentals.com/favicon.png",
+    "image": "https://sudsycorentals.com/og-image.png",
     "address": {
       "@type": "PostalAddress",
       "addressLocality": "Ocean Springs",

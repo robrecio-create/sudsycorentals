@@ -38,7 +38,7 @@ const LocationPage = () => {
         <meta property="og:description" content={location.metaDescription} />
         <meta property="og:type" content="website" />
         <meta property="og:url" content={`https://sudsycorentals.com/locations/${location.slug}`} />
-        <meta property="og:image" content="https://sudsycorentals.com/favicon.png" />
+        <meta property="og:image" content="https://sudsycorentals.com/og-image.png" />
         <meta property="og:site_name" content="Sudsy Co. Rentals" />
         <meta property="og:locale" content="en_US" />
         
@@ -46,7 +46,7 @@ const LocationPage = () => {
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={location.metaTitle} />
         <meta name="twitter:description" content={location.metaDescription} />
-        <meta name="twitter:image" content="https://sudsycorentals.com/favicon.png" />
+        <meta name="twitter:image" content="https://sudsycorentals.com/og-image.png" />
         
         {/* Additional SEO */}
         <meta name="geo.region" content="US-MS" />
