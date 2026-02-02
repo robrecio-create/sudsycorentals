@@ -311,7 +311,7 @@ const AdminDashboard = () => {
                                   {format((() => {
                                     const [year, month, day] = delivery.scheduled_date.split("-").map(Number);
                                     return new Date(year, month - 1, day);
-                                  })(), "MMM d, yyyy")}
+                                  })(), "EEE, MMM d, yyyy")}
                                 </div>
                                 <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
                                   <Clock className="h-3.5 w-3.5" />
