@@ -11,6 +11,7 @@ export interface LocationData {
     lat: number;
     lng: number;
   };
+  landmark?: string;
 }
 
 export const locations: Record<string, LocationData> = {
@@ -30,7 +31,8 @@ export const locations: Record<string, LocationData> = {
     metaTitle: "Washer & Dryer Rental Biloxi MS | Free Delivery | Sudsy Co.",
     metaDescription:
       "Rent a washer and dryer in Biloxi, MS with free next-day delivery. Perfect for apartments near Keesler AFB. No credit check. Locally owned. Call (228) 338-3455.",
-    coordinates: { lat: 30.3960, lng: -88.8853 },
+    coordinates: { lat: 30.3902, lng: -88.8854 },
+    landmark: "Biloxi Lighthouse, Biloxi, MS",
   },
   gulfport: {
     slug: "gulfport",
