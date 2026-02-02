@@ -6,7 +6,8 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 
-const faqs = [
+// FAQ data exported for schema usage
+export const faqs = [
   {
     question: "What are the lease terms?",
     answer: "We offer washer and dryer rentals on a month-to-month basis with a 6 month minimum. Keep the machines as long as you need them; just call us for a free pickup when you're done. We provide flexibility with no long-term contracts required.",
