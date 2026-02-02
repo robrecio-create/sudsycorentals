@@ -337,7 +337,7 @@ const AdminDashboard = () => {
                               </div>
                             </TableCell>
                             <TableCell>
-                              <div className="max-w-48 truncate text-sm text-muted-foreground">
+                              <div className="max-w-48 max-h-20 overflow-y-auto text-sm text-muted-foreground whitespace-pre-wrap">
                                 {delivery.notes || "—"}
                               </div>
                             </TableCell>
