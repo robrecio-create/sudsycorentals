@@ -512,6 +512,7 @@ export const MachineInventory = () => {
       machine.brand.toLowerCase().includes(searchLower) ||
       machine.model_number?.toLowerCase().includes(searchLower) ||
       machine.serial_number?.toLowerCase().includes(searchLower) ||
+      machine.in_house_id?.toLowerCase().includes(searchLower) ||
       customerName.includes(searchLower);
 
     const matchesStatus = statusFilter === "all" || machine.status === statusFilter;
@@ -570,7 +571,7 @@ export const MachineInventory = () => {
             <div className="relative flex-1">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <Input
-                placeholder="Search by brand, model, serial, or customer..."
+                placeholder="Search by ID, brand, model, serial, or customer..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="pl-9"
