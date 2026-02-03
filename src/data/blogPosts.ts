@@ -1,3 +1,8 @@
+import costComparisonImg from "@/assets/blog/cost-comparison.jpg";
+import hookupGuideImg from "@/assets/blog/hookups-guide.jpg";
+import laundryTipsImg from "@/assets/blog/laundry-tips.jpg";
+import keeslerMilitaryImg from "@/assets/blog/keesler-military.jpg";
+
 export interface BlogPost {
   slug: string;
   title: string;
@@ -15,6 +20,7 @@ export interface BlogPost {
 export const blogPosts: BlogPost[] = [
   {
     slug: "washer-dryer-rental-vs-laundromat-cost-comparison",
+    featuredImage: costComparisonImg,
     title: "Washer & Dryer Rental vs. Laundromat: A Cost Comparison",
     excerpt: "Discover how much you could save by renting a washer and dryer instead of using the laundromat every week. We break down the real numbers.",
     content: `
@@ -72,6 +78,7 @@ Contact Sudsy Co. Rentals today and start saving money while gaining convenience
   },
   {
     slug: "apartment-washer-dryer-hookups-guide",
+    featuredImage: hookupGuideImg,
     title: "Do I Have Washer & Dryer Hookups? A Renter's Guide",
     excerpt: "Not sure if your apartment has the right connections for a washer and dryer? Here's how to check and what to look for.",
     content: `
@@ -127,6 +134,7 @@ Not sure about your hookups? Give us a call at (228) 338-3455 and we'll help you
   },
   {
     slug: "best-laundry-tips-save-time-money",
+    featuredImage: laundryTipsImg,
     title: "10 Laundry Tips to Save Time and Money",
     excerpt: "Make the most of your washer and dryer rental with these expert tips for efficient, cost-effective laundry.",
     content: `
@@ -197,6 +205,7 @@ When you rent from Sudsy Co., maintenance is included! If anything goes wrong, w
   },
   {
     slug: "keesler-afb-washer-dryer-rental",
+    featuredImage: keeslerMilitaryImg,
     title: "Washer & Dryer Rentals for Keesler AFB Personnel",
     excerpt: "Military families at Keesler Air Force Base love our flexible, no-commitment appliance rentals. Here's why we're the top choice for service members.",
     content: `
