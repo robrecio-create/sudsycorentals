@@ -111,7 +111,7 @@ const machineSchema = z.object({
   in_house_id: z.string().max(50, "In House ID must be less than 50 characters").optional().nullable(),
   location: z.enum(["Warehouse", "Storage", "Out"]),
   customer_location: z.string().max(200, "Customer location must be less than 200 characters").optional().nullable(),
-  status: z.enum(["available", "rented", "maintenance", "retired"]),
+  status: z.enum(["available", "rented", "maintenance", "retired", "sold"]),
   customer_id: z.string().uuid().optional().nullable(),
   purchase_cost: z.number().min(0, "Cost must be positive").optional().nullable(),
   purchase_from: z.string().max(200, "Purchase from must be less than 200 characters").optional().nullable(),
@@ -137,6 +137,7 @@ const statusColors: Record<string, string> = {
   rented: "bg-blue-100 text-blue-800 border-blue-200",
   maintenance: "bg-yellow-100 text-yellow-800 border-yellow-200",
   retired: "bg-gray-100 text-gray-800 border-gray-200",
+  sold: "bg-emerald-100 text-emerald-800 border-emerald-200",
 };
 
 const typeColors: Record<string, string> = {
@@ -274,7 +275,7 @@ export const MachineInventory = () => {
       in_house_id: machine.in_house_id || "",
       location: (machine.location as "Warehouse" | "Storage" | "Out") || "Warehouse",
       customer_location: machine.customer_location || "",
-      status: machine.status as "available" | "rented" | "maintenance" | "retired",
+      status: machine.status as "available" | "rented" | "maintenance" | "retired" | "sold",
       customer_id: machine.customer_id || null,
       purchase_cost: machine.purchase_cost,
       purchase_from: machine.purchase_from || "",
@@ -587,6 +588,7 @@ export const MachineInventory = () => {
                 <SelectItem value="rented">Rented</SelectItem>
                 <SelectItem value="maintenance">Maintenance</SelectItem>
                 <SelectItem value="retired">Retired</SelectItem>
+                <SelectItem value="sold">Sold</SelectItem>
               </SelectContent>
             </Select>
             <Button onClick={fetchMachines} variant="outline">
@@ -791,7 +793,7 @@ export const MachineInventory = () => {
                   onValueChange={(value) =>
                     setFormData({
                       ...formData,
-                      status: value as "available" | "rented" | "maintenance" | "retired",
+                      status: value as "available" | "rented" | "maintenance" | "retired" | "sold",
                     })
                   }
                 >
@@ -803,6 +805,7 @@ export const MachineInventory = () => {
                     <SelectItem value="rented">Rented</SelectItem>
                     <SelectItem value="maintenance">Maintenance</SelectItem>
                     <SelectItem value="retired">Retired</SelectItem>
+                    <SelectItem value="sold">Sold</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
