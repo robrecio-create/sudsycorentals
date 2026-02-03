@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Send, Phone, Mail, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -23,6 +23,34 @@ import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
+
+// Rate limiting constants
+const RATE_LIMIT_KEY = "contact_form_submissions";
+const MAX_SUBMISSIONS = 3;
+const RATE_LIMIT_WINDOW_MS = 60 * 60 * 1000; // 1 hour
+
+// Rate limiting helper functions
+const getSubmissionHistory = (): number[] => {
+  try {
+    const stored = localStorage.getItem(RATE_LIMIT_KEY);
+    if (!stored) return [];
+    return JSON.parse(stored).filter(
+      (timestamp: number) => Date.now() - timestamp < RATE_LIMIT_WINDOW_MS
+    );
+  } catch {
+    return [];
+  }
+};
+
+const recordSubmission = (): void => {
+  const history = getSubmissionHistory();
+  history.push(Date.now());
+  localStorage.setItem(RATE_LIMIT_KEY, JSON.stringify(history));
+};
+
+const isRateLimited = (): boolean => {
+  return getSubmissionHistory().length >= MAX_SUBMISSIONS;
+};
 
 type InquiryType = "general" | "repair" | "pickup" | "";
 type ApplianceType = "washer" | "dryer" | "";
@@ -50,12 +78,41 @@ const Contact = () => {
   const [phone, setPhone] = useState("");
   const [message, setMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  
+  // Honeypot field - bots will fill this, humans won't see it
+  const [honeypot, setHoneypot] = useState("");
+  
+  // Track form render time to detect bots submitting too quickly
+  const formLoadTime = useRef<number>(Date.now());
+  const MIN_SUBMISSION_TIME_MS = 3000; // Minimum 3 seconds to submit
 
   const needsScheduling = inquiryType === "repair" || inquiryType === "pickup";
   const isRepair = inquiryType === "repair";
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Bot detection: Check honeypot field
+    if (honeypot) {
+      // Silently reject - bot detected
+      console.warn("Bot submission detected via honeypot");
+      toast.success("Your inquiry has been submitted! We'll contact you soon.");
+      return;
+    }
+    
+    // Bot detection: Check if form was submitted too quickly
+    const submissionTime = Date.now() - formLoadTime.current;
+    if (submissionTime < MIN_SUBMISSION_TIME_MS) {
+      console.warn("Bot submission detected via timing");
+      toast.success("Your inquiry has been submitted! We'll contact you soon.");
+      return;
+    }
+    
+    // Rate limiting check
+    if (isRateLimited()) {
+      toast.error("Too many submissions. Please try again in an hour.");
+      return;
+    }
     
     // Basic validation
     if (!name.trim() || !email.trim() || !phone.trim() || !inquiryType) {
@@ -91,6 +148,12 @@ const Contact = () => {
       const { error } = await supabase.from("contact_submissions").insert(submissionData);
 
       if (error) throw error;
+
+      // Record successful submission for rate limiting
+      recordSubmission();
+      
+      // Reset form load time for potential next submission
+      formLoadTime.current = Date.now();
 
       // Send email notification (fire and forget - don't block success)
       supabase.functions.invoke("send-contact-notification", {
@@ -210,7 +273,31 @@ const Contact = () => {
             <form
               onSubmit={handleSubmit}
               className="bg-background rounded-2xl p-8 shadow-soft space-y-6"
+              autoComplete="off"
             >
+              {/* Honeypot field - hidden from users, bots will fill it */}
+              <div 
+                aria-hidden="true" 
+                style={{ 
+                  position: 'absolute', 
+                  left: '-9999px', 
+                  opacity: 0, 
+                  height: 0, 
+                  overflow: 'hidden' 
+                }}
+              >
+                <label htmlFor="website">Website</label>
+                <input
+                  type="text"
+                  id="website"
+                  name="website"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  value={honeypot}
+                  onChange={(e) => setHoneypot(e.target.value)}
+                />
+              </div>
+              
               {/* Basic Info */}
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="space-y-2">
