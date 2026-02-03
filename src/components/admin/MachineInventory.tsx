@@ -86,6 +86,8 @@ interface Machine {
   tested: boolean | null;
   notes: string | null;
   photos_link: string | null;
+  sale_price: number | null;
+  sold_date: string | null;
   created_at: string;
   updated_at: string;
   customers?: Customer | null;
@@ -119,6 +121,8 @@ const machineSchema = z.object({
   tested: z.boolean().optional().nullable(),
   notes: z.string().max(1000, "Notes must be less than 1000 characters").optional().nullable(),
   photos_link: z.string().url("Must be a valid URL").max(500, "Link must be less than 500 characters").optional().nullable().or(z.literal("")),
+  sale_price: z.number().min(0, "Sale price must be positive").optional().nullable(),
+  sold_date: z.string().optional().nullable(),
 });
 
 type MachineFormData = z.infer<typeof machineSchema>;
@@ -162,6 +166,8 @@ const defaultFormData: MachineFormData = {
   tested: false,
   notes: "",
   photos_link: "",
+  sale_price: null,
+  sold_date: "",
 };
 
 const defaultRentalFormData: RentalFormData = {
@@ -283,6 +289,8 @@ export const MachineInventory = () => {
       tested: machine.tested || false,
       notes: machine.notes || "",
       photos_link: machine.photos_link || "",
+      sale_price: machine.sale_price,
+      sold_date: machine.sold_date || "",
     });
     setFormErrors({});
     setIsDialogOpen(true);
@@ -352,6 +360,8 @@ export const MachineInventory = () => {
         tested: formData.tested,
         notes: formData.notes?.trim() || null,
         photos_link: formData.photos_link?.trim() || null,
+        sale_price: formData.sale_price,
+        sold_date: formData.sold_date || null,
       };
 
       if (editingMachine) {
@@ -950,6 +960,39 @@ export const MachineInventory = () => {
                 />
               </div>
             </div>
+
+            {/* Sale Fields - Only shown when status is "sold" */}
+            {formData.status === "sold" && (
+              <div className="grid grid-cols-2 gap-4 p-4 bg-emerald-50 border border-emerald-200 rounded-lg">
+                <div className="space-y-2">
+                  <Label htmlFor="sale_price">Sale Price ($) *</Label>
+                  <Input
+                    id="sale_price"
+                    type="number"
+                    step="0.01"
+                    min="0"
+                    value={formData.sale_price || ""}
+                    onChange={(e) =>
+                      setFormData({
+                        ...formData,
+                        sale_price: e.target.value ? parseFloat(e.target.value) : null,
+                      })
+                    }
+                    placeholder="0.00"
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <Label htmlFor="sold_date">Date Sold *</Label>
+                  <Input
+                    id="sold_date"
+                    type="date"
+                    value={formData.sold_date || ""}
+                    onChange={(e) => setFormData({ ...formData, sold_date: e.target.value })}
+                  />
+                </div>
+              </div>
+            )}
 
             <div className="space-y-2">
               <Label htmlFor="photos_link">Photos Link (Google Photos URL)</Label>

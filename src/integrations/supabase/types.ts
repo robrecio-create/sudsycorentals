@@ -177,7 +177,9 @@ export type Database = {
           photos_link: string | null
           purchase_cost: number | null
           purchase_from: string | null
+          sale_price: number | null
           serial_number: string | null
+          sold_date: string | null
           status: string
           tested: boolean | null
           type: string
@@ -198,7 +200,9 @@ export type Database = {
           photos_link?: string | null
           purchase_cost?: number | null
           purchase_from?: string | null
+          sale_price?: number | null
           serial_number?: string | null
+          sold_date?: string | null
           status?: string
           tested?: boolean | null
           type: string
@@ -219,7 +223,9 @@ export type Database = {
           photos_link?: string | null
           purchase_cost?: number | null
           purchase_from?: string | null
+          sale_price?: number | null
           serial_number?: string | null
+          sold_date?: string | null
           status?: string
           tested?: boolean | null
           type?: string

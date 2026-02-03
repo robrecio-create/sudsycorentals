@@ -7,6 +7,7 @@ import {
   Package,
   Users,
   CreditCard,
+  DollarSign,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -18,6 +19,7 @@ import { MachineInventory } from "@/components/admin/MachineInventory";
 import { CustomerManagement } from "@/components/admin/CustomerManagement";
 import { SubscriptionManagement } from "@/components/admin/SubscriptionManagement";
 import { DeliveryManagement } from "@/components/admin/DeliveryManagement";
+import { SalesReport } from "@/components/admin/SalesReport";
 
 const AdminDashboard = () => {
   const navigate = useNavigate();
@@ -93,6 +95,10 @@ const AdminDashboard = () => {
               <Package className="h-4 w-4" />
               Machines
             </TabsTrigger>
+            <TabsTrigger value="sales" className="gap-2">
+              <DollarSign className="h-4 w-4" />
+              Sales
+            </TabsTrigger>
             <TabsTrigger value="customers" className="gap-2">
               <Users className="h-4 w-4" />
               Customers
@@ -113,6 +119,10 @@ const AdminDashboard = () => {
 
           <TabsContent value="machines">
             <MachineInventory />
+          </TabsContent>
+
+          <TabsContent value="sales">
+            <SalesReport />
           </TabsContent>
 
           <TabsContent value="customers">
