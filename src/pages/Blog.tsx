@@ -95,9 +95,19 @@ const Blog = () => {
                   >
                     <Link to={`/blog/${post.slug}`}>
                       <div className="bg-card border border-border rounded-2xl overflow-hidden h-full transition-all duration-300 hover:shadow-lg hover:border-primary/50 hover:-translate-y-1">
-                        {/* Placeholder gradient for featured image */}
-                        <div className="h-48 bg-gradient-to-br from-primary/20 via-secondary/30 to-primary/10 flex items-center justify-center">
-                          <span className="text-4xl">📝</span>
+                        {/* Featured image */}
+                        <div className="h-48 bg-gradient-to-br from-primary/20 via-secondary/30 to-primary/10 overflow-hidden">
+                          {post.featuredImage ? (
+                            <img 
+                              src={post.featuredImage} 
+                              alt={post.title}
+                              className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                            />
+                          ) : (
+                            <div className="w-full h-full flex items-center justify-center">
+                              <span className="text-4xl">📝</span>
+                            </div>
+                          )}
                         </div>
                         
                         <div className="p-6">
