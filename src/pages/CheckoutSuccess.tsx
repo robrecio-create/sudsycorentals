@@ -200,9 +200,9 @@ const CheckoutSuccess = () => {
                       disabled={(date) => {
                         const today = new Date();
                         today.setHours(0, 0, 0, 0);
-                        // Disable past dates, Sundays, and dates more than 30 days out
+                        // Disable past dates, today (same-day), Sundays, and dates more than 30 days out
                         return (
-                          date < today ||
+                          date <= today ||
                           date.getDay() === 0 ||
                           date > new Date(today.getTime() + 30 * 24 * 60 * 60 * 1000)
                         );
