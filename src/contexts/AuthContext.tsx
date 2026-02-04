@@ -51,8 +51,23 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       }
 
       try {
-        const { data, error } = await supabase.functions.invoke("check-subscription");
+        const { data, error } = await supabase.functions.invoke("check-subscription", {
+          // Be explicit: prevents relying on any potentially stale global auth header.
+          headers: { Authorization: `Bearer ${effectiveSession.access_token}` },
+        });
+
         if (error) {
+          const msg = (error as any)?.message ?? String(error);
+          const status = (error as any)?.status;
+
+          // If the backend says the session is missing/revoked, clear local session
+          // so the UI doesn't get stuck in a 500/blank-screen loop.
+          if (status === 401 || /Auth session missing/i.test(msg) || /Unauthorized/i.test(msg)) {
+            await supabase.auth.signOut();
+            setSubscription({ subscribed: false, productId: null, subscriptionEnd: null });
+            return;
+          }
+
           console.error("Error checking subscription:", error);
           return;
         }
