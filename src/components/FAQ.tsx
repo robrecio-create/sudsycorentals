@@ -26,7 +26,7 @@ export const faqs = [
   },
   {
     question: "What do the machines look like?",
-    answer: "Our standard machines consist of side-by-side white washers and dryers with agitators. Typically, the washing machines have about 3.5 cubic feet of interior space. We strive to provide matching washer and dryer sets; however, you may receive units of different brands.",
+    answer: "Our standard machines consist of side-by-side white washers and dryers with agitators. Typically, the washing machines have about 3.5 cubic feet of interior space. We strive to provide matching washer and dryer sets; however, you may receive units of different brands. Please note that as these are rental units, they may show signs of wear such as scratches and small dents.",
   },
   {
     question: "How do payments work?",
