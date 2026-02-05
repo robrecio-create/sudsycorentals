@@ -23,6 +23,7 @@ export type Database = {
           inquiry_type: string
           message: string | null
           name: string
+          notification_sent: boolean
           phone: string
           preferred_date: string | null
           preferred_time: string | null
@@ -38,6 +39,7 @@ export type Database = {
           inquiry_type: string
           message?: string | null
           name: string
+          notification_sent?: boolean
           phone: string
           preferred_date?: string | null
           preferred_time?: string | null
@@ -53,6 +55,7 @@ export type Database = {
           inquiry_type?: string
           message?: string | null
           name?: string
+          notification_sent?: boolean
           phone?: string
           preferred_date?: string | null
           preferred_time?: string | null
