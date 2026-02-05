@@ -26,6 +26,32 @@ const inquiryLabels: Record<string, string> = {
   pickup: "Pick Up Request",
 };
 
+// Rate limit: max emails per IP within time window
+const RATE_LIMIT_MAX_REQUESTS = 5;
+const RATE_LIMIT_WINDOW_MS = 60 * 60 * 1000; // 1 hour
+const ipRequestLog = new Map<string, { count: number; resetAt: number }>();
+
+/**
+ * Check if the request is rate limited by IP
+ */
+function isRateLimited(ip: string): boolean {
+  const now = Date.now();
+  const record = ipRequestLog.get(ip);
+  
+  if (!record || now > record.resetAt) {
+    // Reset or create new record
+    ipRequestLog.set(ip, { count: 1, resetAt: now + RATE_LIMIT_WINDOW_MS });
+    return false;
+  }
+  
+  if (record.count >= RATE_LIMIT_MAX_REQUESTS) {
+    return true;
+  }
+  
+  record.count++;
+  return false;
+}
+
 /**
  * Escape HTML special characters to prevent XSS attacks in email content
  */
@@ -40,32 +66,53 @@ function escapeHtml(unsafe: string | null | undefined): string {
 }
 
 /**
- * Validate that the submission ID exists in the database
- * This ensures only legitimate form submissions can trigger emails
+ * Validate that the submission exists in the database, was created recently,
+ * and hasn't already been notified. Returns the submission ID if valid.
  */
 async function validateSubmission(
   supabaseClient: any,
   submissionData: ContactNotificationRequest
-): Promise<boolean> {
-  // Verify the submission exists in the database by matching key fields
+): Promise<string | null> {
+  // Calculate the timestamp for 2 minutes ago (allow some delay for edge function invocation)
+  const twoMinutesAgo = new Date(Date.now() - 2 * 60 * 1000).toISOString();
+  
+  // Verify the submission exists, was created recently, and hasn't been notified yet
   const { data, error } = await supabaseClient
     .from("contact_submissions")
-    .select("id")
+    .select("id, created_at, notification_sent")
     .eq("email", submissionData.email)
     .eq("name", submissionData.name)
     .eq("phone", submissionData.phone)
     .eq("inquiry_type", submissionData.inquiry_type)
+    .eq("notification_sent", false)
+    .gte("created_at", twoMinutesAgo)
     .order("created_at", { ascending: false })
     .limit(1)
     .maybeSingle();
 
   if (error) {
     console.error("Error validating submission:", error);
-    return false;
+    return null;
   }
 
-  // Check if a matching submission was created recently (within last 60 seconds)
-  return !!data;
+  return data?.id || null;
+}
+
+/**
+ * Mark a submission as notified to prevent duplicate emails
+ */
+async function markAsNotified(
+  supabaseClient: any,
+  submissionId: string
+): Promise<void> {
+  const { error } = await supabaseClient
+    .from("contact_submissions")
+    .update({ notification_sent: true })
+    .eq("id", submissionId);
+
+  if (error) {
+    console.error("Error marking submission as notified:", error);
+  }
 }
 
 serve(async (req: Request): Promise<Response> => {
@@ -75,6 +122,22 @@ serve(async (req: Request): Promise<Response> => {
   }
 
   try {
+    // Rate limit check by IP
+    const clientIp = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || 
+                     req.headers.get("x-real-ip") || 
+                     "unknown";
+    
+    if (isRateLimited(clientIp)) {
+      console.warn(`Rate limit exceeded for IP: ${clientIp}`);
+      return new Response(
+        JSON.stringify({ success: false, error: "Rate limit exceeded. Please try again later." }),
+        {
+          status: 429,
+          headers: { "Content-Type": "application/json", ...corsHeaders },
+        }
+      );
+    }
+
     const resendApiKey = Deno.env.get("RESEND_API_KEY");
     if (!resendApiKey) {
       throw new Error("RESEND_API_KEY is not configured");
@@ -104,13 +167,13 @@ serve(async (req: Request): Promise<Response> => {
       );
     }
 
-    // Validate that this submission exists in the database
-    // This prevents direct API abuse - only database-inserted records trigger emails
-    const isValidSubmission = await validateSubmission(supabaseClient, data);
-    if (!isValidSubmission) {
-      console.warn("Submission validation failed - no matching record in database");
+    // Validate that this submission exists, is recent, and hasn't been notified
+    // This prevents direct API abuse and duplicate emails
+    const submissionId = await validateSubmission(supabaseClient, data);
+    if (!submissionId) {
+      console.warn("Submission validation failed - no matching recent un-notified record");
       return new Response(
-        JSON.stringify({ success: false, error: "Invalid submission" }),
+        JSON.stringify({ success: false, error: "Invalid or already processed submission" }),
         {
           status: 403,
           headers: { "Content-Type": "application/json", ...corsHeaders },
@@ -173,6 +236,9 @@ serve(async (req: Request): Promise<Response> => {
     });
 
     console.log("Email sent successfully:", emailResponse);
+
+    // Mark the submission as notified to prevent duplicate emails
+    await markAsNotified(supabaseClient, submissionId);
 
     return new Response(JSON.stringify({ success: true, data: emailResponse }), {
       status: 200,
