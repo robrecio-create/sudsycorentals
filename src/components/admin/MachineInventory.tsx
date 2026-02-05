@@ -58,6 +58,7 @@ import {
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
+import { DualScrollTable } from "@/components/ui/dual-scroll-table";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import { z } from "zod";
@@ -626,7 +627,7 @@ export const MachineInventory = () => {
               No machines found
             </div>
           ) : (
-            <div className="overflow-x-auto">
+            <DualScrollTable>
               <Table>
                 <TableHeader>
                   <TableRow>
@@ -754,7 +755,7 @@ export const MachineInventory = () => {
                   ))}
                 </TableBody>
               </Table>
-            </div>
+            </DualScrollTable>
           )}
         </CardContent>
       </Card>
