@@ -43,14 +43,21 @@ export const DualScrollTable = React.forwardRef<HTMLDivElement, DualScrollTableP
 
     return (
       <div className={cn("relative", className)} ref={ref} {...props}>
-        {/* Top scroll bar */}
-        <div
-          ref={topScrollRef}
-          onScroll={handleTopScroll}
-          className="overflow-x-auto overflow-y-hidden h-[18px] border-b border-border"
-        >
-          <div style={{ width: contentWidth, height: 1 }} />
-        </div>
+        {/* Top scroll bar - only show when content overflows */}
+        {contentWidth > 0 && (
+          <div
+            ref={topScrollRef}
+            onScroll={handleTopScroll}
+            className="overflow-x-scroll overflow-y-hidden border-b border-border"
+            style={{ 
+              height: 16,
+              scrollbarWidth: 'auto',
+              WebkitOverflowScrolling: 'touch'
+            }}
+          >
+            <div style={{ width: contentWidth, height: 16 }} />
+          </div>
+        )}
 
         {/* Content with bottom scroll bar */}
         <div
