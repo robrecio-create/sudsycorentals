@@ -106,9 +106,7 @@ export const Reviews = () => {
 
         <div className="text-center mt-8">
           <a
-            href="https://maps.google.com/?q=Sudsy+Co+Rentals+Ocean+Springs+MS"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/review"
             className="inline-flex items-center gap-2 text-primary hover:text-primary/80 font-medium transition-colors"
           >
             Leave us a review on Google
