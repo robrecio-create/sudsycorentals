@@ -290,7 +290,10 @@ const Dashboard = () => {
                         <div className="flex items-center gap-2">
                           <Calendar className="h-4 w-4 text-primary" />
                           <span className="font-semibold text-foreground">
-                            {format(new Date(upcomingDelivery.scheduled_date), "EEEE, MMMM d, yyyy")}
+                            {format((() => {
+                              const [year, month, day] = upcomingDelivery.scheduled_date.split("-").map(Number);
+                              return new Date(year, month - 1, day);
+                            })(), "EEEE, MMMM d, yyyy")}
                           </span>
                         </div>
                         <Badge
@@ -341,7 +344,10 @@ const Dashboard = () => {
                               <div className="flex items-center gap-3">
                                 <Calendar className="h-4 w-4 text-muted-foreground" />
                                 <span className="text-sm text-foreground">
-                                  {format(new Date(delivery.scheduled_date), "MMM d, yyyy")}
+                                  {format((() => {
+                                    const [year, month, day] = delivery.scheduled_date.split("-").map(Number);
+                                    return new Date(year, month - 1, day);
+                                  })(), "MMM d, yyyy")}
                                 </span>
                                 <span className="text-sm text-muted-foreground">
                                   {delivery.time_window}
