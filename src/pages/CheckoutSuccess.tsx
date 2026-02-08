@@ -89,28 +89,54 @@ const CheckoutSuccess = () => {
     setIsSubmitting(true);
 
     try {
+      const customerName = user.user_metadata?.full_name || user.email?.split("@")[0] || null;
+      const customerEmail = user.email || null;
+      const scheduledDateStr = format(selectedDate, "yyyy-MM-dd");
+
       const { error } = await supabase.from("delivery_schedules").insert({
         user_id: user.id,
-        scheduled_date: format(selectedDate, "yyyy-MM-dd"),
+        scheduled_date: scheduledDateStr,
         time_window: selectedTime,
         street_address: address.trim(),
         city: city.trim(),
         zip_code: zipCode.trim(),
         phone: phone.trim(),
         notes: notes.trim() || null,
-        customer_name: user.user_metadata?.full_name || user.email?.split("@")[0] || null,
-        customer_email: user.email || null,
+        customer_name: customerName,
+        customer_email: customerEmail,
       });
 
       if (error) {
         throw error;
       }
 
+      // Send confirmation email (non-blocking)
+      if (customerEmail) {
+        supabase.functions.invoke("send-delivery-confirmation", {
+          body: {
+            customerEmail,
+            customerName,
+            scheduledDate: scheduledDateStr,
+            timeWindow: selectedTime,
+            streetAddress: address.trim(),
+            city: city.trim(),
+            zipCode: zipCode.trim(),
+          },
+        }).catch((err) => console.error("Failed to send confirmation email:", err));
+      }
+
       toast.success("Delivery scheduled! We'll see you soon.");
       navigate("/");
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error scheduling delivery:", error);
-      toast.error("Failed to schedule delivery. Please try again.");
+      // Check for the specific error messages from our trigger
+      if (error.message?.includes("Maximum of 2 deliveries")) {
+        toast.error("This date is fully booked. Please select another date.");
+      } else if (error.message?.includes("time slot is already booked")) {
+        toast.error("This time slot was just booked. Please select a different time.");
+      } else {
+        toast.error("Failed to schedule delivery. Please try again.");
+      }
     } finally {
       setIsSubmitting(false);
     }
