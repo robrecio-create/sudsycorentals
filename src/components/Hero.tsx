@@ -49,14 +49,14 @@ const Hero = () => {
             </p>
 
             {/* Benefits */}
-            <div className="flex flex-wrap justify-center lg:justify-start gap-4 mb-8">
+            <div className="flex flex-wrap justify-center lg:justify-start gap-6 mb-8">
               {benefits.map((benefit) => (
                 <div
                   key={benefit}
-                  className="flex items-center gap-2 bg-white/15 backdrop-blur-sm text-primary-foreground px-4 py-2 rounded-full"
+                  className="flex items-center gap-3 bg-white/15 backdrop-blur-sm text-primary-foreground px-8 py-4 rounded-full"
                 >
-                  <CheckCircle2 className="h-5 w-5 text-accent" />
-                  <span className="font-medium">{benefit}</span>
+                  <CheckCircle2 className="h-10 w-10 text-accent" />
+                  <span className="font-semibold text-xl">{benefit}</span>
                 </div>
               ))}
             </div>
