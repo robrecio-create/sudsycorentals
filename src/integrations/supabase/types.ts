@@ -113,6 +113,30 @@ export type Database = {
         }
         Relationships: []
       }
+      delivery_blackout_dates: {
+        Row: {
+          blackout_date: string
+          created_at: string
+          created_by: string | null
+          id: string
+          reason: string | null
+        }
+        Insert: {
+          blackout_date: string
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          reason?: string | null
+        }
+        Update: {
+          blackout_date?: string
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          reason?: string | null
+        }
+        Relationships: []
+      }
       delivery_schedules: {
         Row: {
           city: string

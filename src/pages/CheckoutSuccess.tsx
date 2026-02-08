@@ -24,7 +24,7 @@ import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
-import { useDeliveryAvailability } from "@/hooks/useDeliveryAvailability";
+import { useDeliveryAvailability, useBlackoutDates } from "@/hooks/useDeliveryAvailability";
 
 const timeSlots = [
   "Morning (8AM-12PM)",
@@ -47,7 +47,7 @@ const CheckoutSuccess = () => {
   const [notes, setNotes] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { availability, loading: availabilityLoading } = useDeliveryAvailability(selectedDate);
-
+  const { blackoutDates } = useBlackoutDates();
   // Reset time selection when date changes and slot becomes unavailable
   useEffect(() => {
     if (availability && selectedTime) {
@@ -238,12 +238,27 @@ const CheckoutSuccess = () => {
                       disabled={(date) => {
                         const today = new Date();
                         today.setHours(0, 0, 0, 0);
-                        // Disable past dates, today (same-day), Sundays, and dates more than 30 days out
+                        const dateStr = format(date, "yyyy-MM-dd");
+                        // Disable past dates, today (same-day), Sundays, blackout dates, and dates more than 30 days out
                         return (
                           date <= today ||
                           date.getDay() === 0 ||
-                          date > new Date(today.getTime() + 30 * 24 * 60 * 60 * 1000)
+                          date > new Date(today.getTime() + 30 * 24 * 60 * 60 * 1000) ||
+                          blackoutDates.includes(dateStr)
                         );
+                      }}
+                      modifiers={{
+                        blackedOut: blackoutDates.map((d) => {
+                          const [year, month, day] = d.split("-").map(Number);
+                          return new Date(year, month - 1, day);
+                        }),
+                      }}
+                      modifiersStyles={{
+                        blackedOut: {
+                          backgroundColor: "hsl(var(--destructive) / 0.2)",
+                          color: "hsl(var(--destructive))",
+                          textDecoration: "line-through",
+                        },
                       }}
                       initialFocus
                       className={cn("p-3 pointer-events-auto")}
@@ -285,7 +300,15 @@ const CheckoutSuccess = () => {
                     })}
                   </SelectContent>
                 </Select>
-                {availability?.isFull && (
+                {availability?.isBlackedOut && (
+                  <p className="text-sm text-destructive flex items-center gap-1">
+                    <AlertCircle className="h-4 w-4" />
+                    {availability.blackoutReason 
+                      ? `Not available: ${availability.blackoutReason}` 
+                      : "This date is not available for deliveries."}
+                  </p>
+                )}
+                {!availability?.isBlackedOut && availability?.isFull && (
                   <p className="text-sm text-destructive flex items-center gap-1">
                     <AlertCircle className="h-4 w-4" />
                     This date is fully booked. Please select another date.

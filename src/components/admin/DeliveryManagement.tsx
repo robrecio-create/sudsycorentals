@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { format } from "date-fns";
 import {
-  Calendar,
+  Calendar as CalendarIcon,
   MapPin,
   Phone,
   Clock,
@@ -10,12 +10,15 @@ import {
   RefreshCw,
   Pencil,
   Trash2,
+  CalendarOff,
+  Plus,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { Calendar } from "@/components/ui/calendar";
 import {
   Table,
   TableBody,
@@ -56,11 +59,24 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import type { Tables } from "@/integrations/supabase/types";
+import { cn } from "@/lib/utils";
 
 type DeliverySchedule = Tables<"delivery_schedules">;
+
+interface BlackoutDate {
+  id: string;
+  blackout_date: string;
+  reason: string | null;
+  created_at: string;
+}
 
 const statusColors: Record<string, string> = {
   pending: "bg-yellow-100 text-yellow-800 border-yellow-200",
@@ -85,6 +101,14 @@ export function DeliveryManagement() {
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState<string>("all");
+  
+  // Blackout dates state
+  const [blackoutDates, setBlackoutDates] = useState<BlackoutDate[]>([]);
+  const [blackoutLoading, setBlackoutLoading] = useState(true);
+  const [addBlackoutOpen, setAddBlackoutOpen] = useState(false);
+  const [newBlackoutDate, setNewBlackoutDate] = useState<Date | undefined>();
+  const [newBlackoutReason, setNewBlackoutReason] = useState("");
+  const [deletingBlackout, setDeletingBlackout] = useState<BlackoutDate | null>(null);
   
   // Edit dialog state
   const [editDialogOpen, setEditDialogOpen] = useState(false);
@@ -124,8 +148,27 @@ export function DeliveryManagement() {
     }
   };
 
+  const fetchBlackoutDates = async () => {
+    setBlackoutLoading(true);
+    try {
+      const { data, error } = await supabase
+        .from("delivery_blackout_dates")
+        .select("*")
+        .order("blackout_date", { ascending: true });
+
+      if (error) throw error;
+      setBlackoutDates(data || []);
+    } catch (error) {
+      console.error("Error fetching blackout dates:", error);
+      toast.error("Failed to load blackout dates");
+    } finally {
+      setBlackoutLoading(false);
+    }
+  };
+
   useEffect(() => {
     fetchDeliveries();
+    fetchBlackoutDates();
   }, []);
 
   const updateStatus = async (id: string, newStatus: string) => {
@@ -228,6 +271,65 @@ export function DeliveryManagement() {
     }
   };
 
+  const handleAddBlackout = async () => {
+    if (!newBlackoutDate) {
+      toast.error("Please select a date");
+      return;
+    }
+
+    const dateStr = format(newBlackoutDate, "yyyy-MM-dd");
+    
+    // Check if date already exists
+    if (blackoutDates.some((b) => b.blackout_date === dateStr)) {
+      toast.error("This date is already blacked out");
+      return;
+    }
+
+    try {
+      const { data, error } = await supabase
+        .from("delivery_blackout_dates")
+        .insert({
+          blackout_date: dateStr,
+          reason: newBlackoutReason.trim() || null,
+        })
+        .select()
+        .single();
+
+      if (error) throw error;
+
+      setBlackoutDates((prev) => [...prev, data].sort((a, b) => 
+        a.blackout_date.localeCompare(b.blackout_date)
+      ));
+      toast.success("Blackout date added");
+      setAddBlackoutOpen(false);
+      setNewBlackoutDate(undefined);
+      setNewBlackoutReason("");
+    } catch (error) {
+      console.error("Error adding blackout date:", error);
+      toast.error("Failed to add blackout date");
+    }
+  };
+
+  const handleDeleteBlackout = async () => {
+    if (!deletingBlackout) return;
+
+    try {
+      const { error } = await supabase
+        .from("delivery_blackout_dates")
+        .delete()
+        .eq("id", deletingBlackout.id);
+
+      if (error) throw error;
+
+      setBlackoutDates((prev) => prev.filter((b) => b.id !== deletingBlackout.id));
+      toast.success("Blackout date removed");
+      setDeletingBlackout(null);
+    } catch (error) {
+      console.error("Error deleting blackout date:", error);
+      toast.error("Failed to remove blackout date");
+    }
+  };
+
   const filteredDeliveries = deliveries.filter((delivery) => {
     const matchesSearch =
       delivery.street_address.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -249,8 +351,62 @@ export function DeliveryManagement() {
     completed: deliveries.filter((d) => d.status === "completed").length,
   };
 
+  // Get existing blackout date strings for calendar highlighting
+  const blackoutDateStrings = blackoutDates.map((b) => b.blackout_date);
+
   return (
     <div className="space-y-6">
+      {/* Blackout Dates Card */}
+      <Card>
+        <CardHeader className="pb-3">
+          <div className="flex items-center justify-between">
+            <div>
+              <CardTitle className="flex items-center gap-2">
+                <CalendarOff className="h-5 w-5 text-destructive" />
+                Blackout Dates
+              </CardTitle>
+              <CardDescription>
+                Block dates when deliveries are not available
+              </CardDescription>
+            </div>
+            <Button onClick={() => setAddBlackoutOpen(true)} size="sm">
+              <Plus className="h-4 w-4 mr-2" />
+              Add Blackout
+            </Button>
+          </div>
+        </CardHeader>
+        <CardContent>
+          {blackoutLoading ? (
+            <p className="text-muted-foreground text-sm">Loading...</p>
+          ) : blackoutDates.length === 0 ? (
+            <p className="text-muted-foreground text-sm">No blackout dates set</p>
+          ) : (
+            <div className="flex flex-wrap gap-2">
+              {blackoutDates.map((blackout) => (
+                <Badge
+                  key={blackout.id}
+                  variant="outline"
+                  className="bg-destructive/10 text-destructive border-destructive/20 px-3 py-1.5 flex items-center gap-2"
+                >
+                  <span>
+                    {format(parseDateString(blackout.blackout_date), "EEE, MMM d, yyyy")}
+                    {blackout.reason && (
+                      <span className="text-destructive/70 ml-1">— {blackout.reason}</span>
+                    )}
+                  </span>
+                  <button
+                    onClick={() => setDeletingBlackout(blackout)}
+                    className="hover:bg-destructive/20 rounded p-0.5"
+                  >
+                    <Trash2 className="h-3.5 w-3.5" />
+                  </button>
+                </Badge>
+              ))}
+            </div>
+          )}
+        </CardContent>
+      </Card>
+
       {/* Stats Cards */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <Card>
@@ -354,7 +510,7 @@ export function DeliveryManagement() {
                       <TableCell>
                         <div className="flex flex-col gap-1">
                           <div className="flex items-center gap-1.5 font-medium">
-                            <Calendar className="h-3.5 w-3.5 text-primary" />
+                            <CalendarIcon className="h-3.5 w-3.5 text-primary" />
                             {format(parseDateString(delivery.scheduled_date), "EEE, MMM d, yyyy")}
                           </div>
                           <div className="flex items-center gap-1.5 text-sm text-muted-foreground">
@@ -434,6 +590,99 @@ export function DeliveryManagement() {
           )}
         </CardContent>
       </Card>
+
+      {/* Add Blackout Dialog */}
+      <Dialog open={addBlackoutOpen} onOpenChange={setAddBlackoutOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Add Blackout Date</DialogTitle>
+            <DialogDescription>
+              Select a date to block from delivery scheduling.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4 py-4">
+            <div className="space-y-2">
+              <Label>Date</Label>
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button
+                    variant="outline"
+                    className={cn(
+                      "w-full justify-start text-left font-normal",
+                      !newBlackoutDate && "text-muted-foreground"
+                    )}
+                  >
+                    <CalendarIcon className="mr-2 h-4 w-4" />
+                    {newBlackoutDate ? format(newBlackoutDate, "PPP") : "Select a date"}
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0" align="start">
+                  <Calendar
+                    mode="single"
+                    selected={newBlackoutDate}
+                    onSelect={setNewBlackoutDate}
+                    disabled={(date) => {
+                      const today = new Date();
+                      today.setHours(0, 0, 0, 0);
+                      const dateStr = format(date, "yyyy-MM-dd");
+                      return date < today || blackoutDateStrings.includes(dateStr);
+                    }}
+                    modifiers={{
+                      blackedOut: blackoutDates.map((b) => parseDateString(b.blackout_date)),
+                    }}
+                    modifiersStyles={{
+                      blackedOut: { 
+                        backgroundColor: "hsl(var(--destructive) / 0.2)",
+                        color: "hsl(var(--destructive))",
+                      },
+                    }}
+                    initialFocus
+                    className="p-3 pointer-events-auto"
+                  />
+                </PopoverContent>
+              </Popover>
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="reason">Reason (optional)</Label>
+              <Input
+                id="reason"
+                placeholder="e.g., Holiday, Maintenance, etc."
+                value={newBlackoutReason}
+                onChange={(e) => setNewBlackoutReason(e.target.value)}
+                maxLength={100}
+              />
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setAddBlackoutOpen(false)}>
+              Cancel
+            </Button>
+            <Button onClick={handleAddBlackout}>Add Blackout</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Delete Blackout Confirmation */}
+      <AlertDialog open={!!deletingBlackout} onOpenChange={(open) => !open && setDeletingBlackout(null)}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Remove Blackout Date</AlertDialogTitle>
+            <AlertDialogDescription>
+              Are you sure you want to remove the blackout for{" "}
+              <strong>
+                {deletingBlackout && format(parseDateString(deletingBlackout.blackout_date), "EEEE, MMMM d, yyyy")}
+              </strong>?
+              Customers will be able to schedule deliveries on this date again.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
+            <AlertDialogAction onClick={handleDeleteBlackout}>
+              Remove
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
 
       {/* Edit Dialog */}
       <Dialog open={editDialogOpen} onOpenChange={setEditDialogOpen}>
