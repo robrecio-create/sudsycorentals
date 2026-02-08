@@ -625,7 +625,8 @@ export function DeliveryManagement() {
                       const today = new Date();
                       today.setHours(0, 0, 0, 0);
                       const dateStr = format(date, "yyyy-MM-dd");
-                      return date < today || blackoutDateStrings.includes(dateStr);
+                      // Disable past dates, Sundays (already blocked), and already blacked out dates
+                      return date < today || date.getDay() === 0 || blackoutDateStrings.includes(dateStr);
                     }}
                     modifiers={{
                       blackedOut: blackoutDates.map((b) => parseDateString(b.blackout_date)),
