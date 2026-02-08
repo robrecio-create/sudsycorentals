@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { motion } from "framer-motion";
-import { CheckCircle2, CalendarIcon, Truck, MapPin, ArrowLeft } from "lucide-react";
+import { CheckCircle2, CalendarIcon, Truck, MapPin, ArrowLeft, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -24,6 +24,7 @@ import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
+import { useDeliveryAvailability } from "@/hooks/useDeliveryAvailability";
 
 const timeSlots = [
   "Morning (8AM-12PM)",
@@ -45,6 +46,17 @@ const CheckoutSuccess = () => {
   const [phone, setPhone] = useState("");
   const [notes, setNotes] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { availability, loading: availabilityLoading } = useDeliveryAvailability(selectedDate);
+
+  // Reset time selection when date changes and slot becomes unavailable
+  useEffect(() => {
+    if (availability && selectedTime) {
+      const slotInfo = availability.slots.find((s) => s.slot === selectedTime);
+      if (slotInfo && !slotInfo.available) {
+        setSelectedTime("");
+      }
+    }
+  }, [availability, selectedTime]);
 
   useEffect(() => {
     // Refresh subscription status after successful checkout (only if not schedule-only mode)
@@ -216,18 +228,46 @@ const CheckoutSuccess = () => {
 
               <div className="space-y-2">
                 <Label htmlFor="time">Preferred Time Window *</Label>
-                <Select value={selectedTime} onValueChange={setSelectedTime}>
+                <Select 
+                  value={selectedTime} 
+                  onValueChange={setSelectedTime}
+                  disabled={!selectedDate || availability?.isFull}
+                >
                   <SelectTrigger id="time">
-                    <SelectValue placeholder="Select a time window" />
+                    <SelectValue placeholder={
+                      !selectedDate 
+                        ? "Select a date first" 
+                        : availability?.isFull 
+                          ? "Day fully booked" 
+                          : "Select a time window"
+                    } />
                   </SelectTrigger>
                   <SelectContent>
-                    {timeSlots.map((time) => (
-                      <SelectItem key={time} value={time}>
-                        {time}
-                      </SelectItem>
-                    ))}
+                    {timeSlots.map((time) => {
+                      const slotInfo = availability?.slots.find((s) => s.slot === time);
+                      const isBooked = slotInfo && !slotInfo.available;
+                      return (
+                        <SelectItem 
+                          key={time} 
+                          value={time} 
+                          disabled={isBooked}
+                          className={isBooked ? "text-muted-foreground" : ""}
+                        >
+                          {time} {isBooked && "(Booked)"}
+                        </SelectItem>
+                      );
+                    })}
                   </SelectContent>
                 </Select>
+                {availability?.isFull && (
+                  <p className="text-sm text-destructive flex items-center gap-1">
+                    <AlertCircle className="h-4 w-4" />
+                    This date is fully booked. Please select another date.
+                  </p>
+                )}
+                {availabilityLoading && (
+                  <p className="text-sm text-muted-foreground">Checking availability...</p>
+                )}
               </div>
             </div>
 
