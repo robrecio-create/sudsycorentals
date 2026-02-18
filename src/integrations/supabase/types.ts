@@ -151,7 +151,7 @@ export type Database = {
           street_address: string
           time_window: string
           updated_at: string
-          user_id: string
+          user_id: string | null
           zip_code: string
         }
         Insert: {
@@ -167,7 +167,7 @@ export type Database = {
           street_address: string
           time_window: string
           updated_at?: string
-          user_id: string
+          user_id?: string | null
           zip_code: string
         }
         Update: {
@@ -183,7 +183,7 @@ export type Database = {
           street_address?: string
           time_window?: string
           updated_at?: string
-          user_id?: string
+          user_id?: string | null
           zip_code?: string
         }
         Relationships: []
