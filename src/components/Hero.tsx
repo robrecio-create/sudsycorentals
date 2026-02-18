@@ -76,9 +76,21 @@ const Hero = () => {
                 className="bg-white/10 border-2 border-white text-primary-foreground hover:bg-white hover:text-primary font-semibold text-lg px-8 py-6"
                 asChild
               >
+                <a href="/schedule-delivery">
+                  📅 Schedule Delivery
+                </a>
+              </Button>
+            </div>
+            <div className="mt-4 flex justify-center lg:justify-start">
+              <Button
+                size="lg"
+                variant="ghost"
+                className="text-primary-foreground/80 hover:text-primary-foreground hover:bg-white/10 font-semibold text-lg"
+                asChild
+              >
                 <a href="tel:+12283383455">
                   <Phone className="h-5 w-5 mr-2" />
-                  Call Us
+                  Call Us: (228) 338-3455
                 </a>
               </Button>
             </div>
