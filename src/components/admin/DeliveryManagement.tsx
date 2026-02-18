@@ -110,6 +110,22 @@ export function DeliveryManagement() {
   const [newBlackoutReason, setNewBlackoutReason] = useState("");
   const [deletingBlackout, setDeletingBlackout] = useState<BlackoutDate | null>(null);
   
+  // Add delivery dialog state
+  const [addDeliveryOpen, setAddDeliveryOpen] = useState(false);
+  const [addForm, setAddForm] = useState({
+    customer_name: "",
+    customer_email: "",
+    phone: "",
+    street_address: "",
+    city: "",
+    zip_code: "",
+    scheduled_date: "",
+    time_window: "",
+    notes: "",
+    status: "pending",
+  });
+  const [addingDelivery, setAddingDelivery] = useState(false);
+
   // Edit dialog state
   const [editDialogOpen, setEditDialogOpen] = useState(false);
   const [editingDelivery, setEditingDelivery] = useState<DeliverySchedule | null>(null);
@@ -330,6 +346,56 @@ export function DeliveryManagement() {
     }
   };
 
+  const handleAddDelivery = async () => {
+    if (!addForm.phone || !addForm.street_address || !addForm.city || !addForm.zip_code || !addForm.scheduled_date || !addForm.time_window) {
+      toast.error("Please fill in all required fields");
+      return;
+    }
+
+    setAddingDelivery(true);
+    try {
+      const { data, error } = await supabase
+        .from("delivery_schedules")
+        .insert({
+          customer_name: addForm.customer_name || null,
+          customer_email: addForm.customer_email || null,
+          phone: addForm.phone,
+          street_address: addForm.street_address,
+          city: addForm.city,
+          zip_code: addForm.zip_code,
+          scheduled_date: addForm.scheduled_date,
+          time_window: addForm.time_window,
+          notes: addForm.notes || null,
+          status: addForm.status,
+        })
+        .select()
+        .single();
+
+      if (error) throw error;
+
+      setDeliveries((prev) => [...prev, data].sort((a, b) => a.scheduled_date.localeCompare(b.scheduled_date)));
+      toast.success("Delivery added successfully");
+      setAddDeliveryOpen(false);
+      setAddForm({
+        customer_name: "",
+        customer_email: "",
+        phone: "",
+        street_address: "",
+        city: "",
+        zip_code: "",
+        scheduled_date: "",
+        time_window: "",
+        notes: "",
+        status: "pending",
+      });
+    } catch (error: any) {
+      console.error("Error adding delivery:", error);
+      toast.error(error.message || "Failed to add delivery");
+    } finally {
+      setAddingDelivery(false);
+    }
+  };
+
   const filteredDeliveries = deliveries.filter((delivery) => {
     const matchesSearch =
       delivery.street_address.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -464,6 +530,10 @@ export function DeliveryManagement() {
             <Button onClick={fetchDeliveries} variant="outline">
               <RefreshCw className="h-4 w-4 mr-2" />
               Refresh
+            </Button>
+            <Button onClick={() => setAddDeliveryOpen(true)}>
+              <Plus className="h-4 w-4 mr-2" />
+              Add Delivery
             </Button>
           </div>
         </CardContent>
@@ -684,6 +754,141 @@ export function DeliveryManagement() {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+
+      {/* Add Delivery Dialog */}
+      <Dialog open={addDeliveryOpen} onOpenChange={setAddDeliveryOpen}>
+        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>Add Delivery</DialogTitle>
+            <DialogDescription>
+              Create a new delivery schedule.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="grid gap-4 py-4">
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="add_customer_name">Customer Name</Label>
+                <Input
+                  id="add_customer_name"
+                  value={addForm.customer_name}
+                  onChange={(e) => setAddForm({ ...addForm, customer_name: e.target.value })}
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="add_customer_email">Customer Email</Label>
+                <Input
+                  id="add_customer_email"
+                  type="email"
+                  value={addForm.customer_email}
+                  onChange={(e) => setAddForm({ ...addForm, customer_email: e.target.value })}
+                />
+              </div>
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="add_phone">Phone *</Label>
+              <Input
+                id="add_phone"
+                value={addForm.phone}
+                onChange={(e) => setAddForm({ ...addForm, phone: e.target.value })}
+                required
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="add_street_address">Street Address *</Label>
+              <Input
+                id="add_street_address"
+                value={addForm.street_address}
+                onChange={(e) => setAddForm({ ...addForm, street_address: e.target.value })}
+                required
+              />
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="add_city">City *</Label>
+                <Input
+                  id="add_city"
+                  value={addForm.city}
+                  onChange={(e) => setAddForm({ ...addForm, city: e.target.value })}
+                  required
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="add_zip_code">Zip Code *</Label>
+                <Input
+                  id="add_zip_code"
+                  value={addForm.zip_code}
+                  onChange={(e) => setAddForm({ ...addForm, zip_code: e.target.value })}
+                  required
+                />
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="add_scheduled_date">Scheduled Date *</Label>
+                <Input
+                  id="add_scheduled_date"
+                  type="date"
+                  value={addForm.scheduled_date}
+                  onChange={(e) => setAddForm({ ...addForm, scheduled_date: e.target.value })}
+                  required
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="add_time_window">Time Window *</Label>
+                <Select
+                  value={addForm.time_window}
+                  onValueChange={(value) => setAddForm({ ...addForm, time_window: value })}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select time" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {timeWindows.map((window) => (
+                      <SelectItem key={window} value={window}>
+                        {window}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="add_status">Status</Label>
+              <Select
+                value={addForm.status}
+                onValueChange={(value) => setAddForm({ ...addForm, status: value })}
+              >
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="pending">Pending</SelectItem>
+                  <SelectItem value="confirmed">Confirmed</SelectItem>
+                  <SelectItem value="completed">Completed</SelectItem>
+                  <SelectItem value="cancelled">Cancelled</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="add_notes">Notes</Label>
+              <Textarea
+                id="add_notes"
+                value={addForm.notes}
+                onChange={(e) => setAddForm({ ...addForm, notes: e.target.value })}
+                rows={4}
+              />
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setAddDeliveryOpen(false)}>
+              Cancel
+            </Button>
+            <Button onClick={handleAddDelivery} disabled={addingDelivery}>
+              {addingDelivery ? "Adding..." : "Add Delivery"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
 
       {/* Edit Dialog */}
       <Dialog open={editDialogOpen} onOpenChange={setEditDialogOpen}>
