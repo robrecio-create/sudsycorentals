@@ -19,6 +19,7 @@ import Resources from "./pages/Resources";
 import LaundryCareCheatSheet from "./pages/resources/LaundryCareCheatSheet";
 import HookupChecklist from "./pages/resources/HookupChecklist";
 import ReviewRedirect from "./pages/ReviewRedirect";
+import ScheduleDelivery from "./pages/ScheduleDelivery";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -45,6 +46,7 @@ const App = () => (
               <Route path="/resources" element={<Resources />} />
               <Route path="/resources/laundry-care-cheat-sheet" element={<LaundryCareCheatSheet />} />
               <Route path="/resources/hookup-checklist" element={<HookupChecklist />} />
+              <Route path="/schedule-delivery" element={<ScheduleDelivery />} />
               <Route path="/review" element={<ReviewRedirect />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
