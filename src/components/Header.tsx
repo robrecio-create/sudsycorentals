@@ -17,7 +17,6 @@ const navLinks = [
   { name: "FAQ", href: "/#faq" },
   { name: "Contact", href: "/#contact" },
   { name: "Schedule Delivery", href: "/schedule-delivery" },
-  { name: "$20 Off Promo", href: "/20-dollar-promo" },
 ];
 
 const Header = () => {
