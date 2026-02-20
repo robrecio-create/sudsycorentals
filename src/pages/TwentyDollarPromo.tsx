@@ -462,7 +462,7 @@ const TwentyDollarPromo = () => {
                     Is there a long-term contract?
                   </AccordionTrigger>
                   <AccordionContent className="text-muted-foreground pb-5">
-                    Nope! All rentals are month-to-month with no long-term commitment. You can cancel anytime — no cancellation fees, no hassle. We'll even pick up the machines at no charge.
+                    After the initial 6 month minimum contract you can cancel anytime — no cancellation fees, no hassle. We'll even pick up the machines at no charge.
                   </AccordionContent>
                 </AccordionItem>
               </Accordion>
