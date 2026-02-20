@@ -4,6 +4,7 @@ import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Check, Star, Loader2, ArrowRight, Phone, Gift, Truck, Wrench, Heart, ShieldCheck, Clock, X, MapPin } from "lucide-react";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useAuth } from "@/contexts/AuthContext";
@@ -428,6 +429,43 @@ const TwentyDollarPromo = () => {
               </motion.div>
 
               <LeadCaptureForm />
+            </div>
+          </div>
+        </section>
+
+        {/* FAQ */}
+        <section className="py-16 bg-muted/50">
+          <div className="container mx-auto px-4">
+            <div className="max-w-2xl mx-auto">
+              <h2 className="font-display font-bold text-3xl md:text-4xl text-foreground text-center mb-8">
+                Frequently Asked Questions
+              </h2>
+              <Accordion type="single" collapsible className="space-y-3">
+                <AccordionItem value="own" className="bg-card border border-border rounded-3xl px-6 data-[state=open]:shadow-soft">
+                  <AccordionTrigger className="text-left font-semibold text-foreground hover:no-underline py-5">
+                    Do I own the machines?
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground pb-5">
+                    No — the machines are rented to you on a month-to-month basis. We handle all maintenance and repairs so you never have to worry about ownership costs. If you ever want to stop, simply let us know and we'll pick the units up for free.
+                  </AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="breaks" className="bg-card border border-border rounded-3xl px-6 data-[state=open]:shadow-soft">
+                  <AccordionTrigger className="text-left font-semibold text-foreground hover:no-underline py-5">
+                    What if it breaks?
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground pb-5">
+                    We've got you covered! Repairs are 100% free and included in your rental. We guarantee a fix or a full swap within 48 business hours so you're never without clean laundry for long.
+                  </AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="contract" className="bg-card border border-border rounded-3xl px-6 data-[state=open]:shadow-soft">
+                  <AccordionTrigger className="text-left font-semibold text-foreground hover:no-underline py-5">
+                    Is there a long-term contract?
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground pb-5">
+                    Nope! All rentals are month-to-month with no long-term commitment. You can cancel anytime — no cancellation fees, no hassle. We'll even pick up the machines at no charge.
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
             </div>
           </div>
         </section>
