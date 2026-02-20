@@ -3,7 +3,9 @@ import { useNavigate, Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Check, Star, Loader2, ArrowRight, Phone, Gift, Truck, Wrench, Heart, ShieldCheck, Clock, X } from "lucide-react";
+import { Check, Star, Loader2, ArrowRight, Phone, Gift, Truck, Wrench, Heart, ShieldCheck, Clock, X, MapPin } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
@@ -11,6 +13,81 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { FloatingChatButtons } from "@/components/FloatingChatButtons";
 import logoImage from "@/assets/logo.png";
+
+const SERVICE_CITIES = ["Biloxi", "Gulfport", "Ocean Springs", "D'Iberville", "Gautier", "Pascagoula", "Long Beach"];
+
+const LeadCaptureForm = () => {
+  const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [city, setCity] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+  const { toast } = useToast();
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!name.trim() || !phone.trim() || !city) {
+      toast({ variant: "destructive", title: "Please fill in all fields." });
+      return;
+    }
+    setSubmitting(true);
+    try {
+      const { error } = await supabase.from("contact_submissions").insert({
+        name: name.trim().slice(0, 100),
+        phone: phone.trim().slice(0, 20),
+        email: "promo-lead@placeholder.com",
+        inquiry_type: "general",
+        message: `$20 Promo lead – City: ${city}`,
+      });
+      if (error) throw error;
+      setSubmitted(true);
+      toast({ title: "We'll be in touch!", description: "Thanks for checking availability." });
+    } catch {
+      toast({ variant: "destructive", title: "Something went wrong. Please try again." });
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  if (submitted) {
+    return (
+      <div className="bg-card rounded-2xl p-8 border border-border shadow-soft text-center">
+        <Check className="h-12 w-12 text-primary mx-auto mb-4" />
+        <h3 className="font-display font-bold text-xl text-foreground mb-2">Thank You!</h3>
+        <p className="text-muted-foreground">We'll confirm availability and reach out shortly.</p>
+      </div>
+    );
+  }
+
+  return (
+    <form onSubmit={handleSubmit} className="bg-card rounded-2xl p-8 border border-border shadow-soft space-y-5">
+      <div>
+        <label htmlFor="lead-name" className="block text-sm font-medium text-foreground mb-1.5">Name</label>
+        <Input id="lead-name" placeholder="Your name" value={name} onChange={(e) => setName(e.target.value)} maxLength={100} required />
+      </div>
+      <div>
+        <label htmlFor="lead-phone" className="block text-sm font-medium text-foreground mb-1.5">Phone</label>
+        <Input id="lead-phone" type="tel" placeholder="(228) 555-1234" value={phone} onChange={(e) => setPhone(e.target.value)} maxLength={20} required />
+      </div>
+      <div>
+        <label htmlFor="lead-city" className="block text-sm font-medium text-foreground mb-1.5">City</label>
+        <Select value={city} onValueChange={setCity}>
+          <SelectTrigger id="lead-city">
+            <SelectValue placeholder="Select your city" />
+          </SelectTrigger>
+          <SelectContent>
+            {SERVICE_CITIES.map((c) => (
+              <SelectItem key={c} value={c}>{c}</SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
+      <Button type="submit" size="lg" className="w-full font-semibold" disabled={submitting}>
+        {submitting ? <Loader2 className="h-4 w-4 animate-spin" /> : "Check Availability"}
+      </Button>
+    </form>
+  );
+};
 
 const TwentyDollarPromo = () => {
   const [loadingPackage, setLoadingPackage] = useState<string | null>(null);
@@ -327,6 +404,31 @@ const TwentyDollarPromo = () => {
               </a>{" "}
               to get started. Mention this promo page!
             </p>
+          </div>
+        </section>
+
+        {/* Lead Capture Form */}
+        <section className="py-16 bg-[hsl(200,60%,95%)]">
+          <div className="container mx-auto px-4">
+            <div className="max-w-xl mx-auto">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5 }}
+                className="text-center mb-8"
+              >
+                <div className="inline-flex items-center justify-center h-12 w-12 rounded-full bg-primary/10 text-primary mb-4">
+                  <MapPin className="h-6 w-6" />
+                </div>
+                <h2 className="font-display font-bold text-3xl md:text-4xl text-foreground mb-2">
+                  Check Availability in Your Area
+                </h2>
+                <p className="text-muted-foreground">Enter your info and we'll confirm service in your neighborhood.</p>
+              </motion.div>
+
+              <LeadCaptureForm />
+            </div>
           </div>
         </section>
       </main>
