@@ -1,34 +1,24 @@
-import { Phone, MapPin } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Phone, Clock, MapPin } from "lucide-react";
 
 const TopBar = () => {
   return (
-    <div className="bg-primary py-3">
-      <div className="container mx-auto px-4 flex items-center justify-between">
-        {/* Logo placeholder */}
-        <div className="flex items-center gap-2">
-          <span className="font-display font-bold text-lg text-primary-foreground tracking-wide">
-            SUDSY CO.
-          </span>
-        </div>
-
-        {/* Center text */}
-        <div className="hidden sm:flex items-center gap-2 text-primary-foreground/90">
-          <MapPin className="h-4 w-4" />
-          <span className="font-medium text-sm">Serving the MS Gulf Coast</span>
-        </div>
-
-        {/* Call Now button */}
-        <Button
-          size="sm"
-          className="bg-accent hover:bg-accent/90 text-accent-foreground font-bold shadow-md"
-          asChild
-        >
-          <a href="tel:+12283383455">
-            <Phone className="h-4 w-4 mr-1.5" />
-            Call Now
+    <div className="hero-gradient py-2.5">
+      <div className="container mx-auto px-4 flex flex-wrap items-center justify-between gap-2 text-sm text-primary-foreground">
+        <div className="flex items-center gap-6 flex-wrap">
+          <a href="tel:+12283383455" className="flex items-center gap-2 hover:opacity-80 transition-opacity font-semibold">
+            <Phone className="h-4 w-4" />
+            <span>(228) 338-3455</span>
           </a>
-        </Button>
+          <div className="hidden sm:flex items-center gap-2 opacity-90">
+            <Clock className="h-4 w-4" />
+            <span>Mon-Fri: 9AM - 6PM</span>
+          </div>
+        </div>
+        <div className="flex items-center gap-2 opacity-90">
+          <MapPin className="h-4 w-4" />
+          <span className="hidden sm:inline">Serving Mississippi Gulf Coast</span>
+          <span className="sm:hidden">MS Gulf Coast</span>
+        </div>
       </div>
     </div>
   );
