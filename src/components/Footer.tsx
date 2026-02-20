@@ -77,6 +77,14 @@ const Footer = () => {
                   Resources
                 </Link>
               </li>
+              <li>
+                <Link
+                  to="/20-dollar-promo"
+                  className="text-background/70 hover:text-primary transition-colors"
+                >
+                  $20 Off Promo
+                </Link>
+              </li>
             </ul>
           </div>
 
