@@ -3,7 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Check, Star, Loader2, ArrowRight, Phone, Gift, Truck, Wrench } from "lucide-react";
+import { Check, Star, Loader2, ArrowRight, Phone, Gift, Truck, Wrench, Heart, ShieldCheck, Clock, X } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
@@ -120,6 +120,103 @@ const TwentyDollarPromo = () => {
                   <span className="font-semibold">{text}</span>
                 </div>
               ))}
+            </div>
+          </div>
+        </section>
+
+        {/* 3-Column Features */}
+        <section className="py-16 bg-muted/50">
+          <div className="container mx-auto px-4">
+            <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+              {[
+                {
+                  icon: Heart,
+                  title: "Local Family Owned",
+                  description: "Serving Biloxi, Gulfport, Ocean Springs, and the Mississippi Gulf Coast.",
+                },
+                {
+                  icon: ShieldCheck,
+                  title: "No Credit Checks",
+                  description: "We believe in our neighbors, not just credit scores.",
+                },
+                {
+                  icon: Clock,
+                  title: "2-Day Repair Guarantee",
+                  description: "If it breaks, we fix or swap it in 48 business hours.",
+                },
+              ].map(({ icon: Icon, title, description }, index) => (
+                <motion.div
+                  key={title}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="text-center bg-card rounded-2xl p-8 border border-border shadow-soft"
+                >
+                  <div className="inline-flex items-center justify-center h-14 w-14 rounded-full bg-primary/10 text-primary mb-5">
+                    <Icon className="h-7 w-7" />
+                  </div>
+                  <h3 className="font-display font-bold text-xl text-foreground mb-2">{title}</h3>
+                  <p className="text-muted-foreground">{description}</p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Comparison Table */}
+        <section className="py-16">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-10">
+              <h2 className="font-display font-bold text-3xl md:text-4xl text-foreground">
+                Sudsy Co. <span className="text-primary">vs.</span> The Laundromat
+              </h2>
+            </div>
+            <div className="max-w-3xl mx-auto">
+              <div className="rounded-2xl border border-border overflow-hidden shadow-soft">
+                <table className="w-full">
+                  <thead>
+                    <tr className="bg-muted">
+                      <th className="text-left py-4 px-6 font-semibold text-foreground">Feature</th>
+                      <th className="text-center py-4 px-6 font-semibold text-primary">Sudsy Co.</th>
+                      <th className="text-center py-4 px-6 font-semibold text-muted-foreground">Laundromat</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {[
+                      { feature: "Monthly Cost", sudsy: "From $40/mo", laundromat: "$89+/mo" },
+                      { feature: "Laundry At Home", sudsy: true, laundromat: false },
+                      { feature: "Free Delivery & Setup", sudsy: true, laundromat: false },
+                      { feature: "Free Repairs", sudsy: true, laundromat: false },
+                      { feature: "No Driving / Gas Costs", sudsy: true, laundromat: false },
+                      { feature: "No Waiting Around", sudsy: true, laundromat: false },
+                      { feature: "No Credit Check", sudsy: true, laundromat: "N/A" },
+                    ].map(({ feature, sudsy, laundromat }, index) => (
+                      <tr key={feature} className={index % 2 === 0 ? "bg-card" : "bg-muted/30"}>
+                        <td className="py-3.5 px-6 text-foreground font-medium">{feature}</td>
+                        <td className="py-3.5 px-6 text-center">
+                          {typeof sudsy === "boolean" ? (
+                            <Check className="h-5 w-5 text-primary mx-auto" />
+                          ) : (
+                            <span className="font-semibold text-primary">{sudsy}</span>
+                          )}
+                        </td>
+                        <td className="py-3.5 px-6 text-center">
+                          {typeof laundromat === "boolean" ? (
+                            laundromat ? (
+                              <Check className="h-5 w-5 text-primary mx-auto" />
+                            ) : (
+                              <X className="h-5 w-5 text-muted-foreground/50 mx-auto" />
+                            )
+                          ) : (
+                            <span className="text-muted-foreground">{laundromat}</span>
+                          )}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </section>
