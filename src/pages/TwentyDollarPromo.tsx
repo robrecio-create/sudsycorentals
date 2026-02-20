@@ -51,7 +51,7 @@ const LeadCaptureForm = () => {
 
   if (submitted) {
     return (
-      <div className="bg-card rounded-2xl p-8 border border-border shadow-soft text-center">
+      <div className="bg-card rounded-3xl p-8 border border-border shadow-soft text-center">
         <Check className="h-12 w-12 text-primary mx-auto mb-4" />
         <h3 className="font-display font-bold text-xl text-foreground mb-2">Thank You!</h3>
         <p className="text-muted-foreground">We'll confirm availability and reach out shortly.</p>
@@ -60,7 +60,7 @@ const LeadCaptureForm = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="bg-card rounded-2xl p-8 border border-border shadow-soft space-y-5">
+    <form onSubmit={handleSubmit} className="bg-card rounded-3xl p-8 border border-border shadow-soft space-y-5">
       <div>
         <label htmlFor="lead-name" className="block text-sm font-medium text-foreground mb-1.5">Name</label>
         <Input id="lead-name" placeholder="Your name" value={name} onChange={(e) => setName(e.target.value)} maxLength={100} required />
@@ -82,7 +82,7 @@ const LeadCaptureForm = () => {
           </SelectContent>
         </Select>
       </div>
-      <Button type="submit" size="lg" className="w-full font-semibold" disabled={submitting}>
+      <Button type="submit" size="lg" className="w-full font-semibold rounded-xl" disabled={submitting}>
         {submitting ? <Loader2 className="h-4 w-4 animate-spin" /> : "Check Availability"}
       </Button>
     </form>
@@ -171,11 +171,11 @@ const TwentyDollarPromo = () => {
               transition={{ duration: 0.6, delay: 0.3 }}
               className="flex flex-col sm:flex-row items-center justify-center gap-4"
             >
-              <Button size="lg" className="text-lg px-8" onClick={() => document.getElementById("promo-pricing")?.scrollIntoView({ behavior: "smooth" })}>
+              <Button size="lg" className="text-lg px-8 rounded-xl" onClick={() => document.getElementById("promo-pricing")?.scrollIntoView({ behavior: "smooth" })}>
                 Claim Your Discount <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
               <a href="tel:+12282007105">
-                <Button variant="outline" size="lg" className="text-lg px-8">
+                <Button variant="outline" size="lg" className="text-lg px-8 rounded-xl">
                   <Phone className="mr-2 h-5 w-5" /> Call (228) 200-7105
                 </Button>
               </a>
@@ -228,7 +228,7 @@ const TwentyDollarPromo = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="text-center bg-card rounded-2xl p-8 border border-border shadow-soft"
+                  className="text-center bg-card rounded-3xl p-6 md:p-8 border border-border shadow-soft"
                 >
                   <div className="inline-flex items-center justify-center h-14 w-14 rounded-full bg-primary/10 text-primary mb-5">
                     <Icon className="h-7 w-7" />
@@ -250,13 +250,13 @@ const TwentyDollarPromo = () => {
               </h2>
             </div>
             <div className="max-w-3xl mx-auto">
-              <div className="rounded-2xl border border-border overflow-hidden shadow-soft">
-                <table className="w-full">
+              <div className="rounded-3xl border border-border overflow-hidden shadow-soft">
+                <table className="w-full text-sm md:text-base">
                   <thead>
                     <tr className="bg-muted">
-                      <th className="text-left py-4 px-6 font-semibold text-foreground">Feature</th>
-                      <th className="text-center py-4 px-6 font-semibold text-primary">Sudsy Co.</th>
-                      <th className="text-center py-4 px-6 font-semibold text-muted-foreground">Laundromat</th>
+                      <th className="text-left py-3 px-3 md:py-4 md:px-6 font-semibold text-foreground">Feature</th>
+                      <th className="text-center py-3 px-3 md:py-4 md:px-6 font-semibold text-primary">Sudsy Co.</th>
+                      <th className="text-center py-3 px-3 md:py-4 md:px-6 font-semibold text-muted-foreground">Laundromat</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -270,15 +270,15 @@ const TwentyDollarPromo = () => {
                       { feature: "No Credit Check", sudsy: true, laundromat: "N/A" },
                     ].map(({ feature, sudsy, laundromat }, index) => (
                       <tr key={feature} className={index % 2 === 0 ? "bg-card" : "bg-muted/30"}>
-                        <td className="py-3.5 px-6 text-foreground font-medium">{feature}</td>
-                        <td className="py-3.5 px-6 text-center">
+                        <td className="py-3 px-3 md:py-3.5 md:px-6 text-foreground font-medium">{feature}</td>
+                        <td className="py-3 px-3 md:py-3.5 md:px-6 text-center">
                           {typeof sudsy === "boolean" ? (
                             <Check className="h-5 w-5 text-primary mx-auto" />
                           ) : (
                             <span className="font-semibold text-primary">{sudsy}</span>
                           )}
                         </td>
-                        <td className="py-3.5 px-6 text-center">
+                        <td className="py-3 px-3 md:py-3.5 md:px-6 text-center">
                           {typeof laundromat === "boolean" ? (
                             laundromat ? (
                               <Check className="h-5 w-5 text-primary mx-auto" />
@@ -343,9 +343,9 @@ const TwentyDollarPromo = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className={`relative bg-card rounded-2xl p-8 ${
+                  className={`relative bg-card rounded-3xl p-6 md:p-8 ${
                     pkg.popular
-                      ? "border-2 border-primary shadow-glow scale-105 z-10"
+                      ? "border-2 border-primary shadow-glow md:scale-105 z-10"
                       : "border border-border shadow-soft"
                   }`}
                 >
@@ -379,7 +379,7 @@ const TwentyDollarPromo = () => {
                   </ul>
 
                   <Button
-                    className="w-full font-semibold"
+                    className="w-full font-semibold rounded-xl"
                     variant={pkg.popular ? "default" : "secondary"}
                     size="lg"
                     onClick={() => handleCheckout(pkg.priceKey)}
@@ -432,6 +432,20 @@ const TwentyDollarPromo = () => {
           </div>
         </section>
       </main>
+
+      {/* Sticky mobile CTA */}
+      <div className="fixed bottom-0 left-0 right-0 z-50 lg:hidden bg-background/95 backdrop-blur-sm border-t border-border p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
+        <Button
+          size="lg"
+          className="w-full font-bold text-base rounded-xl"
+          onClick={() => document.getElementById("promo-pricing")?.scrollIntoView({ behavior: "smooth" })}
+        >
+          🎉 Claim My $20 Off <ArrowRight className="ml-2 h-5 w-5" />
+        </Button>
+      </div>
+
+      {/* Add bottom padding on mobile so sticky bar doesn't cover content */}
+      <div className="h-16 lg:hidden" />
 
       <Footer />
       <FloatingChatButtons />
