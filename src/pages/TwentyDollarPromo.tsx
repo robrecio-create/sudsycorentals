@@ -446,7 +446,7 @@ const TwentyDollarPromo = () => {
                     Do I own the machines?
                   </AccordionTrigger>
                   <AccordionContent className="text-muted-foreground pb-5">
-                    No — the machines are rented to you on a month-to-month basis. We handle all maintenance and repairs so you never have to worry about ownership costs. If you ever want to stop, simply let us know and we'll pick the units up for free.
+                    No — the machines are rented to you on a month-to-month basis after a 6 month minimum contract. We handle all maintenance and repairs so you never have to worry about ownership costs. If you ever want to stop, after the 6 month minimum contract simply let us know and we'll pick the units up for free.
                   </AccordionContent>
                 </AccordionItem>
                 <AccordionItem value="breaks" className="bg-card border border-border rounded-3xl px-6 data-[state=open]:shadow-soft">
