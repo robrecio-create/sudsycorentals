@@ -1,4 +1,4 @@
-import { Phone, Mail, MapPin, Facebook, Instagram } from "lucide-react";
+import { Phone, Mail, MapPin, Facebook, Instagram, Heart } from "lucide-react";
 import { Link } from "react-router-dom";
 import logoImage from "@/assets/logo.png";
 
@@ -155,12 +155,23 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Bottom bar */}
-        <div className="border-t border-background/10 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-background/60 text-sm">
-          <p>© {currentYear} Sudsy Co. Rentals. All rights reserved.</p>
-          <div className="flex gap-6">
-            <a href="#" className="hover:text-primary transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-primary transition-colors">Terms of Service</a>
+        {/* Service Areas SEO + Badge */}
+        <div className="border-t border-background/10 mt-12 pt-8">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-6">
+            <p className="text-background/60 text-sm text-center md:text-left">
+              Proudly serving: Biloxi, Gulfport, Ocean Springs, D'Iberville, Gautier, Pascagoula, and Long Beach, MS.
+            </p>
+            <div className="inline-flex items-center gap-2 bg-background/10 text-background/80 px-4 py-2 rounded-full text-sm font-medium shrink-0">
+              <Heart className="h-4 w-4 text-primary fill-primary" />
+              Family Owned &amp; Operated
+            </div>
+          </div>
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-background/60 text-sm">
+            <p>© {currentYear} Sudsy Co. Rentals. All rights reserved.</p>
+            <div className="flex gap-6">
+              <a href="#" className="hover:text-primary transition-colors">Privacy Policy</a>
+              <a href="#" className="hover:text-primary transition-colors">Terms of Service</a>
+            </div>
           </div>
         </div>
       </div>
