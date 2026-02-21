@@ -1,9 +1,12 @@
 import { Star, Quote } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
 import ReviewSchema from "@/components/seo/ReviewSchema";
+import { Skeleton } from "@/components/ui/skeleton";
 
-// Add your reviews here - easy to update anytime!
-const reviews = [
+// Fallback reviews in case API fails
+const fallbackReviews = [
   {
     author_name: "Yakeyla Daisean",
     rating: 5,
@@ -24,9 +27,23 @@ const reviews = [
   },
 ];
 
-// Overall rating info
-const overallRating = 5.0;
-const totalReviews = 9;
+interface Review {
+  author_name: string;
+  rating: number;
+  text: string;
+  relative_time_description: string;
+  profile_photo_url?: string | null;
+}
+
+const fetchGoogleReviews = async () => {
+  const { data, error } = await supabase.functions.invoke("fetch-google-reviews");
+  if (error) throw error;
+  return data as {
+    reviews: Review[];
+    overall_rating: number;
+    total_reviews: number;
+  };
+};
 
 const StarRating = ({ rating }: { rating: number }) => {
   return (
@@ -45,14 +62,22 @@ const StarRating = ({ rating }: { rating: number }) => {
   );
 };
 
-const ReviewCard = ({ review }: { review: typeof reviews[0] }) => {
+const ReviewCard = ({ review }: { review: Review }) => {
   return (
     <div className="bg-card rounded-xl p-6 shadow-sm border border-border hover:shadow-md transition-shadow">
       <div className="flex items-start gap-4">
-        <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-          <span className="text-primary font-semibold text-lg">
-            {review.author_name.charAt(0)}
-          </span>
+        <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center overflow-hidden">
+          {review.profile_photo_url ? (
+            <img
+              src={review.profile_photo_url}
+              alt={review.author_name}
+              className="w-full h-full object-cover"
+            />
+          ) : (
+            <span className="text-primary font-semibold text-lg">
+              {review.author_name.charAt(0)}
+            </span>
+          )}
         </div>
         <div className="flex-1">
           <div className="flex items-center justify-between">
@@ -72,14 +97,39 @@ const ReviewCard = ({ review }: { review: typeof reviews[0] }) => {
   );
 };
 
+const ReviewSkeleton = () => (
+  <div className="bg-card rounded-xl p-6 shadow-sm border border-border">
+    <div className="flex items-start gap-4">
+      <Skeleton className="w-12 h-12 rounded-full" />
+      <div className="flex-1 space-y-2">
+        <Skeleton className="h-4 w-32" />
+        <Skeleton className="h-3 w-20" />
+      </div>
+    </div>
+    <div className="mt-4 space-y-2">
+      <Skeleton className="h-3 w-full" />
+      <Skeleton className="h-3 w-4/5" />
+    </div>
+  </div>
+);
+
 export const Reviews = () => {
   const navigate = useNavigate();
+
+  const { data, isLoading } = useQuery({
+    queryKey: ["google-reviews"],
+    queryFn: fetchGoogleReviews,
+    staleTime: 5 * 60 * 1000, // 5 minutes
+    retry: 1,
+  });
+
+  const reviews = data?.reviews?.length ? data.reviews : fallbackReviews;
+  const overallRating = data?.overall_rating ?? 5.0;
+  const totalReviews = data?.total_reviews ?? 9;
 
   const handleReviewClick = () => {
     const reviewUrl = "https://g.page/r/CeHbve1aGmfBEAE/review";
     const popup = window.open(reviewUrl, "_blank", "noopener,noreferrer");
-    
-    // If popup is blocked or returns null, redirect to fallback page
     if (!popup || popup.closed || typeof popup.closed === "undefined") {
       navigate("/review");
     }
@@ -87,48 +137,50 @@ export const Reviews = () => {
 
   return (
     <>
-      <ReviewSchema 
-        reviews={reviews} 
-        overallRating={overallRating} 
-        totalReviews={totalReviews} 
+      <ReviewSchema
+        reviews={reviews}
+        overallRating={overallRating}
+        totalReviews={totalReviews}
       />
       <section id="reviews" className="py-16 md:py-24 bg-muted/30">
         <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            What Our Customers Say
-          </h2>
-          <div className="flex items-center justify-center gap-3">
-            <div className="flex items-center gap-1">
-              <Star className="h-6 w-6 fill-yellow-400 text-yellow-400" />
-              <span className="text-2xl font-bold text-foreground">
-                {overallRating.toFixed(1)}
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+              What Our Customers Say
+            </h2>
+            <div className="flex items-center justify-center gap-3">
+              <div className="flex items-center gap-1">
+                <Star className="h-6 w-6 fill-yellow-400 text-yellow-400" />
+                <span className="text-2xl font-bold text-foreground">
+                  {overallRating.toFixed(1)}
+                </span>
+              </div>
+              <span className="text-muted-foreground">
+                based on {totalReviews} reviews on Google
               </span>
             </div>
-            <span className="text-muted-foreground">
-              based on {totalReviews} reviews on Google
-            </span>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {isLoading
+              ? Array.from({ length: 3 }).map((_, i) => <ReviewSkeleton key={i} />)
+              : reviews.map((review, index) => (
+                  <ReviewCard key={index} review={review} />
+                ))}
+          </div>
+
+          <div className="text-center mt-8">
+            <button
+              onClick={handleReviewClick}
+              className="inline-flex items-center gap-2 text-primary hover:text-primary/80 font-medium transition-colors cursor-pointer bg-transparent border-none"
+            >
+              Leave us a review on Google
+              <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z" />
+              </svg>
+            </button>
           </div>
         </div>
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {reviews.map((review, index) => (
-            <ReviewCard key={index} review={review} />
-          ))}
-        </div>
-
-        <div className="text-center mt-8">
-          <button
-            onClick={handleReviewClick}
-            className="inline-flex items-center gap-2 text-primary hover:text-primary/80 font-medium transition-colors cursor-pointer bg-transparent border-none"
-          >
-            Leave us a review on Google
-            <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z" />
-            </svg>
-          </button>
-        </div>
-      </div>
       </section>
     </>
   );
