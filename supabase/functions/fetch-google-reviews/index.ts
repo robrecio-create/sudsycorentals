@@ -16,46 +16,75 @@ serve(async (req) => {
       throw new Error('GOOGLE_PLACES_API_KEY is not configured');
     }
 
-    // Use Places API (New) - better search and more reliable
-    console.log('Searching via Places API (New)...');
-    const searchResponse = await fetch('https://places.googleapis.com/v1/places:searchText', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Goog-Api-Key': apiKey,
-        'X-Goog-FieldMask': 'places.id,places.displayName,places.reviews,places.rating,places.userRatingCount',
-      },
-      body: JSON.stringify({
-        textQuery: 'Sudsy Co. Washer and Dryer Rentals',
-      }),
-    });
-
+    // Step 1: Find Place ID using textsearch (more flexible than findplacefromtext)
+    const searchUrl = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=Sudsy+Co+Washer+Dryer+Rentals+Ocean+Springs+MS&key=${apiKey}`;
+    console.log('Searching for place...');
+    const searchResponse = await fetch(searchUrl);
     const searchData = await searchResponse.json();
-    console.log('Search status:', searchResponse.status);
-    console.log('Search response:', JSON.stringify(searchData));
+    console.log('Search status:', searchData.status);
+    console.log('Results count:', searchData.results?.length || 0);
 
-    if (!searchResponse.ok) {
-      throw new Error(`Places API error: ${searchData.error?.message || searchResponse.statusText}`);
+    if (searchData.status !== 'OK' || !searchData.results?.length) {
+      // Fallback: try Places API (New)
+      console.log('Legacy search failed, trying Places API (New)...');
+      const newResponse = await fetch('https://places.googleapis.com/v1/places:searchText', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Goog-Api-Key': apiKey,
+          'X-Goog-FieldMask': 'places.id,places.displayName,places.reviews,places.rating,places.userRatingCount',
+        },
+        body: JSON.stringify({ textQuery: 'Sudsy Co Washer Dryer Rentals Ocean Springs MS' }),
+      });
+      const newData = await newResponse.json();
+      console.log('New API status:', newResponse.status);
+      console.log('New API response:', JSON.stringify(newData).substring(0, 500));
+
+      if (!newResponse.ok || !newData.places?.length) {
+        throw new Error(`Could not find business. Legacy: ${searchData.status} - ${searchData.error_message || 'No results'}. New: ${newData.error?.message || 'No results'}`);
+      }
+
+      const place = newData.places[0];
+      return new Response(JSON.stringify({
+        reviews: (place.reviews || []).map((r: any) => ({
+          author_name: r.authorAttribution?.displayName || 'Anonymous',
+          rating: r.rating || 5,
+          text: r.text?.text || r.originalText?.text || '',
+          relative_time_description: r.relativePublishTimeDescription || 'recently',
+          profile_photo_url: r.authorAttribution?.photoUri || null,
+          time: r.publishTime || null,
+        })),
+        overall_rating: place.rating || 5.0,
+        total_reviews: place.userRatingCount || 0,
+      }), {
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      });
     }
 
-    if (!searchData.places?.length) {
-      throw new Error('No places found matching the search query');
+    const placeId = searchData.results[0].place_id;
+    console.log('Found Place ID:', placeId);
+
+    // Step 2: Fetch detailed reviews
+    const detailsUrl = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&fields=reviews,rating,user_ratings_total&key=${apiKey}`;
+    const detailsResponse = await fetch(detailsUrl);
+    const detailsData = await detailsResponse.json();
+
+    if (detailsData.status !== 'OK') {
+      throw new Error(`Place details failed: ${detailsData.status}`);
     }
 
-    const place = searchData.places[0];
-    console.log('Found place:', place.displayName?.text, '- Rating:', place.rating);
-
+    const result = detailsData.result;
     return new Response(JSON.stringify({
-      reviews: (place.reviews || []).map((r: any) => ({
-        author_name: r.authorAttribution?.displayName || 'Anonymous',
-        rating: r.rating || 5,
-        text: r.text?.text || r.originalText?.text || '',
-        relative_time_description: r.relativePublishTimeDescription || 'recently',
-        profile_photo_url: r.authorAttribution?.photoUri || null,
-        time: r.publishTime || null,
+      reviews: (result.reviews || []).map((r: any) => ({
+        author_name: r.author_name,
+        rating: r.rating,
+        text: r.text,
+        relative_time_description: r.relative_time_description,
+        profile_photo_url: r.profile_photo_url,
+        time: r.time,
       })),
-      overall_rating: place.rating || 5.0,
-      total_reviews: place.userRatingCount || 0,
+      overall_rating: result.rating || 5.0,
+      total_reviews: result.user_ratings_total || 0,
     }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
