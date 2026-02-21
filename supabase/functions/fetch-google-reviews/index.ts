@@ -16,16 +16,28 @@ serve(async (req) => {
       throw new Error('GOOGLE_PLACES_API_KEY is not configured');
     }
 
-    // Try CID lookup - the CID from the Google Maps URL
-    const cid = '13935908568849964001';
-    console.log('Trying CID lookup...');
-    const cidUrl = `https://maps.googleapis.com/maps/api/place/details/json?cid=${cid}&fields=place_id,name,reviews,rating,user_ratings_total&key=${apiKey}`;
-    const cidResponse = await fetch(cidUrl);
-    const cidData = await cidResponse.json();
-    console.log('CID lookup status:', cidData.status);
-    console.log('CID lookup result:', JSON.stringify(cidData).substring(0, 500));
+    const placeId = 'ChIJ9SNomW8JnIgR4M_xsEd1qXU';
+    const detailsUrl = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&fields=name,reviews,rating,user_ratings_total&key=${apiKey}`;
+    const response = await fetch(detailsUrl);
+    const data = await response.json();
+    console.log('Place details status:', data.status);
 
-    return new Response(JSON.stringify(cidData), {
+    if (data.status !== 'OK') {
+      throw new Error(`Place details failed: ${data.status} - ${data.error_message || ''}`);
+    }
+
+    const result = data.result;
+    return new Response(JSON.stringify({
+      reviews: (result.reviews || []).slice(0, 5).map((r: any) => ({
+        author_name: r.author_name,
+        rating: r.rating,
+        text: r.text,
+        relative_time_description: r.relative_time_description,
+        profile_photo_url: r.profile_photo_url,
+      })),
+      overall_rating: result.rating || 5.0,
+      total_reviews: result.user_ratings_total || 0,
+    }), {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     });
   } catch (error) {
