@@ -17,13 +17,49 @@ serve(async (req) => {
     }
 
     const placeId = 'ChIJ9SNomW8JnIgR4M_xsEd1qXU';
-    
-    // Try legacy API first
-    console.log('Trying legacy Place Details...');
-    const legacyUrl = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&fields=name,reviews,rating,user_ratings_total&key=${apiKey}`;
+
+    // Try Places API (New) first - it tends to return more data
+    console.log('Trying Places API (New)...');
+    const newUrl = `https://places.googleapis.com/v1/places/${placeId}`;
+    const newResponse = await fetch(newUrl, {
+      headers: {
+        'X-Goog-Api-Key': apiKey,
+        'X-Goog-FieldMask': 'id,displayName,reviews,rating,userRatingCount,formattedAddress,businessStatus',
+      },
+    });
+    const newData = await newResponse.json();
+    console.log('New API HTTP status:', newResponse.status);
+    console.log('New API name:', newData.displayName?.text);
+    console.log('New API rating:', newData.rating);
+    console.log('New API userRatingCount:', newData.userRatingCount);
+    console.log('New API reviews count:', newData.reviews?.length || 0);
+    console.log('New API address:', newData.formattedAddress);
+    console.log('New API full:', JSON.stringify(newData).substring(0, 2000));
+
+    if (newResponse.ok && newData.reviews?.length) {
+      return new Response(JSON.stringify({
+        reviews: newData.reviews.slice(0, 5).map((r: any) => ({
+          author_name: r.authorAttribution?.displayName || 'Anonymous',
+          rating: r.rating || 5,
+          text: r.text?.text || r.originalText?.text || '',
+          relative_time_description: r.relativePublishTimeDescription || 'recently',
+          profile_photo_url: r.authorAttribution?.photoUri || null,
+        })),
+        overall_rating: newData.rating || 5.0,
+        total_reviews: newData.userRatingCount || 0,
+      }), { headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
+    }
+
+    // Fallback: legacy API
+    console.log('New API had no reviews, trying legacy...');
+    const legacyUrl = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&fields=name,reviews,rating,user_ratings_total&reviews_sort=newest&key=${apiKey}`;
     const legacyResponse = await fetch(legacyUrl);
     const legacyData = await legacyResponse.json();
     console.log('Legacy status:', legacyData.status);
+    console.log('Legacy name:', legacyData.result?.name);
+    console.log('Legacy rating:', legacyData.result?.rating);
+    console.log('Legacy total:', legacyData.result?.user_ratings_total);
+    console.log('Legacy reviews count:', legacyData.result?.reviews?.length || 0);
 
     if (legacyData.status === 'OK') {
       const result = legacyData.result;
@@ -40,34 +76,7 @@ serve(async (req) => {
       }), { headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
     }
 
-    // Fallback: Places API (New)
-    console.log('Legacy failed, trying Places API (New)...');
-    const newUrl = `https://places.googleapis.com/v1/places/${placeId}`;
-    const newResponse = await fetch(newUrl, {
-      headers: {
-        'X-Goog-Api-Key': apiKey,
-        'X-Goog-FieldMask': 'displayName,reviews,rating,userRatingCount',
-      },
-    });
-    const newData = await newResponse.json();
-    console.log('New API status:', newResponse.status);
-    console.log('New API response:', JSON.stringify(newData).substring(0, 500));
-
-    if (newResponse.ok && newData.reviews) {
-      return new Response(JSON.stringify({
-        reviews: newData.reviews.slice(0, 5).map((r: any) => ({
-          author_name: r.authorAttribution?.displayName || 'Anonymous',
-          rating: r.rating || 5,
-          text: r.text?.text || r.originalText?.text || '',
-          relative_time_description: r.relativePublishTimeDescription || 'recently',
-          profile_photo_url: r.authorAttribution?.photoUri || null,
-        })),
-        overall_rating: newData.rating || 5.0,
-        total_reviews: newData.userRatingCount || 0,
-      }), { headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
-    }
-
-    throw new Error(`Both APIs failed. Legacy: ${legacyData.status}. New: ${JSON.stringify(newData).substring(0, 200)}`);
+    throw new Error(`Both APIs failed`);
   } catch (error) {
     console.error('Error:', error);
     return new Response(JSON.stringify({ error: error instanceof Error ? error.message : 'Failed' }), {
