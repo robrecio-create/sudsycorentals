@@ -20,3 +20,6 @@ verify_jwt = false
 
 [functions.send-delivery-confirmation]
 verify_jwt = false
+
+[functions.fetch-google-reviews]
+verify_jwt = false
