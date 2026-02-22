@@ -16,53 +16,91 @@ serve(async (req) => {
       throw new Error('GOOGLE_PLACES_API_KEY is not configured');
     }
 
-    const placeId = 'ChIJ9SNomW8JnIgR4M_xsEd1qXU';
-
-    // Try Places API (New) first - it tends to return more data
-    console.log('Trying Places API (New)...');
-    const newUrl = `https://places.googleapis.com/v1/places/${placeId}`;
-    const newResponse = await fetch(newUrl, {
+    // Strategy 1: Text search via Places API (New) to find fresh Place ID
+    console.log('Strategy 1: Text search via New API...');
+    const searchResponse = await fetch('https://places.googleapis.com/v1/places:searchText', {
+      method: 'POST',
       headers: {
+        'Content-Type': 'application/json',
         'X-Goog-Api-Key': apiKey,
-        'X-Goog-FieldMask': 'id,displayName,reviews,rating,userRatingCount,formattedAddress,businessStatus',
+        'X-Goog-FieldMask': 'places.id,places.displayName,places.reviews,places.rating,places.userRatingCount,places.formattedAddress',
       },
+      body: JSON.stringify({ textQuery: 'Sudsy Co Washer and Dryer Rentals Ocean Springs Mississippi' }),
     });
-    const newData = await newResponse.json();
-    console.log('New API HTTP status:', newResponse.status);
-    console.log('New API name:', newData.displayName?.text);
-    console.log('New API rating:', newData.rating);
-    console.log('New API userRatingCount:', newData.userRatingCount);
-    console.log('New API reviews count:', newData.reviews?.length || 0);
-    console.log('New API address:', newData.formattedAddress);
-    console.log('New API full:', JSON.stringify(newData).substring(0, 2000));
+    const searchData = await searchResponse.json();
+    console.log('Search HTTP:', searchResponse.status);
+    console.log('Places found:', searchData.places?.length || 0);
+    
+    if (searchData.places?.length) {
+      const place = searchData.places[0];
+      console.log('Found:', place.displayName?.text, '| ID:', place.id);
+      console.log('Rating:', place.rating, '| Count:', place.userRatingCount);
+      console.log('Reviews:', place.reviews?.length || 0);
+      console.log('Address:', place.formattedAddress);
 
-    if (newResponse.ok && newData.reviews?.length) {
-      return new Response(JSON.stringify({
-        reviews: newData.reviews.slice(0, 5).map((r: any) => ({
-          author_name: r.authorAttribution?.displayName || 'Anonymous',
-          rating: r.rating || 5,
-          text: r.text?.text || r.originalText?.text || '',
-          relative_time_description: r.relativePublishTimeDescription || 'recently',
-          profile_photo_url: r.authorAttribution?.photoUri || null,
-        })),
-        overall_rating: newData.rating || 5.0,
-        total_reviews: newData.userRatingCount || 0,
-      }), { headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
+      if (place.reviews?.length) {
+        return new Response(JSON.stringify({
+          reviews: place.reviews.slice(0, 5).map((r: any) => ({
+            author_name: r.authorAttribution?.displayName || 'Anonymous',
+            rating: r.rating || 5,
+            text: r.text?.text || r.originalText?.text || '',
+            relative_time_description: r.relativePublishTimeDescription || 'recently',
+            profile_photo_url: r.authorAttribution?.photoUri || null,
+          })),
+          overall_rating: place.rating || 5.0,
+          total_reviews: place.userRatingCount || 0,
+        }), { headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
+      }
     }
 
-    // Fallback: legacy API
-    console.log('New API had no reviews, trying legacy...');
-    const legacyUrl = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&fields=name,reviews,rating,user_ratings_total&reviews_sort=newest&key=${apiKey}`;
-    const legacyResponse = await fetch(legacyUrl);
-    const legacyData = await legacyResponse.json();
-    console.log('Legacy status:', legacyData.status);
-    console.log('Legacy name:', legacyData.result?.name);
-    console.log('Legacy rating:', legacyData.result?.rating);
-    console.log('Legacy total:', legacyData.result?.user_ratings_total);
-    console.log('Legacy reviews count:', legacyData.result?.reviews?.length || 0);
+    // Strategy 2: Legacy text search
+    console.log('Strategy 2: Legacy text search...');
+    const legacySearchUrl = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=Sudsy+Co+Washer+Dryer+Rentals+Ocean+Springs+MS&key=${apiKey}`;
+    const legacySearchResp = await fetch(legacySearchUrl);
+    const legacySearchData = await legacySearchResp.json();
+    console.log('Legacy search status:', legacySearchData.status);
+    console.log('Legacy results:', legacySearchData.results?.length || 0);
 
-    if (legacyData.status === 'OK') {
-      const result = legacyData.result;
+    if (legacySearchData.results?.length) {
+      const foundId = legacySearchData.results[0].place_id;
+      console.log('Found place_id:', foundId, '| Name:', legacySearchData.results[0].name);
+
+      // Fetch details with this ID
+      const detailsUrl = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${foundId}&fields=name,reviews,rating,user_ratings_total&reviews_sort=newest&key=${apiKey}`;
+      const detailsResp = await fetch(detailsUrl);
+      const detailsData = await detailsResp.json();
+      console.log('Details status:', detailsData.status);
+      console.log('Details reviews:', detailsData.result?.reviews?.length || 0);
+      console.log('Details rating:', detailsData.result?.rating);
+      console.log('Details total:', detailsData.result?.user_ratings_total);
+
+      if (detailsData.status === 'OK') {
+        const result = detailsData.result;
+        return new Response(JSON.stringify({
+          reviews: (result.reviews || []).slice(0, 5).map((r: any) => ({
+            author_name: r.author_name,
+            rating: r.rating,
+            text: r.text,
+            relative_time_description: r.relative_time_description,
+            profile_photo_url: r.profile_photo_url,
+          })),
+          overall_rating: result.rating || 5.0,
+          total_reviews: result.user_ratings_total || 0,
+        }), { headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
+      }
+    }
+
+    // Strategy 3: Direct Place ID lookup as last resort
+    console.log('Strategy 3: Direct Place ID...');
+    const placeId = 'ChIJ9SNomW8JnIgR4M_xsEd1qXU';
+    const directUrl = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&fields=name,reviews,rating,user_ratings_total&reviews_sort=newest&key=${apiKey}`;
+    const directResp = await fetch(directUrl);
+    const directData = await directResp.json();
+    console.log('Direct status:', directData.status);
+    console.log('Direct reviews:', directData.result?.reviews?.length || 0);
+
+    if (directData.status === 'OK') {
+      const result = directData.result;
       return new Response(JSON.stringify({
         reviews: (result.reviews || []).slice(0, 5).map((r: any) => ({
           author_name: r.author_name,
@@ -76,7 +114,7 @@ serve(async (req) => {
       }), { headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
     }
 
-    throw new Error(`Both APIs failed`);
+    throw new Error('All strategies failed to find reviews');
   } catch (error) {
     console.error('Error:', error);
     return new Response(JSON.stringify({ error: error instanceof Error ? error.message : 'Failed' }), {
