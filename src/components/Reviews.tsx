@@ -27,6 +27,9 @@ const fallbackReviews = [
   },
 ];
 
+const FALLBACK_RATING = 5.0;
+const FALLBACK_TOTAL_REVIEWS = 19;
+
 interface Review {
   author_name: string;
   rating: number;
@@ -124,8 +127,8 @@ export const Reviews = () => {
   });
 
   const reviews = data?.reviews?.length ? data.reviews : fallbackReviews;
-  const overallRating = data?.overall_rating ?? 5.0;
-  const totalReviews = data?.total_reviews ?? 9;
+  const overallRating = data?.reviews?.length ? (data.overall_rating ?? FALLBACK_RATING) : FALLBACK_RATING;
+  const totalReviews = data?.reviews?.length ? (data.total_reviews ?? FALLBACK_TOTAL_REVIEWS) : FALLBACK_TOTAL_REVIEWS;
 
   const handleReviewClick = () => {
     const reviewUrl = "https://g.page/r/CeHbve1aGmfBEAE/review";
