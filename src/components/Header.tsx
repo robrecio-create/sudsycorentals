@@ -16,7 +16,7 @@ const navLinks = [
   { name: "Resources", href: "/resources" },
   { name: "FAQ", href: "/#faq" },
   { name: "Contact", href: "/#contact" },
-  { name: "Schedule Delivery", href: "/schedule-delivery" },
+  
 ];
 
 const Header = () => {
