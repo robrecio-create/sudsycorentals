@@ -12,8 +12,6 @@ const navLinks = [
   { name: "Pricing", href: "/#pricing" },
   { name: "How It Works", href: "/#how-it-works" },
   { name: "Areas We Serve", href: "/areas-we-serve" },
-  { name: "Blog", href: "/blog" },
-  { name: "Resources", href: "/resources" },
   { name: "FAQ", href: "/#faq" },
   { name: "Contact", href: "/#contact" },
   
