@@ -1,4 +1,5 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import { Resend } from "npm:resend@2.0.0";
 
 const resend = new Resend(Deno.env.get("RESEND_API_KEY"));
@@ -20,12 +21,35 @@ interface DeliveryConfirmationRequest {
 }
 
 const handler = async (req: Request): Promise<Response> => {
-  // Handle CORS preflight requests
   if (req.method === "OPTIONS") {
     return new Response("ok", { headers: corsHeaders });
   }
 
   try {
+    // Authenticate the caller
+    const authHeader = req.headers.get("Authorization");
+    if (!authHeader?.startsWith("Bearer ")) {
+      return new Response(JSON.stringify({ error: "Unauthorized" }), {
+        status: 401,
+        headers: { "Content-Type": "application/json", ...corsHeaders },
+      });
+    }
+
+    const supabaseClient = createClient(
+      Deno.env.get("SUPABASE_URL")!,
+      Deno.env.get("SUPABASE_ANON_KEY")!,
+      { global: { headers: { Authorization: authHeader } } }
+    );
+
+    const token = authHeader.replace("Bearer ", "");
+    const { data: claimsData, error: claimsError } = await supabaseClient.auth.getClaims(token);
+    if (claimsError || !claimsData?.claims) {
+      return new Response(JSON.stringify({ error: "Unauthorized" }), {
+        status: 401,
+        headers: { "Content-Type": "application/json", ...corsHeaders },
+      });
+    }
+
     const {
       customerEmail,
       customerName,
@@ -43,6 +67,12 @@ const handler = async (req: Request): Promise<Response> => {
       throw new Error("Missing required fields: customerEmail, scheduledDate, or timeWindow");
     }
 
+    // Basic email format validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(customerEmail)) {
+      throw new Error("Invalid email format");
+    }
+
     // Format the date for display
     const dateObj = new Date(scheduledDate + "T12:00:00");
     const formattedDate = dateObj.toLocaleDateString("en-US", {
@@ -52,8 +82,16 @@ const handler = async (req: Request): Promise<Response> => {
       day: "numeric",
     });
 
-    const displayName = customerName || "Valued Customer";
-    const fullAddress = `${streetAddress}, ${city}, MS ${zipCode}`;
+    const escapeHtml = (str: string) =>
+      String(str || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+
+    const displayName = escapeHtml(customerName || "Valued Customer");
+    const safeTimeWindow = escapeHtml(timeWindow);
+    const fullAddress = escapeHtml(`${streetAddress}, ${city}, MS ${zipCode}`);
 
     const emailResponse = await resend.emails.send({
       from: "Sudsy Co <onboarding@resend.dev>",
@@ -93,7 +131,7 @@ const handler = async (req: Request): Promise<Response> => {
                   
                   <div style="margin-bottom: 16px;">
                     <p style="font-size: 12px; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin: 0 0 4px 0;">🕐 Time Window</p>
-                    <p style="font-size: 18px; color: #18181b; font-weight: 600; margin: 0;">${timeWindow}</p>
+                    <p style="font-size: 18px; color: #18181b; font-weight: 600; margin: 0;">${safeTimeWindow}</p>
                   </div>
                   
                   <div>
@@ -151,7 +189,7 @@ const handler = async (req: Request): Promise<Response> => {
   } catch (error: any) {
     console.error("Error sending delivery confirmation:", error);
     return new Response(
-      JSON.stringify({ error: error.message }),
+      JSON.stringify({ error: "Failed to send confirmation email" }),
       {
         status: 500,
         headers: { "Content-Type": "application/json", ...corsHeaders },
