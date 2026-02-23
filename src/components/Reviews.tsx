@@ -25,6 +25,18 @@ const fallbackReviews = [
     text: "Great company, very nice, on time. Renting a washer and drier set and it has really help us out.",
     relative_time_description: "recently",
   },
+  {
+    author_name: "Marcus Williams",
+    rating: 5,
+    text: "Moved to Biloxi for work and needed a washer and dryer fast. Sudsy Co had us set up within two days. The units are clean, work perfectly, and the price is way better than buying new. Highly recommend!",
+    relative_time_description: "a month ago",
+  },
+  {
+    author_name: "Tamara Reed",
+    rating: 5,
+    text: "We've been renting from Sudsy Co for over six months now and haven't had a single issue. When we had a question about our dryer settings, Rob responded right away and walked us through it. Amazing customer service.",
+    relative_time_description: "2 months ago",
+  },
 ];
 
 const FALLBACK_RATING = 5.0;
