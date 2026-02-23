@@ -9,6 +9,7 @@ import {
   Mail,
   MapPin,
   History,
+  CreditCard,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -121,6 +122,7 @@ export const CustomerManagement = () => {
   const [customers, setCustomers] = useState<Customer[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
+  const [subscribedEmails, setSubscribedEmails] = useState<Map<string, { amount: number; interval: string; cancel_at_period_end: boolean }>>(new Map());
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [isHistoryDialogOpen, setIsHistoryDialogOpen] = useState(false);
@@ -151,8 +153,29 @@ export const CustomerManagement = () => {
     }
   };
 
+  const fetchSubscriptions = async () => {
+    try {
+      const { data, error } = await supabase.functions.invoke("admin-list-subscriptions");
+      if (error) throw error;
+      const map = new Map<string, { amount: number; interval: string; cancel_at_period_end: boolean }>();
+      (data?.subscriptions || []).forEach((sub: any) => {
+        if (sub.customer_email) {
+          map.set(sub.customer_email.toLowerCase(), {
+            amount: sub.amount,
+            interval: sub.interval,
+            cancel_at_period_end: sub.cancel_at_period_end,
+          });
+        }
+      });
+      setSubscribedEmails(map);
+    } catch (error) {
+      console.error("Error fetching subscriptions:", error);
+    }
+  };
+
   useEffect(() => {
     fetchCustomers();
+    fetchSubscriptions();
   }, []);
 
   const fetchRentalHistory = async (customerId: string) => {
@@ -329,6 +352,22 @@ export const CustomerManagement = () => {
             <CardTitle className="text-3xl">{customers.length}</CardTitle>
           </CardHeader>
         </Card>
+        <Card>
+          <CardHeader className="pb-2">
+            <CardDescription>With Subscription</CardDescription>
+            <CardTitle className="text-3xl text-green-600">
+              {customers.filter(c => c.email && subscribedEmails.has(c.email.toLowerCase())).length}
+            </CardTitle>
+          </CardHeader>
+        </Card>
+        <Card>
+          <CardHeader className="pb-2">
+            <CardDescription>Without Subscription</CardDescription>
+            <CardTitle className="text-3xl text-red-600">
+              {customers.filter(c => !c.email || !subscribedEmails.has(c.email.toLowerCase())).length}
+            </CardTitle>
+          </CardHeader>
+        </Card>
       </div>
 
       {/* Filters */}
@@ -373,6 +412,7 @@ export const CustomerManagement = () => {
                 <TableHeader>
                   <TableRow>
                     <TableHead>Name</TableHead>
+                    <TableHead>Subscription</TableHead>
                     <TableHead>Contact</TableHead>
                     <TableHead>Address</TableHead>
                     <TableHead>Notes</TableHead>
@@ -383,6 +423,31 @@ export const CustomerManagement = () => {
                   {filteredCustomers.map((customer) => (
                     <TableRow key={customer.id}>
                       <TableCell className="font-medium">{customer.name}</TableCell>
+                      <TableCell>
+                        {(() => {
+                          const sub = customer.email ? subscribedEmails.get(customer.email.toLowerCase()) : null;
+                          if (sub) {
+                            return (
+                              <div className="flex flex-col gap-1">
+                                <Badge variant="outline" className="bg-green-100 text-green-800 border-green-200 w-fit gap-1">
+                                  <CreditCard className="h-3 w-3" />
+                                  Active
+                                </Badge>
+                                {sub.cancel_at_period_end && (
+                                  <Badge variant="outline" className="bg-yellow-100 text-yellow-800 border-yellow-200 w-fit text-xs">
+                                    Cancelling
+                                  </Badge>
+                                )}
+                              </div>
+                            );
+                          }
+                          return (
+                            <Badge variant="outline" className="bg-red-100 text-red-800 border-red-200 w-fit">
+                              No Sub
+                            </Badge>
+                          );
+                        })()}
+                      </TableCell>
                       <TableCell>
                         <div className="space-y-1">
                           <div className="flex items-center gap-1.5 text-sm">
