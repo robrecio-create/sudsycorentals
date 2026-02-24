@@ -153,12 +153,13 @@ export const CustomerManagement = () => {
     }
   };
 
-  const fetchSubscriptions = async () => {
+  const fetchSubscriptions = async (currentCustomers?: Customer[]) => {
     try {
       const { data, error } = await supabase.functions.invoke("admin-list-subscriptions");
       if (error) throw error;
+      const subs = data?.subscriptions || [];
       const map = new Map<string, { amount: number; interval: string; cancel_at_period_end: boolean }>();
-      (data?.subscriptions || []).forEach((sub: any) => {
+      subs.forEach((sub: any) => {
         if (sub.customer_email) {
           map.set(sub.customer_email.toLowerCase(), {
             amount: sub.amount,
@@ -168,14 +169,53 @@ export const CustomerManagement = () => {
         }
       });
       setSubscribedEmails(map);
+
+      // Auto-sync: insert Stripe subscribers missing from the customers table
+      const custEmails = new Set(
+        (currentCustomers || customers).map((c) => c.email?.toLowerCase()).filter(Boolean)
+      );
+      const missing = subs.filter(
+        (sub: any) => sub.customer_email && !custEmails.has(sub.customer_email.toLowerCase())
+      );
+      if (missing.length > 0) {
+        const rows = missing.map((sub: any) => ({
+          name: sub.customer_name || sub.customer_email,
+          email: sub.customer_email,
+          phone: "0000000000",
+        }));
+        const { error: insertError } = await supabase.from("customers").insert(rows);
+        if (insertError) {
+          console.error("Error syncing missing subscribers:", insertError);
+        } else {
+          toast.success(`Synced ${missing.length} missing subscriber(s)`);
+          fetchCustomers();
+        }
+      }
     } catch (error) {
       console.error("Error fetching subscriptions:", error);
     }
   };
 
   useEffect(() => {
-    fetchCustomers();
-    fetchSubscriptions();
+    const load = async () => {
+      setLoading(true);
+      try {
+        const { data, error } = await supabase
+          .from("customers")
+          .select("*")
+          .order("name", { ascending: true });
+        if (error) throw error;
+        const custs = data || [];
+        setCustomers(custs);
+        await fetchSubscriptions(custs);
+      } catch (error) {
+        console.error("Error fetching customers:", error);
+        toast.error("Failed to load customers");
+      } finally {
+        setLoading(false);
+      }
+    };
+    load();
   }, []);
 
   const fetchRentalHistory = async (customerId: string) => {
