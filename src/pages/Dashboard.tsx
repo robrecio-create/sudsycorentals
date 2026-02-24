@@ -72,6 +72,7 @@ const Dashboard = () => {
       const { data, error } = await supabase
         .from("delivery_schedules")
         .select("*")
+        .eq("user_id", user.id)
         .order("scheduled_date", { ascending: false });
 
       if (error) throw error;
