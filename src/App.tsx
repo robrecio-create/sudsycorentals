@@ -21,6 +21,7 @@ import HookupChecklist from "./pages/resources/HookupChecklist";
 import ReviewRedirect from "./pages/ReviewRedirect";
 import ScheduleDelivery from "./pages/ScheduleDelivery";
 import TwentyDollarPromo from "./pages/TwentyDollarPromo";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -50,6 +51,7 @@ const App = () => (
               <Route path="/schedule-delivery" element={<ScheduleDelivery />} />
               <Route path="/review" element={<ReviewRedirect />} />
               <Route path="/20-dollar-promo" element={<TwentyDollarPromo />} />
+              <Route path="/privacy-policy" element={<PrivacyPolicy />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
