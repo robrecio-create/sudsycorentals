@@ -31,7 +31,7 @@ const Footer = () => {
                 <h3 className="font-display font-bold text-xl text-background">
                   SUDSY CO.
                 </h3>
-                <p className="text-xs font-medium text-primary tracking-wider">RENTALS</p>
+                <p className="text-xs font-medium text-primary tracking-wider">WASHER AND DRYER RENTALS</p>
               </div>
             </div>
             <p className="text-background/70 leading-relaxed">
