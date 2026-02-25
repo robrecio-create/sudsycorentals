@@ -10,8 +10,10 @@ const HomePageSchema = () => {
     "telephone": "+1-228-338-3455",
     "address": {
       "@type": "PostalAddress",
+      "streetAddress": "1302 Fort St",
       "addressLocality": "Ocean Springs",
       "addressRegion": "MS",
+      "postalCode": "39564",
       "addressCountry": "US"
     },
     "areaServed": [
@@ -40,8 +42,10 @@ const HomePageSchema = () => {
     "image": "https://sudsycorentals.com/og-image.png",
     "address": {
       "@type": "PostalAddress",
+      "streetAddress": "1302 Fort St",
       "addressLocality": "Ocean Springs",
       "addressRegion": "MS",
+      "postalCode": "39564",
       "addressCountry": "US"
     },
     "geo": {

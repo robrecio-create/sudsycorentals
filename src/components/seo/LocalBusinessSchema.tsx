@@ -17,8 +17,10 @@ const LocalBusinessSchema = ({ location }: LocalBusinessSchemaProps) => {
     "image": "https://sudsycorentals.com/og-image.png",
     "address": {
       "@type": "PostalAddress",
-      "addressLocality": location.name,
+      "streetAddress": "1302 Fort St",
+      "addressLocality": "Ocean Springs",
       "addressRegion": "MS",
+      "postalCode": "39564",
       "addressCountry": "US"
     },
     "geo": {
