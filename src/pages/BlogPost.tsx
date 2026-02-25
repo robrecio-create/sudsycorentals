@@ -47,6 +47,33 @@ const BlogPost = () => {
     }
   };
 
+  // Helper to render inline formatting: bold, links
+  const renderInline = (text: string): (string | JSX.Element)[] => {
+    // Split on bold and markdown links: [text](url)
+    const parts = text.split(/(\*\*[^*]+\*\*|\[[^\]]+\]\([^)]+\))/);
+    return parts.map((part, i) => {
+      if (part.startsWith('**') && part.endsWith('**')) {
+        return <strong key={i} className="text-foreground">{part.slice(2, -2)}</strong>;
+      }
+      const linkMatch = part.match(/^\[([^\]]+)\]\(([^)]+)\)$/);
+      if (linkMatch) {
+        const [, linkText, url] = linkMatch;
+        const isExternal = url.startsWith('http');
+        return (
+          <a
+            key={i}
+            href={url}
+            className="text-primary hover:text-primary/80 underline underline-offset-2 transition-colors"
+            {...(isExternal ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+          >
+            {linkText}
+          </a>
+        );
+      }
+      return part;
+    });
+  };
+
   // Simple markdown-like content rendering
   const renderContent = (content: string) => {
     const lines = content.trim().split('\n');
@@ -132,32 +159,30 @@ const BlogPost = () => {
 
       // Bullet points
       if (trimmedLine.startsWith('- ')) {
-        const content = trimmedLine.slice(2);
-        // Handle bold text in bullets
-        const parts = content.split(/(\*\*[^*]+\*\*)/);
+        const bulletContent = trimmedLine.slice(2);
         elements.push(
           <li key={index} className="text-muted-foreground ml-6 mb-2">
-            {parts.map((part, i) => {
-              if (part.startsWith('**') && part.endsWith('**')) {
-                return <strong key={i} className="text-foreground">{part.slice(2, -2)}</strong>;
-              }
-              return part;
-            })}
+            {renderInline(bulletContent)}
+          </li>
+        );
+        return;
+      }
+
+      // Numbered list items
+      if (/^\d+\.\s/.test(trimmedLine)) {
+        const listContent = trimmedLine.replace(/^\d+\.\s/, '');
+        elements.push(
+          <li key={index} className="text-muted-foreground ml-6 mb-2 list-decimal">
+            {renderInline(listContent)}
           </li>
         );
         return;
       }
 
       // Regular paragraphs
-      const parts = trimmedLine.split(/(\*\*[^*]+\*\*)/);
       elements.push(
         <p key={index} className="text-muted-foreground leading-relaxed mb-4">
-          {parts.map((part, i) => {
-            if (part.startsWith('**') && part.endsWith('**')) {
-              return <strong key={i} className="text-foreground">{part.slice(2, -2)}</strong>;
-            }
-            return part;
-          })}
+          {renderInline(trimmedLine)}
         </p>
       );
     });
