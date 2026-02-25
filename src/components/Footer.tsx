@@ -169,7 +169,7 @@ const Footer = () => {
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-background/60 text-sm">
             <p>© {currentYear} Sudsy Co. Rentals. All rights reserved.</p>
             <div className="flex gap-6">
-              <a href="#" className="hover:text-primary transition-colors">Privacy Policy</a>
+              <Link to="/privacy-policy" className="hover:text-primary transition-colors">Privacy Policy</Link>
               <a href="#" className="hover:text-primary transition-colors">Terms of Service</a>
             </div>
           </div>
