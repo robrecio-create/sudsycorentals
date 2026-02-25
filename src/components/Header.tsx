@@ -37,7 +37,7 @@ const Header = () => {
               <h1 className="font-display font-bold text-xl text-foreground leading-tight">
                 SUDSY CO.
               </h1>
-              <p className="text-xs font-medium text-primary tracking-wider">RENTALS</p>
+              <p className="text-xs font-medium text-primary tracking-wider">WASHER AND DRYER RENTALS</p>
             </div>
           </a>
 
