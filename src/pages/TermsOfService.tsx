@@ -87,10 +87,12 @@ const TermsOfService = () => {
             <section>
               <h2 className="text-2xl font-semibold text-foreground">Cancellation</h2>
               <p>
-                You may cancel your rental at any time. Upon cancellation:
+                All rental agreements require an initial 6-month minimum term. After
+                the initial 6-month period, you may cancel your rental at any time.
+                Upon cancellation:
               </p>
               <ul className="list-disc pl-6 space-y-2">
-                <li>No cancellation fees apply — our rentals are truly month-to-month</li>
+                <li>No cancellation fees apply after the initial 6-month term</li>
                 <li>
                   We will schedule a pickup of the rented appliances at a mutually convenient
                   time
