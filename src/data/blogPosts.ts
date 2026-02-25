@@ -2,6 +2,7 @@ import costComparisonImg from "@/assets/blog/cost-comparison.jpg";
 import hookupGuideImg from "@/assets/blog/hookups-guide.jpg";
 import laundryTipsImg from "@/assets/blog/laundry-tips.jpg";
 import keeslerMilitaryImg from "@/assets/blog/keesler-military.jpg";
+import rentalNearMeImg from "@/assets/blog/rental-near-me-guide.jpg";
 
 export interface BlogPost {
   slug: string;
@@ -262,6 +263,114 @@ Call us at (228) 338-3455 or visit our website to schedule your delivery. We'll 
     category: "Military",
     metaTitle: "Keesler AFB Washer Dryer Rental | Military Friendly | Sudsy Co.",
     metaDescription: "Flexible washer & dryer rentals for Keesler Air Force Base families. No contracts, free delivery, easy PCS pickup. Call Sudsy Co. at (228) 338-3455."
+  },
+  {
+    slug: "washer-and-dryer-rental-near-me-mississippi-gulf-coast",
+    featuredImage: rentalNearMeImg,
+    title: "Washer and Dryer Rental Near Me: Your Complete Mississippi Gulf Coast Guide",
+    excerpt: "Looking for washer and dryer rental near you on the Gulf Coast? Compare your options in Gulfport, Biloxi, Ocean Springs & more — and see why locals choose Sudsy Co.",
+    content: `
+## Finding a Washer and Dryer Rental Near You
+
+If you've been searching "washer and dryer rental near me" from anywhere on the Mississippi Gulf Coast, you're not alone. More and more renters, military families, and apartment dwellers are skipping the laundromat and renting appliances instead.
+
+But how do you find a reliable, affordable washer and dryer rental service in South Mississippi? This guide covers everything you need to know.
+
+### Why Rent a Washer and Dryer?
+
+Buying a washer and dryer costs $800–$2,000 upfront — and that doesn't include delivery, installation, or future repairs. Renting eliminates all of that:
+
+- **No upfront cost** — just a flat monthly rate
+- **Free delivery and installation** included
+- **Free repairs** for the life of the rental
+- **Month-to-month flexibility** — cancel anytime
+- **No credit check required**
+
+For anyone in temporary housing, military assignments, or apartments without their own machines, renting is the smarter move.
+
+### What to Look for in a Rental Company
+
+Not all washer and dryer rental services are the same. Here's what to compare:
+
+| Feature | Sudsy Co. | Big Box Rent-to-Own | National Chains |
+|---------|-----------|--------------------|-----------------| 
+| Monthly cost | $59.99 | $100-150+ | $80-120 |
+| Free delivery | ✅ | Sometimes | Varies |
+| Free repairs | ✅ | Limited | Extra cost |
+| Credit check | None | Required | Required |
+| Contract length | Month-to-month | 12-24 months | 6-12 months |
+| Local service | ✅ | ❌ | ❌ |
+
+### Where We Deliver on the Gulf Coast
+
+Sudsy Co. Rentals provides free next-day delivery across the Mississippi Gulf Coast, including:
+
+- **Gulfport** — All neighborhoods, apartments, and rental homes
+- **Biloxi** — Including areas near Keesler Air Force Base
+- **Ocean Springs** — Our hometown and headquarters
+- **D'Iberville** — Promenade area and surrounding communities
+- **Long Beach** — Harbor area to residential neighborhoods
+- **Gautier** — Full coverage including Shepard State Park area
+- **Pascagoula** — Shipyard neighborhoods and beyond
+- **Pass Christian** — Beachfront properties and historic downtown
+- **Moss Point** — Jackson County and Escatawpa communities
+
+### How Washer and Dryer Rental Works
+
+Getting started takes less than 5 minutes:
+
+1. **Choose your plan** — Pick the package that fits your needs
+2. **Schedule delivery** — We deliver as soon as next day
+3. **We install everything** — Our team handles setup at no extra cost
+4. **Start washing at home** — No trips to the laundromat ever again
+
+If anything breaks down, we fix or replace it for free. When you're ready to move or cancel, we pick up the machines at no charge.
+
+### Who Benefits Most from Renting?
+
+**Apartment renters** — Many Gulf Coast apartments have hookups but no machines. Renting fills the gap without a big purchase.
+
+**Military families at Keesler AFB** — PCS orders can come any time. Month-to-month rentals mean no appliances to sell or move.
+
+**Temporary residents** — Travel nurses, construction workers, and seasonal residents get home laundry without the commitment.
+
+**Budget-conscious families** — At $59.99/month, renting a washer and dryer is cheaper than weekly laundromat trips that average $100–$180/month.
+
+### The Laundromat vs. Rental Comparison
+
+Still on the fence? Here's what the average family spends:
+
+| | Laundromat | Sudsy Co. Rental |
+|--|-----------|-----------------|
+| Monthly cost | $100-180 | $59.99 |
+| Gas & travel | $20-40/mo | $0 |
+| Time spent | 8-12 hrs/mo | Your schedule |
+| Convenience | Low | High |
+| Repairs | N/A | Free & included |
+
+That's a potential savings of **$60–$160 every month**, plus hours of your time back.
+
+### Why Gulf Coast Residents Choose Sudsy Co.
+
+We're not a national franchise. We're locally owned and operated right here in Ocean Springs, Mississippi. That means:
+
+- **Personal service** from people who know the area
+- **Fast response times** because we're your neighbors
+- **Fair pricing** without corporate markups
+- **Community commitment** — we support local families and military
+
+### Ready to Stop Searching "Near Me"?
+
+If you've been looking for washer and dryer rental near you on the Mississippi Gulf Coast, your search is over. Sudsy Co. Rentals delivers free to Gulfport, Biloxi, Ocean Springs, D'Iberville, Long Beach, Gautier, Pascagoula, Pass Christian, and Moss Point.
+
+**Call (228) 338-3455** or visit our pricing page to get started today. Your first delivery could be as soon as tomorrow.
+    `,
+    author: "Sudsy Co. Team",
+    publishedDate: "2026-02-25",
+    readTime: "6 min read",
+    category: "Rental Guide",
+    metaTitle: "Washer and Dryer Rental Near Me | Mississippi Gulf Coast Guide | Sudsy Co.",
+    metaDescription: "Looking for washer and dryer rental near you? Compare options in Gulfport, Biloxi & South MS. Free delivery, no credit check. Sudsy Co. Gulf Coast guide."
   }
 ];
 
