@@ -69,6 +69,11 @@ const TermsOfService = () => {
               <h2 className="text-2xl font-semibold text-foreground">Subscription and Payment</h2>
               <ul className="list-disc pl-6 space-y-2">
                 <li>
+                  All rental agreements require a minimum 6-month commitment.
+                  After the initial term, your subscription continues on a
+                  month-to-month basis until cancelled.
+                </li>
+                <li>
                   Rental subscriptions are billed monthly through our payment processor
                   (Stripe). By subscribing, you authorize recurring charges to your payment
                   method.
