@@ -11,10 +11,10 @@ const HookupChecklist = () => {
   return (
     <>
       <Helmet>
-        <title>Washer & Dryer Hookup Checklist | Free Download | Sudsy Co.</title>
+        <title>Washer and Dryer Rental Hookup Checklist | Free Download | Sudsy Co.</title>
         <meta 
           name="description" 
-          content="Free printable washer and dryer hookup checklist. Verify your apartment has the proper connections before scheduling appliance delivery." 
+          content="Free printable washer and dryer hookup checklist. Verify your apartment has the right connections before your washer and dryer rental delivery." 
         />
       </Helmet>
 

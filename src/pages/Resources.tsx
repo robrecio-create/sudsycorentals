@@ -37,15 +37,15 @@ const Resources = () => {
   return (
     <>
       <Helmet>
-        <title>Free Resources & Guides | Sudsy Co. Rentals</title>
+        <title>Washer and Dryer Rental Guides & Resources | Free Downloads | Sudsy Co.</title>
         <meta 
           name="description" 
-          content="Download free laundry guides, hookup checklists, and care instructions. Helpful resources from Sudsy Co. Rentals on the Mississippi Gulf Coast." 
+          content="Free washer and dryer rental resources: hookup checklists, laundry care guides, and tips. Download and print. From Sudsy Co. Rentals, Mississippi Gulf Coast." 
         />
         <link rel="canonical" href="https://sudsycorentals.com/resources" />
         
-        <meta property="og:title" content="Free Resources & Guides | Sudsy Co. Rentals" />
-        <meta property="og:description" content="Download free laundry guides, hookup checklists, and care instructions." />
+        <meta property="og:title" content="Washer and Dryer Rental Guides & Resources | Sudsy Co." />
+        <meta property="og:description" content="Free washer and dryer rental resources, hookup checklists, and laundry care guides." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://sudsycorentals.com/resources" />
       </Helmet>

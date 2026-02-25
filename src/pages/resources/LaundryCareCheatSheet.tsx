@@ -11,10 +11,10 @@ const LaundryCareCheatSheet = () => {
   return (
     <>
       <Helmet>
-        <title>Laundry Care Cheat Sheet | Free Download | Sudsy Co.</title>
+        <title>Laundry Care Cheat Sheet for Washer and Dryer Rental | Sudsy Co.</title>
         <meta 
           name="description" 
-          content="Free printable laundry care cheat sheet. Learn washing temperatures, fabric care symbols, stain removal tips, and sorting guidelines." 
+          content="Free laundry care cheat sheet for washer and dryer rental customers. Washing temps, fabric care symbols, stain removal & sorting tips." 
         />
       </Helmet>
 
