@@ -34,8 +34,10 @@ const pillarSchema = {
     url: "https://sudsycorentals.com",
     address: {
       "@type": "PostalAddress",
+      streetAddress: "1302 Fort St",
       addressLocality: "Ocean Springs",
       addressRegion: "MS",
+      postalCode: "39564",
       addressCountry: "US",
     },
   },
