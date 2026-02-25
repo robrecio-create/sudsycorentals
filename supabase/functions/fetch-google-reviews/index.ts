@@ -16,9 +16,7 @@ serve(async (req) => {
       throw new Error('GOOGLE_PLACES_API_KEY is not configured');
     }
 
-    const cid = '13936136549759310817';
-
-    // Strategy 1: Use CID to find place via text search
+    // Strategy 1: Use text search via New API
     console.log('Strategy 1: Text search via New API...');
     const searchResponse = await fetch('https://places.googleapis.com/v1/places:searchText', {
       method: 'POST',
@@ -31,13 +29,10 @@ serve(async (req) => {
     });
     const searchData = await searchResponse.json();
     console.log('Search HTTP:', searchResponse.status);
-    console.log('Search response:', JSON.stringify(searchData).substring(0, 500));
 
     if (searchData.places?.length) {
       const place = searchData.places[0];
-      console.log('Found:', place.displayName?.text, '| ID:', place.id);
-      console.log('Rating:', place.rating, '| Count:', place.userRatingCount);
-      console.log('Reviews count:', place.reviews?.length || 0);
+      console.log('Found place, reviews:', place.reviews?.length || 0);
 
       if (place.reviews?.length) {
         return new Response(JSON.stringify({
@@ -56,23 +51,30 @@ serve(async (req) => {
 
     // Strategy 2: Use CID to resolve via legacy findplacefromtext
     console.log('Strategy 2: Find place from CID...');
-    const findUrl = `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=Sudsy+Co+Washer+and+Dryer+Rentals&inputtype=textquery&locationbias=point:30.4113,-88.8278&fields=place_id,name&key=${apiKey}`;
-    const findResp = await fetch(findUrl);
+    const findParams = new URLSearchParams({
+      input: 'Sudsy Co Washer and Dryer Rentals',
+      inputtype: 'textquery',
+      locationbias: 'point:30.4113,-88.8278',
+      fields: 'place_id,name',
+      key: apiKey,
+    });
+    const findResp = await fetch(`https://maps.googleapis.com/maps/api/place/findplacefromtext/json?${findParams}`);
     const findData = await findResp.json();
     console.log('Find status:', findData.status);
-    console.log('Find candidates:', JSON.stringify(findData.candidates || []));
 
     if (findData.candidates?.length) {
       const placeId = findData.candidates[0].place_id;
       console.log('Resolved place_id:', placeId);
 
-      const detailsUrl = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&fields=name,reviews,rating,user_ratings_total&reviews_sort=newest&key=${apiKey}`;
-      const detailsResp = await fetch(detailsUrl);
+      const detailsParams = new URLSearchParams({
+        place_id: placeId,
+        fields: 'name,reviews,rating,user_ratings_total',
+        reviews_sort: 'newest',
+        key: apiKey,
+      });
+      const detailsResp = await fetch(`https://maps.googleapis.com/maps/api/place/details/json?${detailsParams}`);
       const detailsData = await detailsResp.json();
       console.log('Details status:', detailsData.status);
-      console.log('Details reviews:', detailsData.result?.reviews?.length || 0);
-      console.log('Details rating:', detailsData.result?.rating);
-      console.log('Details total:', detailsData.result?.user_ratings_total);
 
       if (detailsData.status === 'OK' && detailsData.result?.reviews?.length) {
         const result = detailsData.result;
@@ -92,22 +94,26 @@ serve(async (req) => {
 
     // Strategy 3: Try CID-based lookup via maps URL resolve
     console.log('Strategy 3: Legacy text search with full name...');
-    const legacyUrl = `https://maps.googleapis.com/maps/api/place/textsearch/json?query=Sudsy+Co+Rentals+1302+Fort+St+Ocean+Springs+MS&key=${apiKey}`;
-    const legacyResp = await fetch(legacyUrl);
+    const legacyParams = new URLSearchParams({
+      query: 'Sudsy Co Rentals 1302 Fort St Ocean Springs MS',
+      key: apiKey,
+    });
+    const legacyResp = await fetch(`https://maps.googleapis.com/maps/api/place/textsearch/json?${legacyParams}`);
     const legacyData = await legacyResp.json();
     console.log('Legacy status:', legacyData.status);
     console.log('Legacy results:', legacyData.results?.length || 0);
-    if (legacyData.results?.length) {
-      console.log('Legacy first result:', legacyData.results[0].name, legacyData.results[0].place_id);
-    }
 
     if (legacyData.results?.length) {
       const placeId = legacyData.results[0].place_id;
-      const detailsUrl = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&fields=name,reviews,rating,user_ratings_total&reviews_sort=newest&key=${apiKey}`;
-      const detailsResp = await fetch(detailsUrl);
+      const s3DetailsParams = new URLSearchParams({
+        place_id: placeId,
+        fields: 'name,reviews,rating,user_ratings_total',
+        reviews_sort: 'newest',
+        key: apiKey,
+      });
+      const detailsResp = await fetch(`https://maps.googleapis.com/maps/api/place/details/json?${s3DetailsParams}`);
       const detailsData = await detailsResp.json();
       console.log('S3 Details status:', detailsData.status);
-      console.log('S3 Reviews:', detailsData.result?.reviews?.length || 0);
 
       if (detailsData.status === 'OK' && detailsData.result?.reviews?.length) {
         const result = detailsData.result;

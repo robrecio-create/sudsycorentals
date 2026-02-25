@@ -27,7 +27,7 @@ const inquiryLabels: Record<string, string> = {
 };
 
 // Rate limit: max emails per IP within time window
-const RATE_LIMIT_MAX_REQUESTS = 5;
+const RATE_LIMIT_MAX_REQUESTS = 3;
 const RATE_LIMIT_WINDOW_MS = 60 * 60 * 1000; // 1 hour
 const ipRequestLog = new Map<string, { count: number; resetAt: number }>();
 
@@ -73,8 +73,8 @@ async function validateSubmission(
   supabaseClient: any,
   submissionData: ContactNotificationRequest
 ): Promise<string | null> {
-  // Calculate the timestamp for 2 minutes ago (allow some delay for edge function invocation)
-  const twoMinutesAgo = new Date(Date.now() - 2 * 60 * 1000).toISOString();
+  // Calculate the timestamp for 30 seconds ago (tight window to prevent replay abuse)
+  const thirtySecondsAgo = new Date(Date.now() - 30 * 1000).toISOString();
   
   // Verify the submission exists, was created recently, and hasn't been notified yet
   const { data, error } = await supabaseClient
@@ -85,7 +85,7 @@ async function validateSubmission(
     .eq("phone", submissionData.phone)
     .eq("inquiry_type", submissionData.inquiry_type)
     .eq("notification_sent", false)
-    .gte("created_at", twoMinutesAgo)
+    .gte("created_at", thirtySecondsAgo)
     .order("created_at", { ascending: false })
     .limit(1)
     .maybeSingle();
