@@ -82,19 +82,6 @@ const Hero = () => {
                 </a>
               </Button>
             </div>
-            <div className="mt-4 flex justify-center lg:justify-start">
-              <Button
-                size="lg"
-                variant="ghost"
-                className="text-primary-foreground/80 hover:text-primary-foreground hover:bg-white/10 font-semibold text-lg"
-                asChild
-              >
-                <a href="tel:+12283383455">
-                  <Phone className="h-5 w-5 mr-2" />
-                  Call Us: (228) 338-3455
-                </a>
-              </Button>
-            </div>
           </motion.div>
 
           {/* Image */}
