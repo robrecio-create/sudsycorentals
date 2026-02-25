@@ -55,6 +55,14 @@ const Footer = () => {
               ))}
               <li>
                 <Link
+                  to="/washer-and-dryer-rental"
+                  className="text-background/70 hover:text-primary transition-colors"
+                >
+                  Washer and Dryer Rental
+                </Link>
+              </li>
+              <li>
+                <Link
                   to="/areas-we-serve"
                   className="text-background/70 hover:text-primary transition-colors"
                 >
