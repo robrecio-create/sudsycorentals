@@ -23,6 +23,7 @@ import ScheduleDelivery from "./pages/ScheduleDelivery";
 import TwentyDollarPromo from "./pages/TwentyDollarPromo";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfService from "./pages/TermsOfService";
+import WasherDryerRental from "./pages/WasherDryerRental";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -54,6 +55,7 @@ const App = () => (
               <Route path="/20-dollar-promo" element={<TwentyDollarPromo />} />
               <Route path="/privacy-policy" element={<PrivacyPolicy />} />
               <Route path="/terms-of-service" element={<TermsOfService />} />
+              <Route path="/washer-and-dryer-rental" element={<WasherDryerRental />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
