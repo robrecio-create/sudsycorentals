@@ -124,10 +124,10 @@ const TwentyDollarPromo = () => {
   return (
     <>
       <Helmet>
-        <title>$20 Off First Month | Washer & Dryer Rental | Sudsy Co.</title>
+        <title>$20 Off Washer and Dryer Rental | First Month Deal | Sudsy Co.</title>
         <meta
           name="description"
-          content="Get $20 off your first month of washer and dryer rental from Sudsy Co. Free delivery, free repairs, no credit checks. Limited time offer in Gulfport & Biloxi MS."
+          content="Get $20 off your first month of washer and dryer rental. Free delivery, free repairs, no credit check. Limited time offer in Gulfport, Biloxi & South MS."
         />
         <link rel="canonical" href="https://sudsycorentals.com/20-dollar-promo" />
       </Helmet>

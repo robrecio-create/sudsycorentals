@@ -37,15 +37,15 @@ const Blog = () => {
   return (
     <>
       <Helmet>
-        <title>Blog | Laundry Tips & Rental Guides | Sudsy Co. Rentals</title>
+        <title>Washer and Dryer Rental Blog | Laundry Tips & Guides | Sudsy Co.</title>
         <meta 
           name="description" 
-          content="Expert laundry tips, money-saving guides, and washer & dryer rental advice for Mississippi Gulf Coast residents. Learn from the Sudsy Co. team." 
+          content="Washer and dryer rental tips, money-saving guides, and laundry advice for Mississippi Gulf Coast residents. Expert insights from Sudsy Co. Rentals." 
         />
         <link rel="canonical" href="https://sudsycorentals.com/blog" />
         
-        <meta property="og:title" content="Blog | Sudsy Co. Rentals" />
-        <meta property="og:description" content="Expert laundry tips, money-saving guides, and rental advice for Mississippi residents." />
+        <meta property="og:title" content="Washer and Dryer Rental Blog | Sudsy Co. Rentals" />
+        <meta property="og:description" content="Washer and dryer rental tips, money-saving guides, and laundry advice for Mississippi residents." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://sudsycorentals.com/blog" />
         <meta property="og:image" content="https://sudsycorentals.com/og-image.png" />

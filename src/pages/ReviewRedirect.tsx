@@ -23,10 +23,10 @@ export default function ReviewRedirect() {
   return (
     <>
       <Helmet>
-        <title>Leave a Review | Sudsy Co. Rentals</title>
+        <title>Review Sudsy Co. Washer and Dryer Rental | Leave a Review</title>
         <meta
           name="description"
-          content="Quick link to leave Sudsy Co. Rentals a Google review."
+          content="Leave a Google review for Sudsy Co. washer and dryer rental service on the Mississippi Gulf Coast."
         />
         <link rel="canonical" href="https://sudsycorentals.com/review" />
       </Helmet>

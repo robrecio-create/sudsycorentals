@@ -18,16 +18,16 @@ const Index = () => {
   return (
     <>
       <Helmet>
-        <title>Washer & Dryer Rental Gulfport, Biloxi, Ocean Springs | Sudsy Co.</title>
+        <title>Washer and Dryer Rental Near Me | Gulfport, Biloxi MS | Sudsy Co.</title>
         <meta 
           name="description" 
-          content="Skip the laundromat! Affordable washer and dryer rentals in South MS. Free delivery & repairs. No credit checks. Rent today in Gulfport & Biloxi." 
+          content="Washer and dryer rental starting at $75/mo with free delivery in Gulfport, Biloxi & South MS. No credit check. Skip the laundromat — rent a washer and dryer today!" 
         />
         <link rel="canonical" href="https://sudsycorentals.com/" />
         
         {/* Open Graph */}
-        <meta property="og:title" content="Washer & Dryer Rental Gulfport, Biloxi, Ocean Springs | Sudsy Co." />
-        <meta property="og:description" content="Skip the laundromat! Affordable washer and dryer rentals in South MS. Free delivery & repairs. No credit checks. Rent today in Gulfport & Biloxi." />
+        <meta property="og:title" content="Washer and Dryer Rental Near Me | Gulfport, Biloxi MS | Sudsy Co." />
+        <meta property="og:description" content="Washer and dryer rental starting at $75/mo with free delivery. No credit check. The best laundromat alternative on the Mississippi Gulf Coast." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://sudsycorentals.com/" />
         <meta property="og:image" content="https://sudsycorentals.com/og-image.png" />
@@ -36,8 +36,8 @@ const Index = () => {
         
         {/* Twitter Card */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Washer & Dryer Rental Gulfport, Biloxi, Ocean Springs | Sudsy Co." />
-        <meta name="twitter:description" content="Skip the laundromat! Affordable washer and dryer rentals in South MS. Free delivery & repairs. No credit checks." />
+        <meta name="twitter:title" content="Washer and Dryer Rental Near Me | Gulfport, Biloxi MS | Sudsy Co." />
+        <meta name="twitter:description" content="Washer and dryer rental starting at $75/mo with free delivery. No credit check. Rent today in Gulfport & Biloxi!" />
         <meta name="twitter:image" content="https://sudsycorentals.com/og-image.png" />
         
         {/* Additional SEO */}
