@@ -348,6 +348,21 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      book_delivery_slot: {
+        Args: {
+          p_city: string
+          p_customer_email?: string
+          p_customer_name?: string
+          p_notes?: string
+          p_phone: string
+          p_scheduled_date: string
+          p_street_address: string
+          p_time_window: string
+          p_user_id: string
+          p_zip_code: string
+        }
+        Returns: string
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]

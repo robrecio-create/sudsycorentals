@@ -99,17 +99,17 @@ const DeliveryScheduleForm = ({
     try {
       const scheduledDateStr = format(selectedDate, "yyyy-MM-dd");
 
-      const { error } = await supabase.from("delivery_schedules").insert({
-        user_id: userId || null,
-        scheduled_date: scheduledDateStr,
-        time_window: selectedTime,
-        street_address: address.trim(),
-        city: city.trim(),
-        zip_code: zipCode.trim(),
-        phone: phone.trim(),
-        notes: notes.trim() || null,
-        customer_name: finalName || null,
-        customer_email: finalEmail || null,
+      const { error } = await supabase.rpc("book_delivery_slot", {
+        p_user_id: userId || null,
+        p_scheduled_date: scheduledDateStr,
+        p_time_window: selectedTime,
+        p_street_address: address.trim(),
+        p_city: city.trim(),
+        p_zip_code: zipCode.trim(),
+        p_phone: phone.trim(),
+        p_notes: notes.trim() || null,
+        p_customer_name: finalName || null,
+        p_customer_email: finalEmail || null,
       });
 
       if (error) throw error;
