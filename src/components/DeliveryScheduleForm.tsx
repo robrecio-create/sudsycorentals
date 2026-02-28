@@ -220,11 +220,20 @@ const DeliveryScheduleForm = ({
                     selected={selectedDate}
                     onSelect={setSelectedDate}
                     disabled={(date) => {
-                      const today = new Date();
+                      const now = new Date();
+                      const today = new Date(now);
                       today.setHours(0, 0, 0, 0);
+                      const tomorrow = new Date(today);
+                      tomorrow.setDate(tomorrow.getDate() + 1);
+
+                      // Convert current time to CST (UTC-6)
+                      const cstHour = new Date(now.toLocaleString("en-US", { timeZone: "America/Chicago" })).getHours();
+                      const isTomorrowCutoff = cstHour >= 17;
+
                       const dateStr = format(date, "yyyy-MM-dd");
+                      const earliest = isTomorrowCutoff ? tomorrow : today;
                       return (
-                        date <= today ||
+                        date <= earliest ||
                         date.getDay() === 0 ||
                         date > new Date(today.getTime() + 30 * 24 * 60 * 60 * 1000) ||
                         blackoutDates.includes(dateStr)
