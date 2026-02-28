@@ -255,7 +255,7 @@ const Contact = () => {
                   <h3 className="font-semibold text-foreground mb-1">Service Area</h3>
                   <p className="text-muted-foreground">
                     Mississippi Gulf Coast<br />
-                    Biloxi, Gulfport, Ocean Springs & more
+                    Gulfport, Biloxi, D'Iberville, Ocean Springs, Long Beach, Gautier, Pascagoula, Pass Christian & Moss Point
                   </p>
                 </div>
               </div>
