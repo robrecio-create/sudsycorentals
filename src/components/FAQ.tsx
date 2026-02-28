@@ -71,22 +71,17 @@ const FAQ = () => {
           transition={{ duration: 0.5, delay: 0.2 }}
           className="max-w-3xl mx-auto"
         >
-          <Accordion type="single" collapsible className="space-y-4">
+          <div className="space-y-4">
             {faqs.map((faq, index) => (
-              <AccordionItem
+              <div
                 key={index}
-                value={`item-${index}`}
-                className="bg-background rounded-xl border border-border/50 px-6 shadow-soft"
+                className="bg-background rounded-xl border border-border/50 px-6 py-5 shadow-soft"
               >
-                <AccordionTrigger className="text-left font-semibold text-foreground hover:no-underline">
-                  {faq.question}
-                </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground leading-relaxed">
-                  {faq.answer}
-                </AccordionContent>
-              </AccordionItem>
+                <h3 className="font-semibold text-foreground mb-2">{faq.question}</h3>
+                <p className="text-muted-foreground leading-relaxed text-sm">{faq.answer}</p>
+              </div>
             ))}
-          </Accordion>
+          </div>
         </motion.div>
       </div>
     </section>
