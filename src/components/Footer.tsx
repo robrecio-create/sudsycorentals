@@ -190,6 +190,7 @@ const Footer = () => {
               <Link to="/terms-of-service" className="hover:text-primary transition-colors">Terms of Service</Link>
             </div>
           </div>
+          <p className="text-background/60 text-sm text-center mt-4">Website designed, built and maintained by <a href="https://www.mappulse.agency" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">MapPulse</a>.</p>
         </div>
       </div>
     </footer>
