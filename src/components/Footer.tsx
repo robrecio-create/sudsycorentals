@@ -25,7 +25,7 @@ const Footer = () => {
               <img 
                 src={logoImage} 
                 alt="Sudsy Co. Rentals" 
-                className="h-12 w-auto brightness-0 invert"
+                className="h-12 w-auto"
               />
               <div>
                 <h3 className="font-display font-bold text-xl text-background">
