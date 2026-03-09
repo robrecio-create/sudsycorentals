@@ -17,4 +17,3 @@ const GoogleBusinessEmbed = () => {
                                                                                                     };
 
                                                                                                     export default GoogleBusinessEmbed;
-}
