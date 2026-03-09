@@ -1,6 +1,7 @@
 import { Phone, Mail, MapPin, Facebook, Instagram, Heart } from "lucide-react";
 import { Link } from "react-router-dom";
 import logoImage from "@/assets/logo.png";
+import GoogleBusinessEmbed from "@/components/GoogleBusinessEmbed";
 
 const serviceAreas = [
   { name: "Biloxi", slug: "biloxi" },
@@ -172,6 +173,13 @@ const Footer = () => {
           </div>
         </div>
 
+        {/* Google Business Map Embed - Local SEO */}
+                <div className="mt-12">
+                          <h3 className="text-background/70 text-sm font-semibold uppercase tracking-widest mb-4 text-center">
+                                      Find Us on Google
+                                                </h3>
+                                                          <GoogleBusinessEmbed />
+                                                                  </div>
         {/* Service Areas SEO + Badge */}
         <div className="border-t border-background/10 mt-12 pt-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-6">
