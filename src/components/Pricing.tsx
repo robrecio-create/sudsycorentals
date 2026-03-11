@@ -39,7 +39,7 @@ const packages = [
   {
     name: "Dryer Only",
     price: "40",
-    priceKey: "washer", // Using same price as washer (you can create a separate dryer price in Stripe)
+    priceKey: "dryer",
     description: "Perfect if you only need a dryer.",
     features: [
       "Electric dryer",

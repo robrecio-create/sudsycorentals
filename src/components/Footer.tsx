@@ -1,7 +1,6 @@
 import { Phone, Mail, MapPin, Facebook, Instagram, Heart } from "lucide-react";
 import { Link } from "react-router-dom";
 import logoImage from "@/assets/logo.png";
-import GoogleBusinessEmbed from "@/components/GoogleBusinessEmbed";
 
 const serviceAreas = [
   { name: "Biloxi", slug: "biloxi" },
@@ -26,7 +25,7 @@ const Footer = () => {
               <img 
                 src={logoImage} 
                 alt="Sudsy Co. Rentals" 
-                className="h-12 w-auto"
+                className="h-12 w-auto brightness-0 invert"
               />
               <div>
                 <h3 className="font-display font-bold text-xl text-background">
@@ -173,13 +172,6 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Google Business Map Embed - Local SEO */}
-                <div className="mt-12">
-                          <h3 className="text-background/70 text-sm font-semibold uppercase tracking-widest mb-4 text-center">
-                                      Find Us on Google
-                                                </h3>
-                                                          <GoogleBusinessEmbed />
-                                                                  </div>
         {/* Service Areas SEO + Badge */}
         <div className="border-t border-background/10 mt-12 pt-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-6">
@@ -198,7 +190,6 @@ const Footer = () => {
               <Link to="/terms-of-service" className="hover:text-primary transition-colors">Terms of Service</Link>
             </div>
           </div>
-          <p className="text-background/60 text-sm text-center mt-4">Website designed, built and maintained by <a href="https://www.mappulse.agency" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">MapPulse</a>.</p>
         </div>
       </div>
     </footer>

@@ -225,15 +225,13 @@ const DeliveryScheduleForm = ({
                       today.setHours(0, 0, 0, 0);
                       const tomorrow = new Date(today);
                       tomorrow.setDate(tomorrow.getDate() + 1);
-                    const twoDaysOut = new Date(today);
-                    twoDaysOut.setDate(twoDaysOut.getDate() + 2);
 
                       // Convert current time to CST (UTC-6)
                       const cstHour = new Date(now.toLocaleString("en-US", { timeZone: "America/Chicago" })).getHours();
                       const isTomorrowCutoff = cstHour >= 17;
 
                       const dateStr = format(date, "yyyy-MM-dd");
-                      const earliest = isTomorrowCutoff ? twoDaysOut : tomorrow;
+                      const earliest = isTomorrowCutoff ? tomorrow : today;
                       return (
                         date <= earliest ||
                         date.getDay() === 0 ||

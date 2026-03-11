@@ -102,17 +102,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       }
     );
 
-    // THEN check for existing session
+    // THEN check for existing session (subscription check handled by onAuthStateChange)
     supabase.auth.getSession().then(({ data: { session } }) => {
       setSession(session);
       setUser(session?.user ?? null);
       setLoading(false);
-
-      if (session?.user) {
-        setTimeout(() => {
-          checkSubscription(session);
-        }, 0);
-      }
     });
 
     return () => authSubscription.unsubscribe();

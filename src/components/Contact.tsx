@@ -24,6 +24,7 @@ import { CalendarIcon } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 
+// Rate limiting constants
 const RATE_LIMIT_KEY = "contact_form_submissions";
 const MAX_SUBMISSIONS = 3;
 const RATE_LIMIT_WINDOW_MS = 60 * 60 * 1000; // 1 hour

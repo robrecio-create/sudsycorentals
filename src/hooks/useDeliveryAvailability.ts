@@ -68,7 +68,7 @@ export function useDeliveryAvailability(selectedDate: Date | undefined) {
         setAvailability({
           date: dateStr,
           totalDeliveries,
-          isFull: totalDeliveries >= 2 || isBlackedOut,
+          isFull: totalDeliveries >= 1 || isBlackedOut,
           isBlackedOut,
           blackoutReason,
           slots,

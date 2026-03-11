@@ -16,6 +16,7 @@ const logStep = (step: string, details?: unknown) => {
 const PRICE_MAP: Record<string, string> = {
   "washer": "price_1STmxOGetTkMvkxIl4wm0I0M", // Washer monthly rental - $40/mo
   "washer-dryer": "price_1S0PGUGetTkMvkxIITSnENCm", // Washer & Dryer monthly rental - $59.99/mo
+  "dryer": "price_1T49XmGetTkMvkxIWyrPyvVM", // Dryer monthly rental - $40/mo
 };
 
 serve(async (req) => {

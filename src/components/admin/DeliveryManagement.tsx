@@ -152,7 +152,7 @@ export function DeliveryManagement() {
       const { data, error } = await supabase
         .from("delivery_schedules")
         .select("*")
-        .order("scheduled_date", { ascending: true });
+        .order("scheduled_date", { ascending: false });
 
       if (error) throw error;
       setDeliveries(data || []);
@@ -373,7 +373,7 @@ export function DeliveryManagement() {
 
       if (error) throw error;
 
-      setDeliveries((prev) => [...prev, data].sort((a, b) => a.scheduled_date.localeCompare(b.scheduled_date)));
+      setDeliveries((prev) => [...prev, data].sort((a, b) => b.scheduled_date.localeCompare(a.scheduled_date)));
       toast.success("Delivery added successfully");
       setAddDeliveryOpen(false);
       setAddForm({
