@@ -18,26 +18,26 @@ const Index = () => {
   return (
     <>
       <Helmet>
-        <title>Washer and Dryer Rental Near Me | Gulfport, Biloxi MS | Sudsy Co.</title>
-        <meta 
-          name="description" 
-          content="Washer and dryer rental starting at $75/mo with free delivery in Gulfport, Biloxi & South MS. No credit check. Skip the laundromat — rent a washer and dryer today!" 
+        <title>Appliance Rental Service Ocean Springs | Sudsy Co. Washer and Dryer Rentals</title>
+        <meta
+          name="description"
+          content="Sudsy Co. Washer and Dryer Rentals offers professional appliance rental service in Ocean Springs. Starting at $59.99/mo. Free delivery, no credit checks. Rent today!"
         />
         <link rel="canonical" href="https://sudsycorentals.com/" />
-        
+
         {/* Open Graph */}
-        <meta property="og:title" content="Washer and Dryer Rental Near Me | Gulfport, Biloxi MS | Sudsy Co." />
-        <meta property="og:description" content="Washer and dryer rental starting at $75/mo with free delivery. No credit check. The best laundromat alternative on the Mississippi Gulf Coast." />
+        <meta property="og:title" content="Appliance Rental Service Ocean Springs | Sudsy Co. Washer and Dryer Rentals" />
+        <meta property="og:description" content="Sudsy Co. Washer and Dryer Rentals offers professional appliance rental service in Ocean Springs. Starting at $59.99/mo. Free delivery, no credit checks. Rent today!" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://sudsycorentals.com/" />
         <meta property="og:image" content="https://sudsycorentals.com/og-image.png" />
         <meta property="og:site_name" content="Sudsy Co. Rentals" />
         <meta property="og:locale" content="en_US" />
-        
+
         {/* Twitter Card */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Washer and Dryer Rental Near Me | Gulfport, Biloxi MS | Sudsy Co." />
-        <meta name="twitter:description" content="Washer and dryer rental starting at $75/mo with free delivery. No credit check. Rent today in Gulfport & Biloxi!" />
+        <meta name="twitter:title" content="Appliance Rental Service Ocean Springs | Sudsy Co. Washer and Dryer Rentals" />
+        <meta name="twitter:description" content="Sudsy Co. Washer and Dryer Rentals offers professional appliance rental service in Ocean Springs. Starting at $59.99/mo. Free delivery, no credit checks. Rent today!" />
         <meta name="twitter:image" content="https://sudsycorentals.com/og-image.png" />
         
         {/* Additional SEO */}
