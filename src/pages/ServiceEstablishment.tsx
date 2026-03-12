@@ -11,7 +11,7 @@ const ServiceEstablishment = () => {
   return (
     <>
       <Helmet>
-        <title>Washer & Dryer Rental Service | Sudsy Co. Ocean Springs MS</title>
+        <title>Service Establishment | Washer & Dryer Rental | Sudsy Co. Ocean Springs MS</title>
         <meta
           name="description"
           content="Sudsy Co. is a local service establishment in Ocean Springs, MS offering washer and dryer rentals on the Mississippi Gulf Coast. Free delivery, repairs included, no credit check."
