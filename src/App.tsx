@@ -24,6 +24,9 @@ import TwentyDollarPromo from "./pages/TwentyDollarPromo";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfService from "./pages/TermsOfService";
 import WasherDryerRental from "./pages/WasherDryerRental";
+import ApplianceRentalService from "./pages/ApplianceRentalService";
+import FurnitureRentalService from "./pages/FurnitureRentalService";
+import ServiceEstablishment from "./pages/ServiceEstablishment";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -56,6 +59,9 @@ const App = () => (
               <Route path="/privacy-policy" element={<PrivacyPolicy />} />
               <Route path="/terms-of-service" element={<TermsOfService />} />
               <Route path="/washer-and-dryer-rental" element={<WasherDryerRental />} />
+              <Route path="/appliance-rental-service" element={<ApplianceRentalService />} />
+              <Route path="/furniture-rental-service" element={<FurnitureRentalService />} />
+              <Route path="/services" element={<ServiceEstablishment />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
