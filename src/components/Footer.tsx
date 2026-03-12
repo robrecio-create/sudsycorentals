@@ -63,6 +63,30 @@ const Footer = () => {
               </li>
               <li>
                 <Link
+                  to="/appliance-rental-service"
+                  className="text-background/70 hover:text-primary transition-colors"
+                >
+                  Appliance Rental Service
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/furniture-rental-service"
+                  className="text-background/70 hover:text-primary transition-colors"
+                >
+                  Furniture Rental Service
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/services"
+                  className="text-background/70 hover:text-primary transition-colors"
+                >
+                  Our Services
+                </Link>
+              </li>
+              <li>
+                <Link
                   to="/areas-we-serve"
                   className="text-background/70 hover:text-primary transition-colors"
                 >
