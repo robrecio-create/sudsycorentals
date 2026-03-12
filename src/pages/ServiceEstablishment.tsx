@@ -43,16 +43,12 @@ const ServiceEstablishment = () => {
               Sudsy Co. is a local service establishment providing washer and dryer rentals throughout the Mississippi Gulf Coast. We handle delivery, installation, and all repairs so you never have to worry about your laundry appliances again.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/#pricing">
-                <Button size="lg" className="bg-white text-blue-600 hover:bg-blue-50 font-bold px-8">
-                  View Pricing
-                </Button>
-              </Link>
-              <a href="tel:2283383455">
-                <Button size="lg" variant="outline" className="border-white text-white hover:bg-blue-700 font-bold px-8">
-                  <Phone className="mr-2 h-5 w-5" /> (228) 338-3455
-                </Button>
-              </a>
+              <Button asChild size="lg" className="bg-white text-blue-600 hover:bg-blue-50 font-bold px-8">
+                <Link to="/#pricing">View Pricing</Link>
+              </Button>
+              <Button asChild size="lg" className="bg-transparent border-2 border-white text-white hover:bg-blue-700 font-bold px-8">
+                <a href="tel:2283383455"><Phone className="mr-2 h-5 w-5 inline" /> (228) 338-3455</a>
+              </Button>
             </div>
           </div>
         </section>
@@ -86,11 +82,9 @@ const ServiceEstablishment = () => {
                   <div className="flex justify-center mb-4">{service.icon}</div>
                   <h3 className="font-bold text-gray-900 text-xl mb-3">{service.title}</h3>
                   <p className="text-gray-600 mb-4">{service.desc}</p>
-                  <Link to={service.link}>
-                    <Button variant="outline" className="border-blue-600 text-blue-600 hover:bg-blue-50">
-                      Learn More
-                    </Button>
-                  </Link>
+                  <Button asChild variant="outline" className="border-blue-600 text-blue-600 hover:bg-blue-50">
+                    <Link to={service.link}>Learn More</Link>
+                  </Button>
                 </div>
               ))}
             </div>
@@ -101,7 +95,7 @@ const ServiceEstablishment = () => {
         <section className="py-16 px-4">
           <div className="max-w-3xl mx-auto">
             <h2 className="text-3xl font-bold text-gray-900 mb-6 text-center">About Sudsy Co.</h2>
-            <div className="prose prose-lg mx-auto text-gray-600 text-center">
+            <div className="text-gray-600 text-center">
               <p className="mb-4">
                 Sudsy Co. is a locally owned and operated service establishment based in Ocean Springs, Mississippi. We serve customers throughout the Gulf Coast including Gulfport, Biloxi, D'Iberville, Gautier, Pascagoula, and surrounding communities.
               </p>
@@ -132,16 +126,12 @@ const ServiceEstablishment = () => {
             <h2 className="text-3xl font-bold mb-4">Ready to Get Started?</h2>
             <p className="text-blue-100 mb-8">Same-week delivery available. No credit check, no contracts.</p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/#pricing">
-                <Button size="lg" className="bg-white text-blue-600 hover:bg-blue-50 font-bold px-8">
-                  See Pricing
-                </Button>
-              </Link>
-              <a href="tel:2283383455">
-                <Button size="lg" variant="outline" className="border-white text-white hover:bg-blue-700 font-bold px-8">
-                  Call (228) 338-3455
-                </Button>
-              </a>
+              <Button asChild size="lg" className="bg-white text-blue-600 hover:bg-blue-50 font-bold px-8">
+                <Link to="/#pricing">See Pricing</Link>
+              </Button>
+              <Button asChild size="lg" className="bg-transparent border-2 border-white text-white hover:bg-blue-700 font-bold px-8">
+                <a href="tel:2283383455">Call (228) 338-3455</a>
+              </Button>
             </div>
           </div>
         </section>

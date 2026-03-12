@@ -43,16 +43,12 @@ const FurnitureRentalService = () => {
               Sudsy Co. offers large home appliance rental — washers and dryers delivered and installed at your home. No credit check, no long-term contracts. Starting at $59.99/mo.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/#pricing">
-                <Button size="lg" className="bg-white text-blue-600 hover:bg-blue-50 font-bold px-8">
-                  View Plans & Pricing
-                </Button>
-              </Link>
-              <a href="tel:2283383455">
-                <Button size="lg" variant="outline" className="border-white text-white hover:bg-blue-700 font-bold px-8">
-                  <Phone className="mr-2 h-5 w-5" /> (228) 338-3455
-                </Button>
-              </a>
+              <Button asChild size="lg" className="bg-white text-blue-600 hover:bg-blue-50 font-bold px-8">
+                <Link to="/#pricing">View Plans & Pricing</Link>
+              </Button>
+              <Button asChild size="lg" className="bg-transparent border-2 border-white text-white hover:bg-blue-700 font-bold px-8">
+                <a href="tel:2283383455"><Phone className="mr-2 h-5 w-5 inline" /> (228) 338-3455</a>
+              </Button>
             </div>
           </div>
         </section>
@@ -116,9 +112,9 @@ const FurnitureRentalService = () => {
                   <h3 className="font-bold text-xl text-gray-900 mb-2">{plan.name}</h3>
                   <p className="text-blue-600 font-bold text-2xl mb-3">{plan.price}</p>
                   <p className="text-gray-600 text-sm mb-4">{plan.desc}</p>
-                  <Link to="/#pricing">
-                    <Button className="w-full bg-blue-600 hover:bg-blue-700 text-white">Get Started</Button>
-                  </Link>
+                  <Button asChild className="w-full bg-blue-600 hover:bg-blue-700 text-white">
+                    <Link to="/#pricing">Get Started</Link>
+                  </Button>
                 </div>
               ))}
             </div>
@@ -146,16 +142,12 @@ const FurnitureRentalService = () => {
             <h2 className="text-3xl font-bold mb-4">Get Your Appliance Delivered This Week</h2>
             <p className="text-blue-100 mb-8">Same-week delivery available in most areas. Call or check pricing online.</p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link to="/#pricing">
-                <Button size="lg" className="bg-white text-blue-600 hover:bg-blue-50 font-bold px-8">
-                  See Pricing
-                </Button>
-              </Link>
-              <a href="tel:2283383455">
-                <Button size="lg" variant="outline" className="border-white text-white hover:bg-blue-700 font-bold px-8">
-                  Call (228) 338-3455
-                </Button>
-              </a>
+              <Button asChild size="lg" className="bg-white text-blue-600 hover:bg-blue-50 font-bold px-8">
+                <Link to="/#pricing">See Pricing</Link>
+              </Button>
+              <Button asChild size="lg" className="bg-transparent border-2 border-white text-white hover:bg-blue-700 font-bold px-8">
+                <a href="tel:2283383455">Call (228) 338-3455</a>
+              </Button>
             </div>
           </div>
         </section>
