@@ -48,6 +48,11 @@ const Resources = () => {
         <meta property="og:description" content="Free washer and dryer rental resources, hookup checklists, and laundry care guides." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://sudsycorentals.com/resources" />
+        <meta property="og:image" content="https://sudsycorentals.com/og-image.png" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Washer and Dryer Rental Guides & Resources | Sudsy Co." />
+        <meta name="twitter:description" content="Free washer and dryer rental resources: hookup checklists, laundry care guides, and tips. From Sudsy Co. Rentals, Mississippi Gulf Coast." />
+        <meta name="twitter:image" content="https://sudsycorentals.com/og-image.png" />
       </Helmet>
 
       <div className="min-h-screen bg-background">

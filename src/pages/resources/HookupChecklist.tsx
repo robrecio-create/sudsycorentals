@@ -12,10 +12,18 @@ const HookupChecklist = () => {
     <>
       <Helmet>
         <title>Washer and Dryer Rental Hookup Checklist | Free Download | Sudsy Co.</title>
-        <meta 
-          name="description" 
-          content="Free printable washer and dryer hookup checklist. Verify your apartment has the right connections before your washer and dryer rental delivery." 
-        />
+        <meta name="description" content="Free printable washer and dryer hookup checklist. Verify your apartment has the right connections before your washer and dryer rental delivery." />
+        <link rel="canonical" href="https://sudsycorentals.com/resources/hookup-checklist" />
+        <meta name="robots" content="index, follow" />
+        <meta property="og:title" content="Washer and Dryer Rental Hookup Checklist | Free Download | Sudsy Co." />
+        <meta property="og:description" content="Free printable washer and dryer hookup checklist. Verify your apartment has the right connections before your rental delivery." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://sudsycorentals.com/resources/hookup-checklist" />
+        <meta property="og:image" content="https://sudsycorentals.com/og-image.png" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Washer and Dryer Rental Hookup Checklist | Free Download | Sudsy Co." />
+        <meta name="twitter:description" content="Free printable washer and dryer hookup checklist. Verify your apartment has the right connections before your rental delivery." />
+        <meta name="twitter:image" content="https://sudsycorentals.com/og-image.png" />
       </Helmet>
 
       {/* Print-hidden navigation */}

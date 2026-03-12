@@ -24,6 +24,11 @@ const ApplianceRentalService = () => {
         <meta name="geo.region" content="US-MS" />
         <meta name="geo.placename" content="Ocean Springs, Mississippi" />
         <meta name="robots" content="index, follow" />
+        <meta property="og:image" content="https://sudsycorentals.com/og-image.png" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Appliance Rental Service Ocean Springs MS | Sudsy Co." />
+        <meta name="twitter:description" content="Professional appliance rental service in Ocean Springs, MS. Rent washers and dryers starting at $59.99/mo. Free delivery, no credit check." />
+        <meta name="twitter:image" content="https://sudsycorentals.com/og-image.png" />
       </Helmet>
 
       <TopBar />

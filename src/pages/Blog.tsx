@@ -49,6 +49,10 @@ const Blog = () => {
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://sudsycorentals.com/blog" />
         <meta property="og:image" content="https://sudsycorentals.com/og-image.png" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Washer and Dryer Rental Blog | Laundry Tips & Guides | Sudsy Co." />
+        <meta name="twitter:description" content="Washer and dryer rental tips, money-saving guides, and laundry advice for Mississippi Gulf Coast residents." />
+        <meta name="twitter:image" content="https://sudsycorentals.com/og-image.png" />
       </Helmet>
 
       <script

@@ -11,19 +11,24 @@ const FurnitureRentalService = () => {
   return (
     <>
       <Helmet>
-        <title>Furniture Rental Service Ocean Springs MS | Sudsy Co.</title>
+        <title>Furniture Rental Service Ocean Springs MS | Sudsy Co. Washer & Dryer</title>
         <meta
           name="description"
-          content="Furniture rental service in Ocean Springs, MS. Rent washers and dryers — large home appliances delivered and installed. Starting at $59.99/mo. No credit check required."
+          content="Furniture rental service in Ocean Springs, MS — including washer and dryer rentals. Large home appliances delivered and installed starting at $59.99/mo. No credit check."
         />
         <link rel="canonical" href="https://sudsycorentals.com/furniture-rental-service" />
-        <meta property="og:title" content="Furniture Rental Service Ocean Springs MS | Sudsy Co." />
-        <meta property="og:description" content="Furniture rental service in Ocean Springs, MS. Rent washers and dryers — large home appliances delivered and installed. Starting at $59.99/mo." />
+        <meta property="og:title" content="Furniture Rental Service Ocean Springs MS | Sudsy Co. Washer & Dryer" />
+        <meta property="og:description" content="Furniture rental service in Ocean Springs, MS — including washer and dryer rentals. Large home appliances delivered and installed. Starting at $59.99/mo." />
         <meta property="og:url" content="https://sudsycorentals.com/furniture-rental-service" />
         <meta property="og:type" content="website" />
+        <meta property="og:image" content="https://sudsycorentals.com/og-image.png" />
         <meta name="geo.region" content="US-MS" />
         <meta name="geo.placename" content="Ocean Springs, Mississippi" />
         <meta name="robots" content="index, follow" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Furniture Rental Service Ocean Springs MS | Sudsy Co. Washer & Dryer" />
+        <meta name="twitter:description" content="Furniture rental service in Ocean Springs, MS — including washer and dryer rentals. Starting at $59.99/mo. Free delivery, no credit check." />
+        <meta name="twitter:image" content="https://sudsycorentals.com/og-image.png" />
       </Helmet>
 
       <TopBar />

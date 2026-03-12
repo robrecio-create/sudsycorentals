@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
 import { CheckCircle2, Truck } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -78,6 +79,7 @@ const CheckoutSuccess = () => {
 
   return (
     <div className="min-h-screen bg-muted/30 py-12 px-4">
+      <Helmet><meta name="robots" content="noindex, nofollow" /></Helmet>
       <DeliveryScheduleForm
         userId={user?.id}
         customerName={user?.user_metadata?.full_name || user?.email?.split("@")[0]}

@@ -12,10 +12,18 @@ const LaundryCareCheatSheet = () => {
     <>
       <Helmet>
         <title>Laundry Care Cheat Sheet for Washer and Dryer Rental | Sudsy Co.</title>
-        <meta 
-          name="description" 
-          content="Free laundry care cheat sheet for washer and dryer rental customers. Washing temps, fabric care symbols, stain removal & sorting tips." 
-        />
+        <meta name="description" content="Free laundry care cheat sheet for washer and dryer rental customers. Washing temps, fabric care symbols, stain removal & sorting tips." />
+        <link rel="canonical" href="https://sudsycorentals.com/resources/laundry-care-cheat-sheet" />
+        <meta name="robots" content="index, follow" />
+        <meta property="og:title" content="Laundry Care Cheat Sheet for Washer and Dryer Rental | Sudsy Co." />
+        <meta property="og:description" content="Free laundry care cheat sheet for washer and dryer rental customers. Washing temps, fabric care symbols, stain removal & sorting tips." />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://sudsycorentals.com/resources/laundry-care-cheat-sheet" />
+        <meta property="og:image" content="https://sudsycorentals.com/og-image.png" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Laundry Care Cheat Sheet for Washer and Dryer Rental | Sudsy Co." />
+        <meta name="twitter:description" content="Free laundry care cheat sheet for washer and dryer rental customers. Washing temps, fabric care symbols, stain removal & sorting tips." />
+        <meta name="twitter:image" content="https://sudsycorentals.com/og-image.png" />
       </Helmet>
 
       {/* Print-hidden navigation */}

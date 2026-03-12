@@ -24,6 +24,11 @@ const ServiceEstablishment = () => {
         <meta name="geo.region" content="US-MS" />
         <meta name="geo.placename" content="Ocean Springs, Mississippi" />
         <meta name="robots" content="index, follow" />
+        <meta property="og:image" content="https://sudsycorentals.com/og-image.png" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Washer & Dryer Rental Service | Sudsy Co. Ocean Springs MS" />
+        <meta name="twitter:description" content="Sudsy Co. is a local service establishment in Ocean Springs, MS offering washer and dryer rentals on the Mississippi Gulf Coast. Starting at $59.99/mo." />
+        <meta name="twitter:image" content="https://sudsycorentals.com/og-image.png" />
       </Helmet>
 
       <TopBar />

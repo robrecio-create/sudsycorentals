@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
 import { z } from "zod";
 import { useAuth } from "@/contexts/AuthContext";
@@ -121,6 +122,7 @@ const Auth = () => {
 
   return (
     <div className="min-h-screen bg-muted/30 flex flex-col">
+      <Helmet><meta name="robots" content="noindex, nofollow" /></Helmet>
       <div className="p-4">
         <Button variant="ghost" onClick={() => navigate("/")} className="gap-2">
           <ArrowLeft className="h-4 w-4" />
