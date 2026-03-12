@@ -8,6 +8,33 @@ import { Button } from "@/components/ui/button";
 import { CheckCircle, Truck, Wrench, DollarSign, Phone } from "lucide-react";
 
 const FurnitureRentalService = () => {
+  const serviceSchema = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Furniture Rental Service",
+    "description": "Washer and dryer furniture rental service in Ocean Springs, MS. Large home appliances delivered and installed. Starting at $59.99/mo.",
+    "provider": {
+      "@type": "LocalBusiness",
+      "name": "Sudsy Co.",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Ocean Springs",
+        "addressRegion": "MS",
+        "postalCode": "39564",
+        "addressCountry": "US"
+      },
+      "telephone": "+12283383455",
+      "url": "https://sudsycorentals.com"
+    },
+    "areaServed": ["Ocean Springs", "Gulfport", "Biloxi", "D'Iberville", "Moss Point", "Pascagoula", "Gautier", "Bay St. Louis", "Waveland"],
+    "offers": {
+      "@type": "Offer",
+      "price": "59.99",
+      "priceCurrency": "USD"
+    },
+    "serviceType": "Furniture Rental"
+  };
+
   return (
     <>
       <Helmet>
@@ -29,6 +56,9 @@ const FurnitureRentalService = () => {
         <meta name="twitter:title" content="Furniture Rental Service Ocean Springs MS | Sudsy Co. Washer & Dryer" />
         <meta name="twitter:description" content="Furniture rental service in Ocean Springs, MS — including washer and dryer rentals. Starting at $59.99/mo. Free delivery, no credit check." />
         <meta name="twitter:image" content="https://sudsycorentals.com/og-image.png" />
+        <script type="application/ld+json">
+          {JSON.stringify(serviceSchema)}
+        </script>
       </Helmet>
 
       <TopBar />

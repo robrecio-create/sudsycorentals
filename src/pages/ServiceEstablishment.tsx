@@ -8,6 +8,26 @@ import { Button } from "@/components/ui/button";
 import { Truck, Wrench, DollarSign, Phone, Star, MapPin } from "lucide-react";
 
 const ServiceEstablishment = () => {
+  const serviceSchema = {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Sudsy Co. Washer and Dryer Rentals",
+    "description": "Local service establishment in Ocean Springs, MS offering washer and dryer rentals on the Mississippi Gulf Coast.",
+    "url": "https://sudsycorentals.com",
+    "telephone": "+12283383455",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Ocean Springs",
+      "addressRegion": "MS",
+      "postalCode": "39564",
+      "addressCountry": "US"
+    },
+    "openingHours": "Mo-Fr 09:00-18:00",
+    "priceRange": "$$",
+    "areaServed": ["Ocean Springs", "Gulfport", "Biloxi", "D'Iberville", "Moss Point", "Pascagoula", "Gautier", "Bay St. Louis", "Waveland"],
+    "serviceType": ["Appliance Rental", "Furniture Rental", "Washer and Dryer Rental"]
+  };
+
   return (
     <>
       <Helmet>
@@ -29,6 +49,9 @@ const ServiceEstablishment = () => {
         <meta name="twitter:title" content="Washer & Dryer Rental Service | Sudsy Co. Ocean Springs MS" />
         <meta name="twitter:description" content="Sudsy Co. is a local service establishment in Ocean Springs, MS offering washer and dryer rentals on the Mississippi Gulf Coast. Starting at $59.99/mo." />
         <meta name="twitter:image" content="https://sudsycorentals.com/og-image.png" />
+        <script type="application/ld+json">
+          {JSON.stringify(serviceSchema)}
+        </script>
       </Helmet>
 
       <TopBar />
