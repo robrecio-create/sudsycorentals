@@ -22,10 +22,10 @@ const Footer = () => {
           {/* Brand */}
           <div className="lg:col-span-2">
             <div className="flex items-center gap-3 mb-6">
-              <img 
-                src={logoImage} 
-                alt="Sudsy Co. Rentals" 
-                className="h-12 w-auto brightness-0 invert"
+              <img
+                src={logoImage}
+                alt="Sudsy Co. Rentals"
+                className="h-12 w-auto rounded-md"
               />
               <div>
                 <h3 className="font-display font-bold text-xl text-background">
