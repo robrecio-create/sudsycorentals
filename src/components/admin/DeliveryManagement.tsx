@@ -227,6 +227,31 @@ export function DeliveryManagement() {
     if (!editingDelivery) return;
 
     try {
+      // If date or time window changed, validate the limits
+      const dateChanged = editForm.scheduled_date !== editingDelivery.scheduled_date;
+      const timeChanged = editForm.time_window !== editingDelivery.time_window;
+
+      if (dateChanged || timeChanged) {
+        const { data: existing, error: checkError } = await supabase
+          .from("delivery_schedules")
+          .select("id, time_window")
+          .eq("scheduled_date", editForm.scheduled_date)
+          .neq("status", "cancelled")
+          .neq("id", editingDelivery.id);
+
+        if (checkError) throw checkError;
+
+        if (existing && existing.length >= 1) {
+          toast.error("Maximum of 1 delivery allowed per day. That date is fully booked.");
+          return;
+        }
+
+        if (existing && existing.some((d) => d.time_window === editForm.time_window)) {
+          toast.error("That time slot is already booked. Please select a different time.");
+          return;
+        }
+      }
+
       const { error } = await supabase
         .from("delivery_schedules")
         .update({
@@ -245,19 +270,13 @@ export function DeliveryManagement() {
 
       if (error) throw error;
 
-      setDeliveries((prev) =>
-        prev.map((d) =>
-          d.id === editingDelivery.id
-            ? { ...d, ...editForm }
-            : d
-        )
-      );
+      await fetchDeliveries();
       toast.success("Delivery updated successfully");
       setEditDialogOpen(false);
       setEditingDelivery(null);
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error updating delivery:", error);
-      toast.error("Failed to update delivery");
+      toast.error(error.message || "Failed to update delivery");
     }
   };
 
@@ -354,26 +373,32 @@ export function DeliveryManagement() {
 
     setAddingDelivery(true);
     try {
-      const { data, error } = await supabase
-        .from("delivery_schedules")
-        .insert({
-          customer_name: addForm.customer_name || null,
-          customer_email: addForm.customer_email || null,
-          phone: addForm.phone,
-          street_address: addForm.street_address,
-          city: addForm.city,
-          zip_code: addForm.zip_code,
-          scheduled_date: addForm.scheduled_date,
-          time_window: addForm.time_window,
-          notes: addForm.notes || null,
-          status: addForm.status,
-        })
-        .select()
-        .single();
+      // Use the RPC function to enforce daily limit (max 2) and slot limit (max 1)
+      const { data: newId, error: rpcError } = await supabase.rpc("book_delivery_slot", {
+        p_user_id: null,
+        p_scheduled_date: addForm.scheduled_date,
+        p_time_window: addForm.time_window,
+        p_street_address: addForm.street_address,
+        p_city: addForm.city,
+        p_zip_code: addForm.zip_code,
+        p_phone: addForm.phone,
+        p_notes: addForm.notes || null,
+        p_customer_name: addForm.customer_name || null,
+        p_customer_email: addForm.customer_email || null,
+      });
 
-      if (error) throw error;
+      if (rpcError) throw rpcError;
 
-      setDeliveries((prev) => [...prev, data].sort((a, b) => b.scheduled_date.localeCompare(a.scheduled_date)));
+      // If status is not "pending", update it (RPC inserts as pending)
+      if (addForm.status !== "pending" && newId) {
+        await supabase
+          .from("delivery_schedules")
+          .update({ status: addForm.status })
+          .eq("id", newId);
+      }
+
+      // Refetch to get the full delivery record
+      await fetchDeliveries();
       toast.success("Delivery added successfully");
       setAddDeliveryOpen(false);
       setAddForm({

@@ -133,7 +133,7 @@ const DeliveryScheduleForm = ({
       onSuccess?.();
     } catch (error: any) {
       console.error("Error scheduling delivery:", error);
-      if (error.message?.includes("Maximum of 2 deliveries")) {
+      if (error.message?.includes("Maximum of") && error.message?.includes("deliveries")) {
         toast.error("This date is fully booked. Please select another date.");
       } else if (error.message?.includes("time slot is already booked")) {
         toast.error("This time slot was just booked. Please select a different time.");
@@ -223,17 +223,22 @@ const DeliveryScheduleForm = ({
                       const now = new Date();
                       const today = new Date(now);
                       today.setHours(0, 0, 0, 0);
-                      const tomorrow = new Date(today);
-                      tomorrow.setDate(tomorrow.getDate() + 1);
+
+                      // Minimum 2-day lead time: earliest is day after tomorrow
+                      const twoDaysOut = new Date(today);
+                      twoDaysOut.setDate(twoDaysOut.getDate() + 2);
 
                       // Convert current time to CST (UTC-6)
                       const cstHour = new Date(now.toLocaleString("en-US", { timeZone: "America/Chicago" })).getHours();
-                      const isTomorrowCutoff = cstHour >= 17;
+                      // After 5PM CST, push earliest out one more day
+                      const earliest = new Date(twoDaysOut);
+                      if (cstHour >= 17) {
+                        earliest.setDate(earliest.getDate() + 1);
+                      }
 
                       const dateStr = format(date, "yyyy-MM-dd");
-                      const earliest = isTomorrowCutoff ? tomorrow : today;
                       return (
-                        date <= earliest ||
+                        date < earliest ||
                         date.getDay() === 0 ||
                         date > new Date(today.getTime() + 30 * 24 * 60 * 60 * 1000) ||
                         blackoutDates.includes(dateStr)
