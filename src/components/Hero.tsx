@@ -38,7 +38,7 @@ const Hero = () => {
             </div>
             
             <h1 className="font-display font-bold text-4xl md:text-5xl lg:text-6xl text-primary-foreground leading-tight mb-4">
-              Reliable Washer & Dryer Rentals in South Mississippi
+              Washer & Dryer Rentals in Ocean Springs, MS
             </h1>
             <h2 className="font-display font-semibold text-2xl md:text-3xl text-accent mb-6">
               The Best Laundromat Alternative in Gulfport & Biloxi

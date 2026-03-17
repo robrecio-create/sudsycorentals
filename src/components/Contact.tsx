@@ -260,6 +260,20 @@ const Contact = () => {
                 </div>
               </div>
             </div>
+
+            {/* Google Maps Embed — replace src with your GBP embed URL for stronger local signal */}
+            <div className="rounded-2xl overflow-hidden shadow-soft">
+              <iframe
+                title="Sudsy Co. Rentals — Ocean Springs, MS"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3373.0!2d-88.8278!3d30.4113!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2s1302+Fort+St%2C+Ocean+Springs%2C+MS+39564!5e0!3m2!1sen!2sus!4v1"
+                width="100%"
+                height="200"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+            </div>
           </motion.div>
 
           {/* Contact Form */}

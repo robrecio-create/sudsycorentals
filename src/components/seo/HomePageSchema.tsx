@@ -25,8 +25,10 @@ const HomePageSchema = () => {
       { "@type": "City", "name": "Gautier", "containedInPlace": { "@type": "State", "name": "Mississippi" } },
       { "@type": "City", "name": "Pascagoula", "containedInPlace": { "@type": "State", "name": "Mississippi" } }
     ],
+    // TODO: Add verified sameAs URLs — Yelp listing, Google Business Profile (maps.app.goo.gl/...), Bing Places
     "sameAs": [
-      "https://www.facebook.com/sudsycorentals"
+      "https://www.facebook.com/sudsycorentals",
+      "https://www.instagram.com/sudsycorentals/"
     ]
   };
 

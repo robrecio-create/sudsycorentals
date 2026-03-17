@@ -161,12 +161,8 @@ const Footer = () => {
               </li>
               <li className="flex items-start gap-3 text-background/70">
                 <MapPin className="h-5 w-5 shrink-0 mt-0.5" />
-                <span>Ocean Springs, MS<br />Mississippi Gulf Coast</span>
-              </li>
-              {/* Hidden full NAP address for SEO/citation consistency */}
-              <li className="sr-only" aria-hidden="true">
                 <span itemProp="address" itemScope itemType="https://schema.org/PostalAddress">
-                  <span itemProp="streetAddress">1302 Fort St</span>,{" "}
+                  <span itemProp="streetAddress">1302 Fort St</span><br />
                   <span itemProp="addressLocality">Ocean Springs</span>,{" "}
                   <span itemProp="addressRegion">MS</span>{" "}
                   <span itemProp="postalCode">39564</span>

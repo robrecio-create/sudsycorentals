@@ -34,9 +34,9 @@ const Header = () => {
               className="h-12 w-auto"
             />
             <div>
-              <h1 className="font-display font-bold text-xl text-foreground leading-tight">
+              <div className="font-display font-bold text-xl text-foreground leading-tight">
                 SUDSY CO.
-              </h1>
+              </div>
               <p className="text-xs font-medium text-primary tracking-wider">WASHER AND DRYER RENTALS</p>
             </div>
           </a>
