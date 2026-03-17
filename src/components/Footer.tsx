@@ -12,15 +12,27 @@ const serviceAreas = [
   { name: "Pascagoula", slug: "pascagoula" },
 ];
 
+const serviceCityLinks = [
+  { name: "Gulfport", slug: "gulfport" },
+  { name: "Biloxi", slug: "biloxi" },
+  { name: "Ocean Springs", slug: "ocean-springs" },
+  { name: "D'Iberville", slug: "diberville" },
+  { name: "Gautier", slug: "gautier" },
+  { name: "Long Beach", slug: "long-beach" },
+  { name: "Pascagoula", slug: "pascagoula" },
+  { name: "Pass Christian", slug: "pass-christian" },
+  { name: "Moss Point", slug: "moss-point" },
+];
+
 const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
     <footer id="contact" className="bg-foreground text-background">
       <div className="container mx-auto px-4 py-16">
-        <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-12">
+        <div className="grid md:grid-cols-2 lg:grid-cols-6 gap-12">
           {/* Brand */}
-          <div className="lg:col-span-2">
+          <div className="lg:col-span-2 md:col-span-2">
             <div className="flex items-center gap-3 mb-6">
               <img
                 src={logoImage}
@@ -129,6 +141,23 @@ const Footer = () => {
                   <Link
                     to={`/locations/${area.slug}`}
                     className="text-background/70 hover:text-primary transition-colors"
+                  >
+                    {area.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Washer & Dryer Rental by City */}
+          <div>
+            <h4 className="font-display font-semibold text-lg mb-6">Rental by City</h4>
+            <ul className="space-y-3">
+              {serviceCityLinks.map((area) => (
+                <li key={area.slug}>
+                  <Link
+                    to={`/washer-dryer-rental/${area.slug}`}
+                    className="text-background/70 hover:text-primary transition-colors text-sm"
                   >
                     {area.name}
                   </Link>

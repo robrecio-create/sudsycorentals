@@ -18,16 +18,16 @@ const Index = () => {
   return (
     <>
       <Helmet>
-        <title>Washer and Dryer Rental Ocean Springs MS | Sudsy Co. Rentals</title>
+        <title>Sudsy Co. Washer and Dryer Rentals | Appliance Rental Service in Ocean Springs</title>
         <meta
           name="description"
-          content="Sudsy Co. offers washer and dryer rentals in Ocean Springs, MS. Starting at $59.99/mo. Free next-day delivery, no credit checks. Serving the Mississippi Gulf Coast."
+          content="Sudsy Co. is Ocean Springs' premier appliance rental service offering washer and dryer rentals starting at $59.99/mo. Free next-day delivery, no credit checks. Serving the Mississippi Gulf Coast."
         />
         <link rel="canonical" href="https://www.sudsycorentals.com/" />
 
         {/* Open Graph */}
-        <meta property="og:title" content="Washer and Dryer Rental Ocean Springs MS | Sudsy Co. Rentals" />
-        <meta property="og:description" content="Sudsy Co. offers washer and dryer rentals in Ocean Springs, MS. Starting at $59.99/mo. Free next-day delivery, no credit checks. Serving the Mississippi Gulf Coast." />
+        <meta property="og:title" content="Sudsy Co. Washer and Dryer Rentals | Appliance Rental Service in Ocean Springs" />
+        <meta property="og:description" content="Sudsy Co. is Ocean Springs' premier appliance rental service offering washer and dryer rentals starting at $59.99/mo. Free next-day delivery, no credit checks. Serving the Mississippi Gulf Coast." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://www.sudsycorentals.com/" />
         <meta property="og:image" content="https://sudsycorentals.com/og-image.png" />
@@ -36,8 +36,8 @@ const Index = () => {
 
         {/* Twitter Card */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Washer and Dryer Rental Ocean Springs MS | Sudsy Co. Rentals" />
-        <meta name="twitter:description" content="Sudsy Co. offers washer and dryer rentals in Ocean Springs, MS. Starting at $59.99/mo. Free next-day delivery, no credit checks. Serving the Mississippi Gulf Coast." />
+        <meta name="twitter:title" content="Sudsy Co. Washer and Dryer Rentals | Appliance Rental Service in Ocean Springs" />
+        <meta name="twitter:description" content="Sudsy Co. is Ocean Springs' premier appliance rental service offering washer and dryer rentals starting at $59.99/mo. Free next-day delivery, no credit checks. Serving the Mississippi Gulf Coast." />
         <meta name="twitter:image" content="https://sudsycorentals.com/og-image.png" />
         
         {/* Additional SEO */}

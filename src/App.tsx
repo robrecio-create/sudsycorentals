@@ -24,6 +24,7 @@ import TwentyDollarPromo from "./pages/TwentyDollarPromo";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfService from "./pages/TermsOfService";
 import WasherDryerRental from "./pages/WasherDryerRental";
+import ServiceCityPage from "./pages/ServiceCityPage";
 import ApplianceRentalService from "./pages/ApplianceRentalService";
 import FurnitureRentalService from "./pages/FurnitureRentalService";
 import ServiceEstablishment from "./pages/ServiceEstablishment";
@@ -59,6 +60,7 @@ const App = () => (
               <Route path="/privacy-policy" element={<PrivacyPolicy />} />
               <Route path="/terms-of-service" element={<TermsOfService />} />
               <Route path="/washer-and-dryer-rental" element={<WasherDryerRental />} />
+              <Route path="/washer-dryer-rental/:city" element={<ServiceCityPage />} />
               <Route path="/appliance-rental-service" element={<ApplianceRentalService />} />
               <Route path="/furniture-rental-service" element={<FurnitureRentalService />} />
               <Route path="/services" element={<ServiceEstablishment />} />
