@@ -1,7 +1,12 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Phone, CheckCircle2 } from "lucide-react";
-import washerDryerImage from "@/assets/washer-dryer-hero.png";
+import washerDryerImageImport from "@/assets/washer-dryer-hero.png";
+
+// Handle both Vite (string) and Astro (object with src property) image imports
+const washerDryerImage = typeof washerDryerImageImport === 'string' 
+  ? washerDryerImageImport 
+  : (washerDryerImageImport as { src: string })?.src || washerDryerImageImport;
 
 const benefits = [
   "No Credit Check",

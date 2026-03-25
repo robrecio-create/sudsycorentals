@@ -1,6 +1,11 @@
 import { Phone, Mail, MapPin, Facebook, Instagram, Heart } from "lucide-react";
 import { Link } from "react-router-dom";
-import logoImage from "@/assets/logo.png";
+import logoImageImport from "@/assets/logo.png";
+
+// Handle both Vite (string) and Astro (object with src property) image imports
+const logoImage = typeof logoImageImport === 'string' 
+  ? logoImageImport 
+  : (logoImageImport as { src: string })?.src || logoImageImport;
 
 const serviceAreas = [
   { name: "Biloxi", slug: "biloxi" },

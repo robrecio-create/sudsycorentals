@@ -5,7 +5,12 @@ import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAdminRole } from "@/hooks/useAdminRole";
 import { useAuth } from "@/contexts/AuthContext";
-import logoImage from "@/assets/logo.png";
+import logoImageImport from "@/assets/logo.png";
+
+// Handle both Vite (string) and Astro (object with src property) image imports
+const logoImage = typeof logoImageImport === 'string' 
+  ? logoImageImport 
+  : (logoImageImport as { src: string })?.src || logoImageImport;
 
 const navLinks = [
   { name: "Home", href: "/#home" },

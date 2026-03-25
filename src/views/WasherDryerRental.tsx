@@ -21,7 +21,12 @@ import {
   Users,
   Home,
 } from "lucide-react";
-import heroImg from "@/assets/washer-dryer-hero.png";
+import heroImgImport from "@/assets/washer-dryer-hero.png";
+
+// Handle both Vite (string) and Astro (object with src property) image imports
+const heroImg = typeof heroImgImport === 'string' 
+  ? heroImgImport 
+  : (heroImgImport as { src: string })?.src || heroImgImport;
 
 const pillarSchema = {
   "@context": "https://schema.org",

@@ -13,7 +13,12 @@ import { useToast } from "@/hooks/use-toast";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { FloatingChatButtons } from "@/components/FloatingChatButtons";
-import logoImage from "@/assets/logo.png";
+import logoImageImport from "@/assets/logo.png";
+
+// Handle both Vite (string) and Astro (object with src property) image imports
+const logoImage = typeof logoImageImport === 'string' 
+  ? logoImageImport 
+  : (logoImageImport as { src: string })?.src || logoImageImport;
 
 const SERVICE_CITIES = ["Biloxi", "Gulfport", "Ocean Springs", "D'Iberville", "Gautier", "Pascagoula", "Long Beach"];
 
