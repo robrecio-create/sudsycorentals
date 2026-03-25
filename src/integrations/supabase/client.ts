@@ -2,8 +2,9 @@
 import { createClient } from '@supabase/supabase-js';
 import type { Database } from './types';
 
-const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL;
-const SUPABASE_PUBLISHABLE_KEY = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY;
+// Fallbacks for Astro/Vercel where VITE_ env vars may not be available at runtime
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL || "https://fwylpdmcbbgjyrfbpirm.supabase.co";
+const SUPABASE_PUBLISHABLE_KEY = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY || "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ3eWxwZG1jYmJnanlyZmJwaXJtIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM2OTQ1NTksImV4cCI6MjA4OTI3MDU1OX0.QNNd5s-nLwtxUdOs0G6iggkPc7a8Tob04eSWLc3V0TY";
 
 // Import the supabase client like this:
 // import { supabase } from "@/integrations/supabase/client";
