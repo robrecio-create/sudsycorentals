@@ -1,37 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import HomeIsland from '../components/islands/HomeIsland';
-
-// Static link data for SEO (crawlable in raw HTML)
-const serviceAreas = [
-  { name: 'Biloxi', slug: 'biloxi' },
-  { name: 'Gulfport', slug: 'gulfport' },
-  { name: 'Ocean Springs', slug: 'ocean-springs' },
-  { name: "D'Iberville", slug: 'diberville' },
-  { name: 'Gautier', slug: 'gautier' },
-  { name: 'Long Beach', slug: 'long-beach' },
-  { name: 'Pascagoula', slug: 'pascagoula' },
-  { name: 'Pass Christian', slug: 'pass-christian' },
-  { name: 'Moss Point', slug: 'moss-point' },
-];
-
-const quickLinks = [
-  { name: 'Areas We Serve', href: '/areas-we-serve' },
-  { name: 'Washer and Dryer Rental', href: '/washer-and-dryer-rental' },
-  { name: 'Appliance Rental Service', href: '/appliance-rental-service' },
-  { name: 'Blog', href: '/blog' },
-  { name: 'Resources', href: '/resources' },
-  { name: 'Privacy Policy', href: '/privacy-policy' },
-  { name: 'Terms of Service', href: '/terms-of-service' },
-];
-
-const blogPosts = [
-  { title: 'Washer & Dryer Rental Near Me', slug: 'washer-and-dryer-rental-near-me-mississippi-gulf-coast' },
-  { title: 'Keesler AFB Washer Dryer Rental', slug: 'keesler-afb-washer-dryer-rental' },
-  { title: 'Rental vs Laundromat Cost Comparison', slug: 'washer-dryer-rental-vs-laundromat-cost-comparison' },
-  { title: 'Apartment Hookups Guide', slug: 'apartment-washer-dryer-hookups-guide' },
-  { title: 'Best Laundry Tips', slug: 'best-laundry-tips-save-time-money' },
-];
 ---
 
 <BaseLayout
@@ -42,43 +11,4 @@ const blogPosts = [
   geoPlacename="Ocean Springs, Mississippi"
 >
   <HomeIsland client:only="react" />
-  
-  <!-- Static internal links for SEO crawlers (visually hidden but accessible) -->
-  <nav aria-label="Site Navigation" class="sr-only">
-    <h2>Service Areas</h2>
-    <ul>
-      {serviceAreas.map(area => (
-        <li><a href={`/locations/${area.slug}`}>Washer & Dryer Rentals in {area.name}</a></li>
-      ))}
-      {serviceAreas.map(area => (
-        <li><a href={`/washer-dryer-rental/${area.slug}`}>Washer Dryer Rental {area.name}</a></li>
-      ))}
-    </ul>
-    <h2>Quick Links</h2>
-    <ul>
-      {quickLinks.map(link => (
-        <li><a href={link.href}>{link.name}</a></li>
-      ))}
-    </ul>
-    <h2>Blog</h2>
-    <ul>
-      {blogPosts.map(post => (
-        <li><a href={`/blog/${post.slug}`}>{post.title}</a></li>
-      ))}
-    </ul>
-  </nav>
-
-  <style>
-    .sr-only {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip: rect(0, 0, 0, 0);
-      white-space: nowrap;
-      border: 0;
-    }
-  </style>
 </BaseLayout>
