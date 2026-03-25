@@ -1,0 +1,11 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import FurnitureRentalIsland from '../components/islands/FurnitureRentalIsland';
+---
+
+<BaseLayout
+  title="Furniture Rental Service | Sudsy Co. Rentals"
+  description="Washer and dryer furniture rental service in Ocean Springs, MS. Large home appliances delivered and installed. Starting at $59.99/mo."
+>
+  <FurnitureRentalIsland client:only="react" />
+</BaseLayout>

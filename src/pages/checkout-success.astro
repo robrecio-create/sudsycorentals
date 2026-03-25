@@ -1,0 +1,8 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CheckoutSuccessIsland from '../components/islands/CheckoutSuccessIsland';
+---
+
+<BaseLayout title="Checkout Success | Sudsy Co. Rentals" noindex={true}>
+  <CheckoutSuccessIsland client:only="react" />
+</BaseLayout>

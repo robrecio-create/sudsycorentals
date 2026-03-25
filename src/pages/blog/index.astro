@@ -1,0 +1,163 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import TopBar from '../../components/astro/TopBar.astro';
+import Header from '../../components/astro/Header.astro';
+import Footer from '../../components/astro/Footer.astro';
+import FloatingButtons from '../../components/astro/FloatingButtons.astro';
+import { blogPosts } from '../../data/blogPosts';
+
+const blogSchema = {
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  "name": "Sudsy Co. Blog",
+  "description": "Tips, guides, and insights about washer and dryer rentals, laundry care, and saving money on the Mississippi Gulf Coast.",
+  "url": "https://sudsycorentals.com/blog",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Sudsy Co. Rentals",
+    "url": "https://sudsycorentals.com"
+  },
+  "blogPost": blogPosts.map(post => ({
+    "@type": "BlogPosting",
+    "headline": post.title,
+    "description": post.excerpt,
+    "url": `https://sudsycorentals.com/blog/${post.slug}`,
+    "datePublished": post.publishedDate,
+    "author": {
+      "@type": "Organization",
+      "name": post.author
+    }
+  }))
+};
+
+const sortedPosts = [...blogPosts].sort((a, b) =>
+  new Date(b.publishedDate).getTime() - new Date(a.publishedDate).getTime()
+);
+---
+
+<BaseLayout
+  title="Washer and Dryer Rental Blog | Laundry Tips & Guides | Sudsy Co."
+  description="Tips, guides, and insights about washer and dryer rentals, laundry care, and saving money on the Mississippi Gulf Coast."
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(blogSchema)} />
+  </Fragment>
+
+  <TopBar />
+  <Header />
+
+  <main>
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-br from-blue-600 to-blue-800 text-white py-16 md:py-24">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h1 class="text-4xl md:text-5xl font-bold mb-4">The Sudsy Co. Blog</h1>
+        <p class="text-xl text-blue-100 max-w-2xl mx-auto">
+          Tips, guides, and insights to help you save money and make the most of your washer and dryer rental.
+        </p>
+      </div>
+    </section>
+
+    <!-- Blog Posts Grid -->
+    <section class="py-16 bg-gray-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          {sortedPosts.map((post) => (
+            <a href={`/blog/${post.slug}`} class="group bg-white rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden flex flex-col">
+              <!-- Featured Image -->
+              <div class="relative h-56 overflow-hidden">
+                {post.featuredImage ? (
+                  <img
+                    src={post.featuredImage}
+                    alt={post.title}
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    loading="lazy"
+                  />
+                ) : (
+                  <div class="w-full h-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center">
+                    <svg class="w-16 h-16 text-white/40" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25" />
+                    </svg>
+                  </div>
+                )}
+                <!-- Category Badge -->
+                <span class="absolute top-4 left-4 bg-blue-600 text-white text-xs font-semibold px-3 py-1 rounded-full">
+                  {post.category}
+                </span>
+              </div>
+
+              <!-- Card Content -->
+              <div class="p-6 flex flex-col flex-1">
+                <!-- Read Time -->
+                <div class="flex items-center text-gray-500 text-sm mb-3">
+                  <svg class="w-4 h-4 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6l4 2m6-2a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                  </svg>
+                  {post.readTime}
+                </div>
+
+                <!-- Title -->
+                <h2 class="text-xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors">
+                  {post.title}
+                </h2>
+
+                <!-- Excerpt -->
+                <p class="text-gray-600 text-sm leading-relaxed mb-4 flex-1">
+                  {post.excerpt}
+                </p>
+
+                <!-- Bottom Row -->
+                <div class="flex items-center justify-between pt-4 border-t border-gray-100">
+                  <!-- Date -->
+                  <div class="flex items-center text-gray-500 text-sm">
+                    <svg class="w-4 h-4 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
+                    </svg>
+                    {new Date(post.publishedDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+                  </div>
+
+                  <!-- Read More -->
+                  <span class="text-blue-600 font-semibold text-sm flex items-center group-hover:translate-x-1 transition-transform">
+                    Read More
+                    <svg class="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+                    </svg>
+                  </span>
+                </div>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-16 bg-blue-600 text-white">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-3xl font-bold mb-4">Ready to Ditch the Laundromat?</h2>
+        <p class="text-xl text-blue-100 mb-8">
+          Rent a washer and dryer set for just $59.99/month. Free delivery, free installation, free repairs.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a
+            href="/#pricing"
+            class="inline-flex items-center justify-center px-8 py-3 bg-white text-blue-600 font-bold rounded-lg hover:bg-blue-50 transition-colors"
+          >
+            View Pricing
+          </a>
+          <a
+            href="tel:+12283383455"
+            class="inline-flex items-center justify-center px-8 py-3 border-2 border-white text-white font-bold rounded-lg hover:bg-white/10 transition-colors"
+          >
+            <svg class="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z" />
+            </svg>
+            (228) 338-3455
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+  <FloatingButtons />
+</BaseLayout>

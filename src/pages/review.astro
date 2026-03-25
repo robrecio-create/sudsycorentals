@@ -1,0 +1,11 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ReviewIsland from '../components/islands/ReviewIsland';
+---
+
+<BaseLayout
+  title="Review Sudsy Co. Washer and Dryer Rental | Leave a Review"
+  description="Leave a Google review for Sudsy Co. washer and dryer rental service on the Mississippi Gulf Coast."
+>
+  <ReviewIsland client:only="react" />
+</BaseLayout>

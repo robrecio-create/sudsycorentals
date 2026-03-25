@@ -1,0 +1,8 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import DashboardIsland from '../components/islands/DashboardIsland';
+---
+
+<BaseLayout title="Dashboard | Sudsy Co. Rentals" noindex={true}>
+  <DashboardIsland client:only="react" />
+</BaseLayout>

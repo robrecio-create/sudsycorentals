@@ -1,0 +1,11 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PromoIsland from '../components/islands/PromoIsland';
+---
+
+<BaseLayout
+  title="$20 Off First Month | Sudsy Co. Rentals"
+  description="Get $20 off your first month of washer and dryer rental with Sudsy Co. Rentals. Free delivery, no credit check."
+>
+  <PromoIsland client:only="react" />
+</BaseLayout>

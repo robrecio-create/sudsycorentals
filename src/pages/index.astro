@@ -1,0 +1,14 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HomeIsland from '../components/islands/HomeIsland';
+---
+
+<BaseLayout
+  title="Sudsy Co. Washer and Dryer Rentals | Appliance Rental Service in Ocean Springs"
+  description="Sudsy Co. is Ocean Springs' premier appliance rental service offering washer and dryer rentals starting at $59.99/mo. Free next-day delivery, no credit checks. Serving the Mississippi Gulf Coast."
+  canonical="https://www.sudsycorentals.com/"
+  geoRegion="US-MS"
+  geoPlacename="Ocean Springs, Mississippi"
+>
+  <HomeIsland client:only="react" />
+</BaseLayout>

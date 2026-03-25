@@ -1,0 +1,11 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import HookupChecklistIsland from '../../components/islands/HookupChecklistIsland';
+---
+
+<BaseLayout
+  title="Washer Dryer Hookup Checklist | Sudsy Co. Rentals"
+  description="Use this checklist to verify your apartment or home has the proper connections for a washer and dryer."
+>
+  <HookupChecklistIsland client:only="react" />
+</BaseLayout>

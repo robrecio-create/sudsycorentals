@@ -1,0 +1,239 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import TopBar from '../components/astro/TopBar.astro';
+import Header from '../components/astro/Header.astro';
+import Footer from '../components/astro/Footer.astro';
+---
+
+<BaseLayout
+  title="Terms of Service | Sudsy Co. Washer and Dryer Rental"
+  description="Terms of service for Sudsy Co. Rentals washer and dryer rental on the Mississippi Gulf Coast. Rental agreements, policies, and customer responsibilities."
+  canonical="https://sudsycorentals.com/terms-of-service"
+>
+  <div class="min-h-screen bg-background">
+    <TopBar />
+    <Header />
+    <div class="hero-gradient py-4">
+      <nav aria-label="Breadcrumb" class="container mx-auto px-4">
+        <ol class="flex items-center space-x-2 text-sm text-muted-foreground">
+          <li><a href="/" class="hover:text-foreground">Home</a></li>
+          <li>/</li>
+          <li class="text-foreground">Terms of Service</li>
+        </ol>
+      </nav>
+    </div>
+
+    <main class="container mx-auto px-4 py-12 md:py-16 max-w-3xl">
+      <h1 class="text-3xl md:text-4xl font-bold text-foreground mb-2">
+        Terms of Service
+      </h1>
+      <p class="text-muted-foreground mb-8">
+        Last updated: February 25, 2026
+      </p>
+
+      <div class="prose prose-lg max-w-none space-y-8 text-foreground/90">
+        <section>
+          <h2 class="text-2xl font-semibold text-foreground">Agreement to Terms</h2>
+          <p>
+            By accessing or using the Sudsy Co. Rentals website (sudsycorentals.com) or
+            renting appliances from us, you agree to be bound by these Terms of Service.
+            If you do not agree, please do not use our services.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-semibold text-foreground">Rental Services</h2>
+          <p>
+            Sudsy Co. Rentals provides washer and dryer rental services on a
+            month-to-month subscription basis. Our service includes:
+          </p>
+          <ul class="list-disc pl-6 space-y-2">
+            <li>Delivery and installation of rented appliances at no additional cost</li>
+            <li>Free maintenance and repairs for the duration of your rental</li>
+            <li>Pickup of appliances upon cancellation of your rental agreement</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-semibold text-foreground">Eligibility</h2>
+          <p>
+            To rent from Sudsy Co., you must be at least 18 years of age and reside
+            within our service area on the Mississippi Gulf Coast, including Gulfport,
+            Biloxi, Ocean Springs, D'Iberville, Long Beach, Gautier, Pascagoula, Pass
+            Christian, and Moss Point. No credit check is required.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-semibold text-foreground">Subscription and Payment</h2>
+          <ul class="list-disc pl-6 space-y-2">
+            <li>
+              All rental agreements require a minimum 6-month commitment.
+              After the initial term, your subscription continues on a
+              month-to-month basis until cancelled.
+            </li>
+            <li>
+              Rental subscriptions are billed monthly through our payment processor
+              (Stripe). By subscribing, you authorize recurring charges to your payment
+              method.
+            </li>
+            <li>
+              Pricing is as listed on our website at the time of sign-up. We will notify
+              you of any price changes before they take effect.
+            </li>
+            <li>
+              Late or failed payments may result in service interruption or termination of
+              your rental agreement.
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-semibold text-foreground">Cancellation</h2>
+          <p>
+            All rental agreements require an initial 6-month minimum term. After
+            the initial 6-month period, you may cancel your rental at any time.
+            Upon cancellation:
+          </p>
+          <ul class="list-disc pl-6 space-y-2">
+            <li>No cancellation fees apply after the initial 6-month term</li>
+            <li>
+              We will schedule a pickup of the rented appliances at a mutually convenient
+              time
+            </li>
+            <li>
+              Your final billing cycle ends at the close of your current subscription
+              period
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-semibold text-foreground">Customer Responsibilities</h2>
+          <p>As a renter, you agree to:</p>
+          <ul class="list-disc pl-6 space-y-2">
+            <li>
+              Provide working washer and dryer hookups (hot/cold water supply, drain, and
+              appropriate electrical outlet or gas connection) at your residence
+            </li>
+            <li>
+              Use the rented appliances for normal household laundry purposes only
+            </li>
+            <li>
+              Not move, modify, or attempt to repair the appliances yourself — contact us
+              for all service needs
+            </li>
+            <li>
+              Allow reasonable access for delivery, installation, maintenance, and pickup
+            </li>
+            <li>
+              Report any issues or malfunctions promptly by calling
+              <a href="tel:+12283383455" class="text-primary underline">(228) 338-3455</a>
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-semibold text-foreground">Damage and Liability</h2>
+          <ul class="list-disc pl-6 space-y-2">
+            <li>
+              Normal wear and tear is expected and covered under your rental agreement.
+              Maintenance and repairs due to normal use are provided at no charge.
+            </li>
+            <li>
+              You may be responsible for damages caused by misuse, neglect, unauthorized
+              modifications, or failure to provide proper hookups.
+            </li>
+            <li>
+              Sudsy Co. Rentals is not liable for water damage, property damage, or
+              personal injury resulting from improper hookups or misuse of rented
+              appliances.
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-semibold text-foreground">Ownership</h2>
+          <p>
+            All rented appliances remain the property of Sudsy Co. Rentals at all times.
+            Renting does not transfer ownership. Appliances must be returned in
+            reasonable condition upon cancellation.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-semibold text-foreground">Service Area</h2>
+          <p>
+            Our delivery and service area covers the Mississippi Gulf Coast. If you move
+            outside our service area, you must notify us to arrange appliance pickup and
+            cancellation of your rental.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-semibold text-foreground">Website Use</h2>
+          <ul class="list-disc pl-6 space-y-2">
+            <li>
+              All content on sudsycorentals.com — including text, images, logos, and
+              graphics — is the property of Sudsy Co. Rentals and may not be reproduced
+              without permission.
+            </li>
+            <li>
+              You agree not to use our website for any unlawful purpose or in any way
+              that could damage or impair the site.
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-semibold text-foreground">Limitation of Liability</h2>
+          <p>
+            To the fullest extent permitted by law, Sudsy Co. Rentals shall not be liable
+            for any indirect, incidental, special, or consequential damages arising from
+            your use of our services or website. Our total liability shall not exceed the
+            amount you have paid us in rental fees during the preceding 12 months.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-semibold text-foreground">Changes to These Terms</h2>
+          <p>
+            We reserve the right to update these Terms of Service at any time. Changes
+            will be posted on this page with an updated revision date. Continued use of
+            our services after changes constitutes acceptance of the revised terms.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-semibold text-foreground">Governing Law</h2>
+          <p>
+            These terms are governed by the laws of the State of Mississippi. Any disputes
+            shall be resolved in the courts of Harrison County, Mississippi.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="text-2xl font-semibold text-foreground">Contact Us</h2>
+          <p>
+            If you have questions about these terms, please contact us:
+          </p>
+          <ul class="list-none space-y-1">
+            <li>
+              <strong>Phone:</strong>
+              <a href="tel:+12283383455" class="text-primary underline">(228) 338-3455</a>
+            </li>
+            <li>
+              <strong>Location:</strong> Ocean Springs, Mississippi
+            </li>
+            <li>
+              <strong>Website:</strong>
+              <a href="https://sudsycorentals.com" class="text-primary underline">sudsycorentals.com</a>
+            </li>
+          </ul>
+        </section>
+      </div>
+    </main>
+
+    <Footer />
+  </div>
+</BaseLayout>

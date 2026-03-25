@@ -1,0 +1,159 @@
+---
+const currentYear = new Date().getFullYear();
+
+const serviceAreas = [
+  { name: "Biloxi", slug: "biloxi" },
+  { name: "Gulfport", slug: "gulfport" },
+  { name: "Ocean Springs", slug: "ocean-springs" },
+  { name: "D'Iberville", slug: "diberville" },
+  { name: "Gautier", slug: "gautier" },
+  { name: "Long Beach", slug: "long-beach" },
+  { name: "Pascagoula", slug: "pascagoula" },
+];
+
+const serviceCityLinks = [
+  { name: "Gulfport", slug: "gulfport" },
+  { name: "Biloxi", slug: "biloxi" },
+  { name: "Ocean Springs", slug: "ocean-springs" },
+  { name: "D'Iberville", slug: "diberville" },
+  { name: "Gautier", slug: "gautier" },
+  { name: "Long Beach", slug: "long-beach" },
+  { name: "Pascagoula", slug: "pascagoula" },
+  { name: "Pass Christian", slug: "pass-christian" },
+  { name: "Moss Point", slug: "moss-point" },
+];
+
+const quickLinks = [
+  { name: "Home", href: "/#home" },
+  { name: "Pricing", href: "/#pricing" },
+  { name: "How It Works", href: "/#how-it-works" },
+  { name: "FAQ", href: "/#faq" },
+  { name: "Contact", href: "/#contact" },
+  { name: "Washer and Dryer Rental", href: "/washer-and-dryer-rental" },
+  { name: "Appliance Rental Service", href: "/appliance-rental-service" },
+  { name: "Furniture Rental Service", href: "/furniture-rental-service" },
+  { name: "Our Services", href: "/services" },
+  { name: "Areas We Serve", href: "/areas-we-serve" },
+  { name: "Blog", href: "/blog" },
+  { name: "Resources", href: "/resources" },
+  { name: "$20 Off Promo", href: "/20-dollar-promo" },
+];
+---
+
+<footer id="contact" class="bg-foreground text-background">
+  <div class="container mx-auto px-4 py-16">
+    <div class="grid md:grid-cols-2 lg:grid-cols-6 gap-12">
+      <!-- Brand -->
+      <div class="lg:col-span-2 md:col-span-2">
+        <div class="flex items-center gap-3 mb-6">
+          <img src="/logo.png" alt="Sudsy Co. Rentals" class="h-12 w-auto rounded-md" />
+          <div>
+            <h3 class="font-display font-bold text-xl text-background">SUDSY CO.</h3>
+            <p class="text-xs font-medium text-primary tracking-wider">WASHER AND DRYER RENTALS</p>
+          </div>
+        </div>
+        <p class="text-background/70 leading-relaxed">
+          Locally Owned & Operated in Ocean Springs, MS. Sudsy Co. is South Mississippi's premier alternative to the laundromat. We provide affordable washer and dryer rentals with free next-day delivery to the Mississippi Gulf Coast.
+        </p>
+      </div>
+
+      <!-- Quick Links -->
+      <div>
+        <h4 class="font-display font-semibold text-lg mb-6">Quick Links</h4>
+        <ul class="space-y-3">
+          {quickLinks.map((link) => (
+            <li>
+              <a href={link.href} class="text-background/70 hover:text-primary transition-colors">
+                {link.name}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Service Areas -->
+      <div>
+        <h4 class="font-display font-semibold text-lg mb-6">Service Areas</h4>
+        <ul class="space-y-3">
+          {serviceAreas.map((area) => (
+            <li>
+              <a href={`/locations/${area.slug}`} class="text-background/70 hover:text-primary transition-colors">
+                {area.name}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Rental by City -->
+      <div>
+        <h4 class="font-display font-semibold text-lg mb-6">Rental by City</h4>
+        <ul class="space-y-3">
+          {serviceCityLinks.map((area) => (
+            <li>
+              <a href={`/washer-dryer-rental/${area.slug}`} class="text-background/70 hover:text-primary transition-colors text-sm">
+                {area.name}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- Contact Info -->
+      <div>
+        <h4 class="font-display font-semibold text-lg mb-6">Contact Us</h4>
+        <ul class="space-y-4">
+          <li>
+            <a href="tel:+12283383455" class="flex items-center gap-3 text-background/70 hover:text-primary transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+              (228) 338-3455
+            </a>
+          </li>
+          <li>
+            <a href="mailto:info@sudsycorentals.com" class="flex items-center gap-3 text-background/70 hover:text-primary transition-colors">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+              info@sudsycorentals.com
+            </a>
+          </li>
+          <li class="flex items-start gap-3 text-background/70">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="shrink-0 mt-0.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+            <span itemscope itemtype="https://schema.org/PostalAddress">
+              <span itemprop="streetAddress">1302 Fort St</span><br />
+              <span itemprop="addressLocality">Ocean Springs</span>,
+              <span itemprop="addressRegion">MS</span>
+              <span itemprop="postalCode">39564</span>
+            </span>
+          </li>
+        </ul>
+        <div class="flex gap-4 mt-6">
+          <a href="https://www.facebook.com/profile.php?id=61583964994641" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-background/10 flex items-center justify-center hover:bg-primary transition-colors" aria-label="Facebook">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </a>
+          <a href="https://www.instagram.com/sudsycorentals/" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full bg-background/10 flex items-center justify-center hover:bg-primary transition-colors" aria-label="Instagram">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom -->
+    <div class="border-t border-background/10 mt-12 pt-8">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-4 mb-6">
+        <p class="text-background/60 text-sm text-center md:text-left">
+          Proudly serving: Biloxi, Gulfport, Ocean Springs, D'Iberville, Gautier, Pascagoula, and Long Beach, MS.
+        </p>
+        <div class="inline-flex items-center gap-2 bg-background/10 text-background/80 px-4 py-2 rounded-full text-sm font-medium shrink-0">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="hsl(var(--primary))" stroke="hsl(var(--primary))" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+          Family Owned &amp; Operated
+        </div>
+      </div>
+      <div class="flex flex-col md:flex-row justify-between items-center gap-4 text-background/60 text-sm">
+        <p>&copy; {currentYear} Sudsy Co. Rentals. All rights reserved.</p>
+        <div class="flex gap-6">
+          <a href="/privacy-policy" class="hover:text-primary transition-colors">Privacy Policy</a>
+          <a href="/terms-of-service" class="hover:text-primary transition-colors">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>

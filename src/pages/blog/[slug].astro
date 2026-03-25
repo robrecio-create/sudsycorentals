@@ -1,0 +1,376 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import TopBar from '../../components/astro/TopBar.astro';
+import Header from '../../components/astro/Header.astro';
+import Footer from '../../components/astro/Footer.astro';
+import FloatingButtons from '../../components/astro/FloatingButtons.astro';
+import { blogPosts, getBlogPost } from '../../data/blogPosts';
+
+export function getStaticPaths() {
+  return blogPosts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+
+// Get related posts (other posts excluding the current one)
+const relatedPosts = blogPosts.filter(p => p.slug !== post.slug).slice(0, 2);
+
+// Simple markdown-to-HTML converter
+function markdownToHtml(md: string): string {
+  let html = md.trim();
+
+  // Convert tables
+  html = html.replace(/(?:^|\n)((?:\|.*\|(?:\n|$))+)/gm, (match) => {
+    const rows = match.trim().split('\n').filter(r => r.trim());
+    if (rows.length < 2) return match;
+
+    let table = '<div class="overflow-x-auto my-6"><table class="min-w-full border-collapse border border-gray-200 rounded-lg overflow-hidden">';
+
+    // Header row
+    const headerCells = rows[0].split('|').filter(c => c.trim());
+    table += '<thead class="bg-gray-50"><tr>';
+    headerCells.forEach(cell => {
+      table += `<th class="px-4 py-3 text-left text-sm font-semibold text-gray-700 border border-gray-200">${cell.trim()}</th>`;
+    });
+    table += '</tr></thead>';
+
+    // Body rows (skip separator row)
+    table += '<tbody>';
+    for (let i = 2; i < rows.length; i++) {
+      const cells = rows[i].split('|').filter(c => c.trim());
+      const bgClass = i % 2 === 0 ? 'bg-white' : 'bg-gray-50';
+      table += `<tr class="${bgClass}">`;
+      cells.forEach(cell => {
+        let cellContent = cell.trim();
+        // Handle bold in table cells
+        cellContent = cellContent.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+        table += `<td class="px-4 py-3 text-sm text-gray-600 border border-gray-200">${cellContent}</td>`;
+      });
+      table += '</tr>';
+    }
+    table += '</tbody></table></div>';
+    return table;
+  });
+
+  // Split into lines for block-level processing
+  const lines = html.split('\n');
+  const result: string[] = [];
+  let inList = false;
+  let listType: 'ul' | 'ol' = 'ul';
+  let inParagraph = false;
+
+  function processInline(text: string): string {
+    // Bold
+    text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+    // Links
+    text = text.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2" class="text-blue-600 hover:text-blue-800 underline">$1</a>');
+    return text;
+  }
+
+  function closeList() {
+    if (inList) {
+      result.push(listType === 'ul' ? '</ul>' : '</ol>');
+      inList = false;
+    }
+  }
+
+  function closeParagraph() {
+    if (inParagraph) {
+      result.push('</p>');
+      inParagraph = false;
+    }
+  }
+
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    const trimmed = line.trim();
+
+    // Skip empty lines
+    if (trimmed === '') {
+      closeList();
+      closeParagraph();
+      continue;
+    }
+
+    // Already processed table markup - pass through
+    if (trimmed.startsWith('<div') || trimmed.startsWith('<table') || trimmed.startsWith('<thead') ||
+        trimmed.startsWith('<tbody') || trimmed.startsWith('<tr') || trimmed.startsWith('<th') ||
+        trimmed.startsWith('<td') || trimmed.startsWith('</') ||
+        trimmed.startsWith('<a ') || trimmed.startsWith('<strong>')) {
+      closeList();
+      closeParagraph();
+      result.push(line);
+      continue;
+    }
+
+    // H2
+    if (trimmed.startsWith('## ')) {
+      closeList();
+      closeParagraph();
+      const text = processInline(trimmed.slice(3));
+      result.push(`<h2 class="text-2xl font-bold text-gray-900 mt-10 mb-4">${text}</h2>`);
+      continue;
+    }
+
+    // H3
+    if (trimmed.startsWith('### ')) {
+      closeList();
+      closeParagraph();
+      const text = processInline(trimmed.slice(4));
+      result.push(`<h3 class="text-xl font-semibold text-gray-800 mt-8 mb-3">${text}</h3>`);
+      continue;
+    }
+
+    // Unordered list item
+    if (trimmed.startsWith('- ')) {
+      closeParagraph();
+      if (!inList || listType !== 'ul') {
+        closeList();
+        result.push('<ul class="list-disc list-inside space-y-2 my-4 text-gray-600">');
+        inList = true;
+        listType = 'ul';
+      }
+      const text = processInline(trimmed.slice(2));
+      result.push(`<li>${text}</li>`);
+      continue;
+    }
+
+    // Ordered list item
+    const orderedMatch = trimmed.match(/^(\d+)\.\s+(.*)/);
+    if (orderedMatch) {
+      closeParagraph();
+      if (!inList || listType !== 'ol') {
+        closeList();
+        result.push('<ol class="list-decimal list-inside space-y-2 my-4 text-gray-600">');
+        inList = true;
+        listType = 'ol';
+      }
+      const text = processInline(orderedMatch[2]);
+      result.push(`<li>${text}</li>`);
+      continue;
+    }
+
+    // Regular paragraph text
+    closeList();
+    if (!inParagraph) {
+      result.push('<p class="text-gray-600 leading-relaxed my-4">');
+      inParagraph = true;
+    }
+    result.push(processInline(trimmed));
+  }
+
+  closeList();
+  closeParagraph();
+
+  return result.join('\n');
+}
+
+const contentHtml = markdownToHtml(post.content);
+
+const articleSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": post.title,
+  "description": post.metaDescription,
+  "url": `https://sudsycorentals.com/blog/${post.slug}`,
+  "datePublished": post.publishedDate,
+  "dateModified": post.publishedDate,
+  "author": {
+    "@type": "Organization",
+    "name": post.author,
+    "url": "https://sudsycorentals.com"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Sudsy Co. Rentals",
+    "url": "https://sudsycorentals.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://sudsycorentals.com/og-image.png"
+    }
+  },
+  ...(post.featuredImage ? { "image": post.featuredImage } : {}),
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": `https://sudsycorentals.com/blog/${post.slug}`
+  }
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://sudsycorentals.com" },
+    { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://sudsycorentals.com/blog" },
+    { "@type": "ListItem", "position": 3, "name": post.title }
+  ]
+};
+---
+
+<BaseLayout
+  title={post.metaTitle}
+  description={post.metaDescription}
+  ogType="article"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
+  </Fragment>
+
+  <TopBar />
+  <Header />
+
+  <main>
+    <!-- Article -->
+    <article class="py-12 md:py-16">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <!-- Back to Blog -->
+        <a href="/blog" class="inline-flex items-center text-blue-600 hover:text-blue-800 font-medium mb-8 group">
+          <svg class="w-5 h-5 mr-2 group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+          </svg>
+          Back to Blog
+        </a>
+
+        <!-- Article Header -->
+        <header class="mb-10">
+          <span class="inline-block bg-blue-100 text-blue-700 text-sm font-semibold px-3 py-1 rounded-full mb-4">
+            {post.category}
+          </span>
+
+          <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6 leading-tight">
+            {post.title}
+          </h1>
+
+          <div class="flex flex-wrap items-center gap-4 text-gray-500 text-sm">
+            <!-- Author -->
+            <div class="flex items-center">
+              <svg class="w-4 h-4 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+              </svg>
+              {post.author}
+            </div>
+
+            <!-- Date -->
+            <div class="flex items-center">
+              <svg class="w-4 h-4 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5" />
+              </svg>
+              {new Date(post.publishedDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+            </div>
+
+            <!-- Read Time -->
+            <div class="flex items-center">
+              <svg class="w-4 h-4 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6l4 2m6-2a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+              </svg>
+              {post.readTime}
+            </div>
+          </div>
+        </header>
+
+        <!-- Featured Image -->
+        {post.featuredImage ? (
+          <div class="rounded-2xl overflow-hidden mb-10">
+            <img
+              src={post.featuredImage}
+              alt={post.title}
+              class="w-full h-auto object-cover"
+            />
+          </div>
+        ) : (
+          <div class="rounded-2xl overflow-hidden mb-10 h-64 bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center">
+            <svg class="w-20 h-20 text-white/40" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25" />
+            </svg>
+          </div>
+        )}
+
+        <!-- Article Content -->
+        <div class="prose prose-lg max-w-none" set:html={contentHtml} />
+
+        <!-- CTA Box -->
+        <div class="mt-12 bg-gradient-to-br from-blue-50 to-blue-100 border border-blue-200 rounded-2xl p-8 text-center">
+          <h3 class="text-2xl font-bold text-gray-900 mb-3">Ready to Rent a Washer & Dryer?</h3>
+          <p class="text-gray-600 mb-6">
+            Starting at just $59.99/month with free delivery, installation, and repairs. No credit check required.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a
+              href="/#pricing"
+              class="inline-flex items-center justify-center px-8 py-3 bg-blue-600 text-white font-bold rounded-lg hover:bg-blue-700 transition-colors"
+            >
+              View Pricing
+            </a>
+            <a
+              href="tel:+12283383455"
+              class="inline-flex items-center justify-center px-8 py-3 border-2 border-blue-600 text-blue-600 font-bold rounded-lg hover:bg-blue-50 transition-colors"
+            >
+              <svg class="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z" />
+              </svg>
+              (228) 338-3455
+            </a>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- Related Posts -->
+    {relatedPosts.length > 0 && (
+      <section class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 class="text-2xl font-bold text-gray-900 mb-8 text-center">Related Articles</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            {relatedPosts.map((related) => (
+              <a href={`/blog/${related.slug}`} class="group bg-white rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden flex flex-col">
+                <!-- Featured Image -->
+                <div class="relative h-48 overflow-hidden">
+                  {related.featuredImage ? (
+                    <img
+                      src={related.featuredImage}
+                      alt={related.title}
+                      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      loading="lazy"
+                    />
+                  ) : (
+                    <div class="w-full h-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center">
+                      <svg class="w-12 h-12 text-white/40" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 0 0 6 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 0 1 6 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 0 1 6-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0 0 18 18a8.967 8.967 0 0 0-6 2.292m0-14.25v14.25" />
+                      </svg>
+                    </div>
+                  )}
+                  <span class="absolute top-3 left-3 bg-blue-600 text-white text-xs font-semibold px-3 py-1 rounded-full">
+                    {related.category}
+                  </span>
+                </div>
+
+                <div class="p-5 flex flex-col flex-1">
+                  <h3 class="text-lg font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
+                    {related.title}
+                  </h3>
+                  <p class="text-gray-600 text-sm leading-relaxed mb-4 flex-1">
+                    {related.excerpt}
+                  </p>
+                  <span class="text-blue-600 font-semibold text-sm flex items-center group-hover:translate-x-1 transition-transform">
+                    Read More
+                    <svg class="w-4 h-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+                    </svg>
+                  </span>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+  </main>
+
+  <Footer />
+  <FloatingButtons />
+</BaseLayout>

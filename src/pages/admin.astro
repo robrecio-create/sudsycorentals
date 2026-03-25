@@ -1,0 +1,8 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import AdminIsland from '../components/islands/AdminIsland';
+---
+
+<BaseLayout title="Admin | Sudsy Co. Rentals" noindex={true}>
+  <AdminIsland client:only="react" />
+</BaseLayout>

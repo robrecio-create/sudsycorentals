@@ -1,0 +1,11 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ApplianceRentalIsland from '../components/islands/ApplianceRentalIsland';
+---
+
+<BaseLayout
+  title="Appliance Rental Service | Sudsy Co. Rentals"
+  description="Professional washer and dryer appliance rental service in Ocean Springs, MS. Starting at $59.99/mo with free delivery and installation."
+>
+  <ApplianceRentalIsland client:only="react" />
+</BaseLayout>
