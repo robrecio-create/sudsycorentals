@@ -28,19 +28,26 @@ const AdminDashboard = () => {
   useEffect(() => {
     // Wait for both auth and admin role checks to complete
     if (authLoading || adminLoading) {
+      console.log("[AdminDashboard] Still loading...", { authLoading, adminLoading });
       return;
     }
 
+    console.log("[AdminDashboard] Auth check complete", { user: !!user, isAdmin });
+
     if (!user) {
+      console.log("[AdminDashboard] No user, redirecting to /auth");
       window.location.href = "/auth";
       return;
     }
 
     if (!isAdmin) {
+      console.log("[AdminDashboard] User not admin, redirecting to /");
       toast.error("Access denied. Admin privileges required.");
       window.location.href = "/";
       return;
     }
+    
+    console.log("[AdminDashboard] Access granted");
   }, [user, isAdmin, authLoading, adminLoading]);
 
   if (authLoading || adminLoading) {
