@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
 import { z } from "zod";
@@ -21,14 +20,13 @@ const Auth = () => {
   const [errors, setErrors] = useState<{ email?: string; password?: string }>({});
 
   const { signIn, signUp, user, loading } = useAuth();
-  const navigate = useNavigate();
   const { toast } = useToast();
 
   useEffect(() => {
     if (!loading && user) {
-      navigate("/");
+      window.location.href = "/";
     }
-  }, [user, loading, navigate]);
+  }, [user, loading]);
 
   const validateForm = () => {
     const newErrors: { email?: string; password?: string } = {};
@@ -82,7 +80,7 @@ const Auth = () => {
             title: "Welcome back!",
             description: "You have successfully signed in.",
           });
-          navigate("/");
+          window.location.href = "/";
         }
       } else {
         const { error } = await signUp(email, password);
@@ -124,10 +122,12 @@ const Auth = () => {
     <div className="min-h-screen bg-muted/30 flex flex-col">
       <Helmet><meta name="robots" content="noindex, nofollow" /></Helmet>
       <div className="p-4">
-        <Button variant="ghost" onClick={() => navigate("/")} className="gap-2">
-          <ArrowLeft className="h-4 w-4" />
-          Back to Home
-        </Button>
+        <a href="/">
+          <Button variant="ghost" className="gap-2">
+            <ArrowLeft className="h-4 w-4" />
+            Back to Home
+          </Button>
+        </a>
       </div>
 
       <div className="flex-1 flex items-center justify-center px-4">

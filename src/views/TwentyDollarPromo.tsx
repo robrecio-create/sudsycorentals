@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -98,12 +98,11 @@ const LeadCaptureForm = () => {
 const TwentyDollarPromo = () => {
   const [loadingPackage, setLoadingPackage] = useState<string | null>(null);
   const { user, subscription } = useAuth();
-  const navigate = useNavigate();
   const { toast } = useToast();
 
   const handleCheckout = async (priceKey: string) => {
     if (!user) {
-      navigate("/auth");
+      window.location.href = "/auth";
       return;
     }
 

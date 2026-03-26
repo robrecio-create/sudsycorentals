@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import { Menu, X, Shield, LogOut, LogIn, LayoutDashboard } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
@@ -84,12 +83,12 @@ const Header = () => {
                 </Button>
               </div>
             ) : (
-              <Link to="/auth">
+              <a href="/auth">
                 <Button variant="outline" size="sm" className="flex items-center gap-1.5">
                   <LogIn className="h-4 w-4" />
                   Login
                 </Button>
-              </Link>
+              </a>
             )}
           </div>
 
@@ -155,14 +154,14 @@ const Header = () => {
                     </button>
                   </>
                 ) : (
-                  <Link
-                    to="/auth"
+                  <a
+                    href="/auth"
                     className="flex items-center gap-1.5 font-medium text-primary hover:text-primary/80 transition-colors py-2"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     <LogIn className="h-4 w-4" />
                     Login
-                  </Link>
+                  </a>
                 )}
               </div>
             </motion.div>

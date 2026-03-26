@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { motion } from "framer-motion";
 import { format } from "date-fns";
@@ -49,7 +48,6 @@ const statusConfig: Record<string, { label: string; color: string; icon: React.R
 };
 
 const Dashboard = () => {
-  const navigate = useNavigate();
   const { user, subscription, loading: authLoading, signOut, checkSubscription } = useAuth();
   const [deliveries, setDeliveries] = useState<DeliverySchedule[]>([]);
   const [loadingDeliveries, setLoadingDeliveries] = useState(true);
@@ -57,9 +55,9 @@ const Dashboard = () => {
 
   useEffect(() => {
     if (!authLoading && !user) {
-      navigate("/auth");
+      window.location.href = "/auth";
     }
-  }, [user, authLoading, navigate]);
+  }, [user, authLoading]);
 
   useEffect(() => {
     if (user) {
@@ -104,7 +102,7 @@ const Dashboard = () => {
 
   const handleSignOut = async () => {
     await signOut();
-    navigate("/");
+    window.location.href = "/";
   };
 
   const handleRefreshSubscription = async () => {
@@ -140,10 +138,12 @@ const Dashboard = () => {
             </h1>
           </div>
           <div className="flex items-center gap-2">
-            <Button variant="ghost" size="sm" onClick={() => navigate("/")}>
-              <Home className="h-4 w-4 mr-2" />
-              Home
-            </Button>
+            <a href="/">
+              <Button variant="ghost" size="sm">
+                <Home className="h-4 w-4 mr-2" />
+                Home
+              </Button>
+            </a>
             <Button variant="ghost" size="sm" onClick={handleSignOut}>
               <LogOut className="h-4 w-4 mr-2" />
               Sign Out
@@ -240,9 +240,11 @@ const Dashboard = () => {
                       </p>
                     </div>
                   </div>
-                  <Button onClick={() => navigate("/#pricing")}>
-                    View Rental Plans
-                  </Button>
+                  <a href="/#pricing">
+                    <Button>
+                      View Rental Plans
+                    </Button>
+                  </a>
                 </div>
               )}
             </CardContent>
@@ -279,9 +281,11 @@ const Dashboard = () => {
                     No delivery scheduled yet
                   </p>
                   {subscription.subscribed && (
-                    <Button onClick={() => navigate("/checkout-success?schedule=true")}>
-                      Schedule Delivery
-                    </Button>
+                    <a href="/checkout-success?schedule=true">
+                      <Button>
+                        Schedule Delivery
+                      </Button>
+                    </a>
                   )}
                 </div>
               ) : (
@@ -385,12 +389,16 @@ const Dashboard = () => {
             </CardHeader>
             <CardContent>
               <div className="flex flex-wrap gap-3">
-                <Button variant="outline" onClick={() => navigate("/#contact")}>
-                  Contact Support
-                </Button>
-                <Button variant="outline" onClick={() => navigate("/#faq")}>
-                  View FAQ
-                </Button>
+                <a href="/#contact">
+                  <Button variant="outline">
+                    Contact Support
+                  </Button>
+                </a>
+                <a href="/#faq">
+                  <Button variant="outline">
+                    View FAQ
+                  </Button>
+                </a>
               </div>
             </CardContent>
           </Card>
