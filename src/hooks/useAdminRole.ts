@@ -17,6 +17,8 @@ export const useAdminRole = () => {
       // Dynamic import to avoid SSR issues with supabase client
       try {
         const { supabase } = await import("@/integrations/supabase/client");
+        console.log("[useAdminRole] Checking admin for user:", user.id, user.email);
+        
         const { data, error } = await supabase
           .from("user_roles")
           .select("role")
@@ -24,14 +26,17 @@ export const useAdminRole = () => {
           .eq("role", "admin")
           .maybeSingle();
 
+        console.log("[useAdminRole] Query result:", { data, error });
+
         if (error) {
-          console.error("Error checking admin role:", error);
+          console.error("[useAdminRole] Error checking admin role:", error);
           setIsAdmin(false);
         } else {
+          console.log("[useAdminRole] Setting isAdmin to:", !!data);
           setIsAdmin(!!data);
         }
       } catch (err) {
-        console.error("Failed to check admin role:", err);
+        console.error("[useAdminRole] Failed to check admin role:", err);
         setIsAdmin(false);
       } finally {
         setLoading(false);
