@@ -1,5 +1,13 @@
 {
   "framework": "astro",
+  "redirects": [
+    {
+      "source": "/:path((?!api/).*)",
+      "has": [{ "type": "host", "value": "sudsycorentals.com" }],
+      "destination": "https://www.sudsycorentals.com/:path",
+      "permanent": true
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",
