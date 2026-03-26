@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import TopBar from "@/components/TopBar";
 import Header from "@/components/Header";
@@ -15,6 +16,20 @@ import { FloatingChatButtons } from "@/components/FloatingChatButtons";
 import HomePageSchema from "@/components/seo/HomePageSchema";
 import FAQSchema from "@/components/seo/FAQSchema";
 const Index = () => {
+  // Handle hash navigation from other pages
+  useEffect(() => {
+    const hash = window.location.hash;
+    if (hash) {
+      // Small delay to ensure React components have rendered
+      setTimeout(() => {
+        const element = document.querySelector(hash);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+    }
+  }, []);
+
   return (
     <>
       <Helmet>
