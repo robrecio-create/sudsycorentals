@@ -5,42 +5,42 @@ import { supabase } from "@/integrations/supabase/client";
 import ReviewSchema from "@/components/seo/ReviewSchema";
 import { Skeleton } from "@/components/ui/skeleton";
 
-// Fallback reviews in case API fails
+// Fallback reviews in case API fails - Updated March 2026
 const fallbackReviews = [
+  {
+    author_name: "Beagleboy",
+    rating: 5,
+    text: "I ordered washer and dryer through Sudsy and the owner Rob Recio. He did a great job. He hooked everything up and we're located in Ocean Springs so it was real close and convenient for what I needed. I would recommend this company to anyone.",
+    relative_time_description: "a month ago",
+  },
+  {
+    author_name: "Carlotta Hughes",
+    rating: 5,
+    text: "They came on time and installation was very professional. I'm glad they're able to help me out in Ocean Springs. I highly recommend them. I will enjoy using my washer and dryer and not have to go to the laundromat anymore.",
+    relative_time_description: "a month ago",
+  },
+  {
+    author_name: "Amanda Jacobs",
+    rating: 5,
+    text: "Great, overall experience! After having my washing machine die and waiting over a month for a repairman to come look at it, I grew tired of having to lug my laundry to the laundry mat every week. Not only was the laundry mat expensive, but it was also time consuming. Rob was very patient and answered all my questions.",
+    relative_time_description: "a month ago",
+  },
+  {
+    author_name: "Rob Recio",
+    rating: 5,
+    text: "My rentals were delivered this afternoon. Rick did my delivery. He's very professional! I'm very pleased with the service all around. I'll definitely be telling my family and friends about Sudsy Co. Rentals 😁",
+    relative_time_description: "4 months ago",
+  },
   {
     author_name: "Yakeyla Daisean",
     rating: 5,
     text: "Sudsy Co Is A Great company. Their Response Time Is Fast. Owner Was Nice And Professional. Delivery Was Prompt. I Look Forward To Continued Business With This Company.",
     relative_time_description: "recently",
   },
-  {
-    author_name: "Janet Coombs",
-    rating: 5,
-    text: "Appliances were delivered on time and Rob even confirmed everything works as it should before leaving. Will definitely refer friends and family.",
-    relative_time_description: "recently",
-  },
-  {
-    author_name: "Bobby Beasley",
-    rating: 5,
-    text: "Great company, very nice, on time. Renting a washer and drier set and it has really help us out.",
-    relative_time_description: "recently",
-  },
-  {
-    author_name: "Marcus Williams",
-    rating: 5,
-    text: "Moved to Biloxi for work and needed a washer and dryer fast. Sudsy Co had us set up within two days. The units are clean, work perfectly, and the price is way better than buying new. Highly recommend!",
-    relative_time_description: "a month ago",
-  },
-  {
-    author_name: "Tamara Reed",
-    rating: 5,
-    text: "We've been renting from Sudsy Co for over six months now and haven't had a single issue. When we had a question about our dryer settings, Rob responded right away and walked us through it. Amazing customer service.",
-    relative_time_description: "2 months ago",
-  },
 ];
 
 const FALLBACK_RATING = 5.0;
-const FALLBACK_TOTAL_REVIEWS = 19;
+const FALLBACK_TOTAL_REVIEWS = 32;
 
 interface Review {
   author_name: string;

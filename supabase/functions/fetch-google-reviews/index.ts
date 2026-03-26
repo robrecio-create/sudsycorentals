@@ -5,6 +5,10 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version',
 };
 
+// Known Place ID for Sudsy Co. Washer and Dryer Rentals - extracted from Google Maps embed
+// This is more reliable than text search
+const SUDSY_CO_PLACE_ID = 'ChIJUZmataUJnIgR4dvdrd5aZ8E';
+
 serve(async (req) => {
   if (req.method === 'OPTIONS') {
     return new Response(null, { headers: corsHeaders });
@@ -14,6 +18,34 @@ serve(async (req) => {
     const apiKey = Deno.env.get('GOOGLE_PLACES_API_KEY');
     if (!apiKey) {
       throw new Error('GOOGLE_PLACES_API_KEY is not configured');
+    }
+
+    // Strategy 0: Direct Place ID lookup (most reliable)
+    console.log('Strategy 0: Direct Place ID lookup...');
+    const directParams = new URLSearchParams({
+      place_id: SUDSY_CO_PLACE_ID,
+      fields: 'name,reviews,rating,user_ratings_total',
+      reviews_sort: 'newest',
+      key: apiKey,
+    });
+    const directResp = await fetch(`https://maps.googleapis.com/maps/api/place/details/json?${directParams}`);
+    const directData = await directResp.json();
+    console.log('Direct lookup status:', directData.status);
+
+    if (directData.status === 'OK' && directData.result?.reviews?.length) {
+      const result = directData.result;
+      console.log('Direct lookup success! Reviews:', result.reviews.length, 'Total:', result.user_ratings_total);
+      return new Response(JSON.stringify({
+        reviews: result.reviews.slice(0, 5).map((r: any) => ({
+          author_name: r.author_name,
+          rating: r.rating,
+          text: r.text,
+          relative_time_description: r.relative_time_description,
+          profile_photo_url: r.profile_photo_url,
+        })),
+        overall_rating: result.rating || 5.0,
+        total_reviews: result.user_ratings_total || 0,
+      }), { headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
     }
 
     // Strategy 1: Use text search via New API
@@ -135,7 +167,7 @@ serve(async (req) => {
     return new Response(JSON.stringify({
       reviews: [],
       overall_rating: 5.0,
-      total_reviews: 19,
+      total_reviews: 32,
       fallback: true,
     }), { headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
   } catch (error) {
