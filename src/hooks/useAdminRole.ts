@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
 
 export const useAdminRole = () => {
@@ -15,7 +14,9 @@ export const useAdminRole = () => {
         return;
       }
 
+      // Dynamic import to avoid SSR issues with supabase client
       try {
+        const { supabase } = await import("@/integrations/supabase/client");
         const { data, error } = await supabase
           .from("user_roles")
           .select("role")

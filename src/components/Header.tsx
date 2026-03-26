@@ -57,22 +57,22 @@ const Header = () => {
               </a>
             ))}
             {isAdmin && (
-              <Link
-                to="/admin"
+              <a
+                href="/admin"
                 className="flex items-center gap-1.5 font-medium text-primary hover:text-primary/80 transition-colors"
               >
                 <Shield className="h-4 w-4" />
                 Admin
-              </Link>
+              </a>
             )}
             {user ? (
               <div className="flex items-center gap-3">
-                <Link to="/dashboard">
+                <a href="/dashboard">
                   <Button variant="outline" size="sm" className="flex items-center gap-1.5">
                     <LayoutDashboard className="h-4 w-4" />
                     My Dashboard
                   </Button>
-                </Link>
+                </a>
                 <Button
                   variant="ghost"
                   size="sm"
@@ -123,25 +123,25 @@ const Header = () => {
                   </a>
                 ))}
                 {isAdmin && (
-                  <Link
-                    to="/admin"
+                  <a
+                    href="/admin"
                     className="flex items-center gap-1.5 font-medium text-primary hover:text-primary/80 transition-colors py-2"
                     onClick={() => setIsMenuOpen(false)}
                   >
                     <Shield className="h-4 w-4" />
                     Admin
-                  </Link>
+                  </a>
                 )}
                 {user ? (
                   <>
-                    <Link
-                      to="/dashboard"
+                    <a
+                      href="/dashboard"
                       className="flex items-center gap-1.5 font-medium text-primary hover:text-primary/80 transition-colors py-2"
                       onClick={() => setIsMenuOpen(false)}
                     >
                       <LayoutDashboard className="h-4 w-4" />
                       My Dashboard
-                    </Link>
+                    </a>
                     <button
                       onClick={() => {
                         signOut();

@@ -15,12 +15,12 @@ import ServiceArea from "@/components/ServiceArea";
 import { FloatingChatButtons } from "@/components/FloatingChatButtons";
 import HomePageSchema from "@/components/seo/HomePageSchema";
 import FAQSchema from "@/components/seo/FAQSchema";
+
 const Index = () => {
   // Handle hash navigation from other pages
   useEffect(() => {
     const hash = window.location.hash;
     if (hash) {
-      // Small delay to ensure React components have rendered
       setTimeout(() => {
         const element = document.querySelector(hash);
         if (element) {
@@ -39,8 +39,6 @@ const Index = () => {
           content="Sudsy Co. is Ocean Springs' premier appliance rental service offering washer and dryer rentals starting at $59.99/mo. Free next-day delivery, no credit checks. Serving the Mississippi Gulf Coast."
         />
         <link rel="canonical" href="https://www.sudsycorentals.com/" />
-
-        {/* Open Graph */}
         <meta property="og:title" content="Sudsy Co. Washer and Dryer Rentals | Appliance Rental Service in Ocean Springs" />
         <meta property="og:description" content="Sudsy Co. is Ocean Springs' premier appliance rental service offering washer and dryer rentals starting at $59.99/mo. Free next-day delivery, no credit checks. Serving the Mississippi Gulf Coast." />
         <meta property="og:type" content="website" />
@@ -48,14 +46,10 @@ const Index = () => {
         <meta property="og:image" content="https://www.sudsycorentals.com/og-image.png" />
         <meta property="og:site_name" content="Sudsy Co. Rentals" />
         <meta property="og:locale" content="en_US" />
-
-        {/* Twitter Card */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Sudsy Co. Washer and Dryer Rentals | Appliance Rental Service in Ocean Springs" />
         <meta name="twitter:description" content="Sudsy Co. is Ocean Springs' premier appliance rental service offering washer and dryer rentals starting at $59.99/mo. Free next-day delivery, no credit checks. Serving the Mississippi Gulf Coast." />
         <meta name="twitter:image" content="https://www.sudsycorentals.com/og-image.png" />
-        
-        {/* Additional SEO */}
         <meta name="geo.region" content="US-MS" />
         <meta name="geo.placename" content="Ocean Springs, Mississippi" />
         <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />

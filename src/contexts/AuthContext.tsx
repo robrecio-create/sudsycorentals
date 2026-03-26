@@ -21,10 +21,23 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+// Default auth state for SSR or when outside AuthProvider
+const defaultAuthState: AuthContextType = {
+  user: null,
+  session: null,
+  loading: false,
+  subscription: { subscribed: false, productId: null, subscriptionEnd: null },
+  signUp: async () => ({ error: new Error("Auth not available") }),
+  signIn: async () => ({ error: new Error("Auth not available") }),
+  signOut: async () => {},
+  checkSubscription: async () => {},
+};
+
 export const useAuth = () => {
   const context = useContext(AuthContext);
+  // Return safe defaults when outside AuthProvider (SSR, public pages)
   if (!context) {
-    throw new Error("useAuth must be used within an AuthProvider");
+    return defaultAuthState;
   }
   return context;
 };
