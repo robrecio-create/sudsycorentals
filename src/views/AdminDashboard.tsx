@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import {
   Truck,
@@ -23,7 +22,6 @@ import { DeliveryManagement } from "@/components/admin/DeliveryManagement";
 import { SalesReport } from "@/components/admin/SalesReport";
 
 const AdminDashboard = () => {
-  const navigate = useNavigate();
   const { user, loading: authLoading } = useAuth();
   const { isAdmin, loading: adminLoading } = useAdminRole();
 
@@ -34,16 +32,16 @@ const AdminDashboard = () => {
     }
 
     if (!user) {
-      navigate("/auth");
+      window.location.href = "/auth";
       return;
     }
 
     if (!isAdmin) {
       toast.error("Access denied. Admin privileges required.");
-      navigate("/");
+      window.location.href = "/";
       return;
     }
-  }, [user, isAdmin, authLoading, adminLoading, navigate]);
+  }, [user, isAdmin, authLoading, adminLoading]);
 
   if (authLoading || adminLoading) {
     return (
@@ -60,13 +58,14 @@ const AdminDashboard = () => {
         {/* Header */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
           <div className="flex items-center gap-4">
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => navigate("/")}
-            >
-              <ArrowLeft className="h-5 w-5" />
-            </Button>
+            <a href="/">
+              <Button
+                variant="ghost"
+                size="icon"
+              >
+                <ArrowLeft className="h-5 w-5" />
+              </Button>
+            </a>
             <div>
               <h1 className="font-display font-bold text-2xl text-foreground">
                 Admin Dashboard
