@@ -6,6 +6,14 @@ import Footer from '../../components/astro/Footer.astro';
 import FloatingButtons from '../../components/astro/FloatingButtons.astro';
 import { blogPosts } from '../../data/blogPosts';
 
+// Helper function to get image src from Astro image imports
+function getImageSrc(image: any): string | undefined {
+  if (!image) return undefined;
+  if (typeof image === 'string') return image;
+  if (image && typeof image === 'object' && 'src' in image) return image.src;
+  return undefined;
+}
+
 const blogSchema = {
   "@context": "https://schema.org",
   "@type": "Blog",
@@ -65,9 +73,9 @@ const sortedPosts = [...blogPosts].sort((a, b) =>
             <a href={`/blog/${post.slug}`} class="group bg-white rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden flex flex-col">
               <!-- Featured Image -->
               <div class="relative h-56 overflow-hidden">
-                {post.featuredImage ? (
+                {getImageSrc(post.featuredImage) ? (
                   <img
-                    src={post.featuredImage}
+                    src={getImageSrc(post.featuredImage)}
                     alt={post.title}
                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     loading="lazy"
