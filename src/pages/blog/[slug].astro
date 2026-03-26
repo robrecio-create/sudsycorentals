@@ -15,6 +15,14 @@ export function getStaticPaths() {
 
 const { post } = Astro.props;
 
+// Helper function to get image src from Astro image imports
+function getImageSrc(image: any): string | undefined {
+  if (!image) return undefined;
+  if (typeof image === 'string') return image;
+  if (image && typeof image === 'object' && 'src' in image) return image.src;
+  return undefined;
+}
+
 // Get related posts (other posts excluding the current one)
 const relatedPosts = blogPosts.filter(p => p.slug !== post.slug).slice(0, 2);
 
@@ -192,7 +200,7 @@ const articleSchema = {
       "url": "https://www.sudsycorentals.com/og-image.png"
     }
   },
-  ...(post.featuredImage ? { "image": post.featuredImage } : {}),
+  ...(post.featuredImage ? { "image": getImageSrc(post.featuredImage) } : {}),
   "mainEntityOfPage": {
     "@type": "WebPage",
     "@id": `https://www.sudsycorentals.com/blog/${post.slug}`
@@ -274,10 +282,10 @@ const breadcrumbSchema = {
         </header>
 
         <!-- Featured Image -->
-        {post.featuredImage ? (
+        {getImageSrc(post.featuredImage) ? (
           <div class="rounded-2xl overflow-hidden mb-10">
             <img
-              src={post.featuredImage}
+              src={getImageSrc(post.featuredImage)}
               alt={post.title}
               class="w-full h-auto object-cover"
             />
@@ -330,9 +338,9 @@ const breadcrumbSchema = {
               <a href={`/blog/${related.slug}`} class="group bg-white rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300 overflow-hidden flex flex-col">
                 <!-- Featured Image -->
                 <div class="relative h-48 overflow-hidden">
-                  {related.featuredImage ? (
+                  {getImageSrc(related.featuredImage) ? (
                     <img
-                      src={related.featuredImage}
+                      src={getImageSrc(related.featuredImage)}
                       alt={related.title}
                       class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                       loading="lazy"
