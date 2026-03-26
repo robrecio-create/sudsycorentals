@@ -2,13 +2,20 @@ import { useState, useEffect } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 
 export const useAdminRole = () => {
-  const { user } = useAuth();
+  const { user, loading: authLoading } = useAuth();
   const [isAdmin, setIsAdmin] = useState(false);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const checkAdminRole = async () => {
+      // Wait for auth to finish loading before checking admin role
+      if (authLoading) {
+        console.log("[useAdminRole] Auth still loading, waiting...");
+        return;
+      }
+      
       if (!user) {
+        console.log("[useAdminRole] No user, setting isAdmin=false");
         setIsAdmin(false);
         setLoading(false);
         return;
@@ -44,7 +51,7 @@ export const useAdminRole = () => {
     };
 
     checkAdminRole();
-  }, [user]);
+  }, [user, authLoading]);
 
   return { isAdmin, loading };
 };
