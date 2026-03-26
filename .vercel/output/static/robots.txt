@@ -1,9 +1,14 @@
+# Robots.txt for sudsycorentals.com
+
 User-agent: *
 Allow: /
+
+# Sitemap
+Sitemap: https://www.sudsycorentals.com/sitemap-index.xml
+
+# Block admin/dashboard pages (already noindex but belt and suspenders)
 Disallow: /admin
 Disallow: /dashboard
 Disallow: /auth
 Disallow: /checkout-success
 Disallow: /schedule-delivery
-
-Sitemap: https://www.sudsycorentals.com/sitemap-index.xml

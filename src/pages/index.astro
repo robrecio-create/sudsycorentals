@@ -4,11 +4,13 @@ import HomeIsland from '../components/islands/HomeIsland';
 ---
 
 <BaseLayout
-  title="Sudsy Co. Washer and Dryer Rentals | Appliance Rental Service in Ocean Springs"
-  description="Sudsy Co. is Ocean Springs' premier appliance rental service offering washer and dryer rentals starting at $59.99/mo. Free next-day delivery, no credit checks. Serving the Mississippi Gulf Coast."
+  title="Washer & Dryer Rentals Ocean Springs MS | Sudsy Co."
+  description="Rent washers & dryers in Ocean Springs, MS starting at $59.99/mo. Free delivery, no credit checks. Serving Biloxi, Gulfport & the Gulf Coast."
   canonical="https://www.sudsycorentals.com/"
   geoRegion="US-MS"
   geoPlacename="Ocean Springs, Mississippi"
 >
+  <!-- Static H1 for SEO crawlers (visually hidden, replaced by React) -->
+  <h1 class="sr-only">Washer & Dryer Rentals in Ocean Springs, MS</h1>
   <HomeIsland client:only="react" />
 </BaseLayout>
