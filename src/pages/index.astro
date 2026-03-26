@@ -12,5 +12,11 @@ import HomeIsland from '../components/islands/HomeIsland';
 >
   <!-- Static H1 for SEO crawlers (visually hidden, replaced by React) -->
   <h1 class="sr-only">Washer & Dryer Rentals in Ocean Springs, MS</h1>
-  <HomeIsland client:load />
+  <div id="app-loading" style="min-height: 100vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #0891b2 0%, #0e7490 100%);">
+    <div style="text-align: center; color: white;">
+      <img src="/logo.png" alt="Sudsy Co." style="width: 200px; margin-bottom: 1rem;" onerror="this.style.display='none'">
+      <p style="font-size: 1.25rem; font-weight: 500;">Loading...</p>
+    </div>
+  </div>
+  <HomeIsland client:only="react" />
 </BaseLayout>
