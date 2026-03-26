@@ -40,20 +40,33 @@ const AdminDashboard = () => {
       return;
     }
 
-    if (!isAdmin) {
-      console.log("[AdminDashboard] User not admin, redirecting to /");
-      toast.error("Access denied. Admin privileges required.");
-      window.location.href = "/";
+    // Only redirect if admin check is DONE and user is NOT admin
+    // Don't redirect if isAdmin is true
+    if (isAdmin) {
+      console.log("[AdminDashboard] Access granted - user is admin");
       return;
     }
     
-    console.log("[AdminDashboard] Access granted");
+    // isAdmin is false and loading is done - redirect
+    console.log("[AdminDashboard] User not admin, redirecting to /");
+    toast.error("Access denied. Admin privileges required.");
+    window.location.href = "/";
   }, [user, isAdmin, authLoading, adminLoading]);
 
+  // Show loading while checking auth/admin status
   if (authLoading || adminLoading) {
     return (
       <div className="min-h-screen bg-muted/30 flex items-center justify-center">
         <div className="text-muted-foreground">Loading...</div>
+      </div>
+    );
+  }
+  
+  // Don't render anything if not admin (will redirect)
+  if (!isAdmin) {
+    return (
+      <div className="min-h-screen bg-muted/30 flex items-center justify-center">
+        <div className="text-muted-foreground">Checking access...</div>
       </div>
     );
   }
