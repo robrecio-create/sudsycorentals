@@ -40,17 +40,17 @@ const AreasWeServe = () => {
           name="description" 
           content="Find washer and dryer rental near you on the Mississippi Gulf Coast. Sudsy Co. delivers free to Gulfport, Biloxi, Ocean Springs, D'Iberville & more. No credit check." 
         />
-        <link rel="canonical" href="https://sudsycorentals.com/areas-we-serve" />
+        <link rel="canonical" href="https://www.sudsycorentals.com/areas-we-serve" />
         
         <meta property="og:title" content="Washer and Dryer Rental Near Me | Mississippi Gulf Coast" />
         <meta property="og:description" content="Washer and dryer rental delivered free to Gulfport, Biloxi, Ocean Springs, and all Mississippi Gulf Coast cities." />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://sudsycorentals.com/areas-we-serve" />
-        <meta property="og:image" content="https://sudsycorentals.com/og-image.png" />
+        <meta property="og:url" content="https://www.sudsycorentals.com/areas-we-serve" />
+        <meta property="og:image" content="https://www.sudsycorentals.com/og-image.png" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Washer and Dryer Rental Near Me | Mississippi Gulf Coast | Sudsy Co." />
         <meta name="twitter:description" content="Find washer and dryer rental near you on the Mississippi Gulf Coast. Free delivery to Gulfport, Biloxi, Ocean Springs & more. No credit check." />
-        <meta name="twitter:image" content="https://sudsycorentals.com/og-image.png" />
+        <meta name="twitter:image" content="https://www.sudsycorentals.com/og-image.png" />
       </Helmet>
 
       <script

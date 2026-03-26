@@ -8,13 +8,13 @@ const LocalBusinessSchema = ({ location }: LocalBusinessSchemaProps) => {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
-    "@id": `https://sudsycorentals.com/locations/${location.slug}`,
+    "@id": `https://www.sudsycorentals.com/locations/${location.slug}`,
     "name": `Sudsy Co. Rentals - ${location.name}`,
     "description": location.description,
-    "url": `https://sudsycorentals.com/locations/${location.slug}`,
+    "url": `https://www.sudsycorentals.com/locations/${location.slug}`,
     "telephone": "+1-228-338-3455",
     "priceRange": "$$",
-    "image": "https://sudsycorentals.com/og-image.png",
+    "image": "https://www.sudsycorentals.com/og-image.png",
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "1302 Fort St",

@@ -13,7 +13,7 @@ const TermsOfService = () => {
           name="description"
           content="Terms of service for Sudsy Co. Rentals washer and dryer rental on the Mississippi Gulf Coast. Rental agreements, policies, and customer responsibilities."
         />
-        <link rel="canonical" href="https://sudsycorentals.com/terms-of-service" />
+        <link rel="canonical" href="https://www.sudsycorentals.com/terms-of-service" />
         <meta name="robots" content="index, follow" />
       </Helmet>
 
@@ -232,7 +232,7 @@ const TermsOfService = () => {
                 </li>
                 <li>
                   <strong>Website:</strong>{" "}
-                  <a href="https://sudsycorentals.com" className="text-primary underline">
+                  <a href="https://www.sudsycorentals.com" className="text-primary underline">
                     sudsycorentals.com
                   </a>
                 </li>

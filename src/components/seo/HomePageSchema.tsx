@@ -2,10 +2,10 @@ const HomePageSchema = () => {
   const organizationSchema = {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "@id": "https://sudsycorentals.com/#organization",
+    "@id": "https://www.sudsycorentals.com/#organization",
     "name": "Sudsy Co. Rentals",
-    "url": "https://sudsycorentals.com",
-    "logo": "https://sudsycorentals.com/og-image.png",
+    "url": "https://www.sudsycorentals.com",
+    "logo": "https://www.sudsycorentals.com/og-image.png",
     "description": "Affordable washer and dryer rentals on the Mississippi Gulf Coast. Free delivery, free installation, no credit checks.",
     "telephone": "+1-228-338-3455",
     "address": {
@@ -35,13 +35,13 @@ const HomePageSchema = () => {
   const localBusinessSchema = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
-    "@id": "https://sudsycorentals.com/#localbusiness",
+    "@id": "https://www.sudsycorentals.com/#localbusiness",
     "name": "Sudsy Co. Rentals",
     "description": "Skip the laundromat! Affordable washer and dryer rentals in South Mississippi. Free delivery & repairs. No credit checks.",
-    "url": "https://sudsycorentals.com",
+    "url": "https://www.sudsycorentals.com",
     "telephone": "+1-228-338-3455",
     "priceRange": "$$",
-    "image": "https://sudsycorentals.com/og-image.png",
+    "image": "https://www.sudsycorentals.com/og-image.png",
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "1302 Fort St",
@@ -96,12 +96,12 @@ const HomePageSchema = () => {
   const websiteSchema = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "@id": "https://sudsycorentals.com/#website",
-    "url": "https://sudsycorentals.com",
+    "@id": "https://www.sudsycorentals.com/#website",
+    "url": "https://www.sudsycorentals.com",
     "name": "Sudsy Co. Rentals",
     "description": "Washer & Dryer Rental in Gulfport, Biloxi, Ocean Springs",
     "publisher": {
-      "@id": "https://sudsycorentals.com/#organization"
+      "@id": "https://www.sudsycorentals.com/#organization"
     }
   };
 

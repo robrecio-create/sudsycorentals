@@ -48,13 +48,13 @@ const ServiceCityPage = () => {
         <meta property="og:description" content={description} />
         <meta property="og:type" content="website" />
         <meta property="og:url" content={canonical} />
-        <meta property="og:image" content="https://sudsycorentals.com/og-image.png" />
+        <meta property="og:image" content="https://www.sudsycorentals.com/og-image.png" />
         <meta property="og:site_name" content="Sudsy Co. Rentals" />
 
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={title} />
         <meta name="twitter:description" content={description} />
-        <meta name="twitter:image" content="https://sudsycorentals.com/og-image.png" />
+        <meta name="twitter:image" content="https://www.sudsycorentals.com/og-image.png" />
 
         <meta name="geo.region" content="US-MS" />
         <meta name="geo.placename" content={`${location.name}, Mississippi`} />
@@ -72,7 +72,7 @@ const ServiceCityPage = () => {
             "description": description,
             "provider": {
               "@type": "LocalBusiness",
-              "@id": "https://sudsycorentals.com/#localbusiness",
+              "@id": "https://www.sudsycorentals.com/#localbusiness",
               "name": "Sudsy Co. Rentals",
               "telephone": "+1-228-338-3455",
               "address": {

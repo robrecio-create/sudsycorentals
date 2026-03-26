@@ -19,17 +19,17 @@ const blogSchema = {
   "@type": "Blog",
   "name": "Sudsy Co. Blog",
   "description": "Tips, guides, and insights about washer and dryer rentals, laundry care, and saving money on the Mississippi Gulf Coast.",
-  "url": "https://sudsycorentals.com/blog",
+  "url": "https://www.sudsycorentals.com/blog",
   "publisher": {
     "@type": "Organization",
     "name": "Sudsy Co. Rentals",
-    "url": "https://sudsycorentals.com"
+    "url": "https://www.sudsycorentals.com"
   },
   "blogPost": blogPosts.map(post => ({
     "@type": "BlogPosting",
     "headline": post.title,
     "description": post.excerpt,
-    "url": `https://sudsycorentals.com/blog/${post.slug}`,
+    "url": `https://www.sudsycorentals.com/blog/${post.slug}`,
     "datePublished": post.publishedDate,
     "author": {
       "@type": "Organization",

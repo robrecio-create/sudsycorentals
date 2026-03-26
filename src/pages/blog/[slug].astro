@@ -175,27 +175,27 @@ const articleSchema = {
   "@type": "Article",
   "headline": post.title,
   "description": post.metaDescription,
-  "url": `https://sudsycorentals.com/blog/${post.slug}`,
+  "url": `https://www.sudsycorentals.com/blog/${post.slug}`,
   "datePublished": post.publishedDate,
   "dateModified": post.publishedDate,
   "author": {
     "@type": "Organization",
     "name": post.author,
-    "url": "https://sudsycorentals.com"
+    "url": "https://www.sudsycorentals.com"
   },
   "publisher": {
     "@type": "Organization",
     "name": "Sudsy Co. Rentals",
-    "url": "https://sudsycorentals.com",
+    "url": "https://www.sudsycorentals.com",
     "logo": {
       "@type": "ImageObject",
-      "url": "https://sudsycorentals.com/og-image.png"
+      "url": "https://www.sudsycorentals.com/og-image.png"
     }
   },
   ...(post.featuredImage ? { "image": post.featuredImage } : {}),
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": `https://sudsycorentals.com/blog/${post.slug}`
+    "@id": `https://www.sudsycorentals.com/blog/${post.slug}`
   }
 };
 
@@ -203,8 +203,8 @@ const breadcrumbSchema = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   "itemListElement": [
-    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://sudsycorentals.com" },
-    { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://sudsycorentals.com/blog" },
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.sudsycorentals.com" },
+    { "@type": "ListItem", "position": 2, "name": "Blog", "item": "https://www.sudsycorentals.com/blog" },
     { "@type": "ListItem", "position": 3, "name": post.title }
   ]
 };

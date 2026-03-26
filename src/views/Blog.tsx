@@ -15,11 +15,11 @@ const Blog = () => {
     "@type": "Blog",
     "name": "Sudsy Co. Rentals Blog",
     "description": "Tips, guides, and news about washer and dryer rentals on the Mississippi Gulf Coast",
-    "url": "https://sudsycorentals.com/blog",
+    "url": "https://www.sudsycorentals.com/blog",
     "publisher": {
       "@type": "Organization",
       "name": "Sudsy Co. Rentals",
-      "logo": "https://sudsycorentals.com/og-image.png"
+      "logo": "https://www.sudsycorentals.com/og-image.png"
     },
     "blogPost": blogPosts.map(post => ({
       "@type": "BlogPosting",
@@ -30,7 +30,7 @@ const Blog = () => {
         "@type": "Organization",
         "name": post.author
       },
-      "url": `https://sudsycorentals.com/blog/${post.slug}`
+      "url": `https://www.sudsycorentals.com/blog/${post.slug}`
     }))
   };
 
@@ -42,17 +42,17 @@ const Blog = () => {
           name="description" 
           content="Washer and dryer rental tips, money-saving guides, and laundry advice for Mississippi Gulf Coast residents. Expert insights from Sudsy Co. Rentals." 
         />
-        <link rel="canonical" href="https://sudsycorentals.com/blog" />
+        <link rel="canonical" href="https://www.sudsycorentals.com/blog" />
         
         <meta property="og:title" content="Washer and Dryer Rental Blog | Sudsy Co. Rentals" />
         <meta property="og:description" content="Washer and dryer rental tips, money-saving guides, and laundry advice for Mississippi residents." />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://sudsycorentals.com/blog" />
-        <meta property="og:image" content="https://sudsycorentals.com/og-image.png" />
+        <meta property="og:url" content="https://www.sudsycorentals.com/blog" />
+        <meta property="og:image" content="https://www.sudsycorentals.com/og-image.png" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Washer and Dryer Rental Blog | Laundry Tips & Guides | Sudsy Co." />
         <meta name="twitter:description" content="Washer and dryer rental tips, money-saving guides, and laundry advice for Mississippi Gulf Coast residents." />
-        <meta name="twitter:image" content="https://sudsycorentals.com/og-image.png" />
+        <meta name="twitter:image" content="https://www.sudsycorentals.com/og-image.png" />
       </Helmet>
 
       <script

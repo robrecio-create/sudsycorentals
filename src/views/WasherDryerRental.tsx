@@ -36,7 +36,7 @@ const pillarSchema = {
     "@type": "LocalBusiness",
     name: "Sudsy Co. Rentals",
     telephone: "+1-228-338-3455",
-    url: "https://sudsycorentals.com",
+    url: "https://www.sudsycorentals.com",
     address: {
       "@type": "PostalAddress",
       streetAddress: "1302 Fort St",
@@ -140,7 +140,7 @@ const WasherDryerRental = () => {
         />
         <link
           rel="canonical"
-          href="https://sudsycorentals.com/washer-and-dryer-rental"
+          href="https://www.sudsycorentals.com/washer-and-dryer-rental"
         />
         <meta name="robots" content="index, follow" />
         <meta
@@ -151,12 +151,12 @@ const WasherDryerRental = () => {
           property="og:description"
           content="Affordable washer and dryer rental with free delivery. No credit check. Serving the entire MS Gulf Coast."
         />
-        <meta property="og:url" content="https://sudsycorentals.com/washer-and-dryer-rental" />
+        <meta property="og:url" content="https://www.sudsycorentals.com/washer-and-dryer-rental" />
         <meta property="og:type" content="website" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Washer and Dryer Rental | Mississippi Gulf Coast | Sudsy Co." />
         <meta name="twitter:description" content="Washer and dryer rental starting at $59.99/mo. Free delivery, free installation, no credit check. Serving Gulfport, Biloxi, Ocean Springs and more." />
-        <meta name="twitter:image" content="https://sudsycorentals.com/og-image.png" />
+        <meta name="twitter:image" content="https://www.sudsycorentals.com/og-image.png" />
         <script type="application/ld+json">
           {JSON.stringify(pillarSchema)}
         </script>

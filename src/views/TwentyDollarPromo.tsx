@@ -134,16 +134,16 @@ const TwentyDollarPromo = () => {
           name="description"
           content="Get $20 off your first month of washer and dryer rental. Free delivery, free repairs, no credit check. Limited time offer in Gulfport, Biloxi & South MS."
         />
-        <link rel="canonical" href="https://sudsycorentals.com/20-dollar-promo" />
+        <link rel="canonical" href="https://www.sudsycorentals.com/20-dollar-promo" />
         <meta property="og:title" content="$20 Off Washer and Dryer Rental | First Month Deal | Sudsy Co." />
         <meta property="og:description" content="Get $20 off your first month of washer and dryer rental. Free delivery, free repairs, no credit check. Limited time offer in Gulfport, Biloxi & South MS." />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://sudsycorentals.com/20-dollar-promo" />
-        <meta property="og:image" content="https://sudsycorentals.com/og-image.png" />
+        <meta property="og:url" content="https://www.sudsycorentals.com/20-dollar-promo" />
+        <meta property="og:image" content="https://www.sudsycorentals.com/og-image.png" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="$20 Off Washer and Dryer Rental | First Month Deal | Sudsy Co." />
         <meta name="twitter:description" content="Get $20 off your first month of washer and dryer rental. Free delivery, free repairs, no credit check. Limited time offer in Gulfport, Biloxi & South MS." />
-        <meta name="twitter:image" content="https://sudsycorentals.com/og-image.png" />
+        <meta name="twitter:image" content="https://www.sudsycorentals.com/og-image.png" />
       </Helmet>
 
       <Header />

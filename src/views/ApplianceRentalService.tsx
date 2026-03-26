@@ -24,7 +24,7 @@ const ApplianceRentalService = () => {
         "addressCountry": "US"
       },
       "telephone": "+12283383455",
-      "url": "https://sudsycorentals.com"
+      "url": "https://www.sudsycorentals.com"
     },
     "areaServed": ["Ocean Springs", "Gulfport", "Biloxi", "D'Iberville", "Moss Point", "Pascagoula", "Gautier", "Bay St. Louis", "Waveland"],
     "offers": {
@@ -49,19 +49,19 @@ const ApplianceRentalService = () => {
           name="description"
           content="Professional appliance rental service in Ocean Springs, MS. Rent washers and dryers starting at $59.99/mo. Free delivery, free installation, no credit check required."
         />
-        <link rel="canonical" href="https://sudsycorentals.com/appliance-rental-service" />
+        <link rel="canonical" href="https://www.sudsycorentals.com/appliance-rental-service" />
         <meta property="og:title" content="Appliance Rental Service Ocean Springs MS | Sudsy Co." />
         <meta property="og:description" content="Professional appliance rental service in Ocean Springs, MS. Rent washers and dryers starting at $59.99/mo. Free delivery, free installation, no credit check." />
-        <meta property="og:url" content="https://sudsycorentals.com/appliance-rental-service" />
+        <meta property="og:url" content="https://www.sudsycorentals.com/appliance-rental-service" />
         <meta property="og:type" content="website" />
         <meta name="geo.region" content="US-MS" />
         <meta name="geo.placename" content="Ocean Springs, Mississippi" />
         <meta name="robots" content="index, follow" />
-        <meta property="og:image" content="https://sudsycorentals.com/og-image.png" />
+        <meta property="og:image" content="https://www.sudsycorentals.com/og-image.png" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Appliance Rental Service Ocean Springs MS | Sudsy Co." />
         <meta name="twitter:description" content="Professional appliance rental service in Ocean Springs, MS. Rent washers and dryers starting at $59.99/mo. Free delivery, no credit check." />
-        <meta name="twitter:image" content="https://sudsycorentals.com/og-image.png" />
+        <meta name="twitter:image" content="https://www.sudsycorentals.com/og-image.png" />
         <script type="application/ld+json">
           {JSON.stringify(serviceSchema)}
         </script>

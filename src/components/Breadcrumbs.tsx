@@ -19,13 +19,13 @@ const Breadcrumbs = ({ items }: BreadcrumbsProps) => {
         "@type": "ListItem",
         "position": 1,
         "name": "Home",
-        "item": "https://sudsycorentals.com"
+        "item": "https://www.sudsycorentals.com"
       },
       ...items.map((item, index) => ({
         "@type": "ListItem",
         "position": index + 2,
         "name": item.label,
-        ...(item.href && { "item": `https://sudsycorentals.com${item.href}` })
+        ...(item.href && { "item": `https://www.sudsycorentals.com${item.href}` })
       }))
     ]
   };

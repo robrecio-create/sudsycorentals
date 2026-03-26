@@ -28,11 +28,11 @@ export default function ReviewRedirect() {
           name="description"
           content="Leave a Google review for Sudsy Co. washer and dryer rental service on the Mississippi Gulf Coast."
         />
-        <link rel="canonical" href="https://sudsycorentals.com/review" />
+        <link rel="canonical" href="https://www.sudsycorentals.com/review" />
         <meta property="og:title" content="Review Sudsy Co. Washer and Dryer Rental" />
         <meta property="og:description" content="Leave a Google review for Sudsy Co. washer and dryer rental service on the Mississippi Gulf Coast." />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://sudsycorentals.com/review" />
+        <meta property="og:url" content="https://www.sudsycorentals.com/review" />
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:title" content="Review Sudsy Co. Washer and Dryer Rental" />
         <meta name="twitter:description" content="Leave a Google review for Sudsy Co. washer and dryer rental service on the Mississippi Gulf Coast." />

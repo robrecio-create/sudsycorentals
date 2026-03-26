@@ -13,7 +13,7 @@ const ServiceEstablishment = () => {
     "@type": "LocalBusiness",
     "name": "Sudsy Co. Washer and Dryer Rentals",
     "description": "Local service establishment in Ocean Springs, MS offering washer and dryer rentals on the Mississippi Gulf Coast.",
-    "url": "https://sudsycorentals.com",
+    "url": "https://www.sudsycorentals.com",
     "telephone": "+12283383455",
     "address": {
       "@type": "PostalAddress",
@@ -36,19 +36,19 @@ const ServiceEstablishment = () => {
           name="description"
           content="Sudsy Co. is a local service establishment in Ocean Springs, MS offering washer and dryer rentals on the Mississippi Gulf Coast. Free delivery, repairs included, no credit check."
         />
-        <link rel="canonical" href="https://sudsycorentals.com/services" />
+        <link rel="canonical" href="https://www.sudsycorentals.com/services" />
         <meta property="og:title" content="Washer & Dryer Rental Service | Sudsy Co. Ocean Springs MS" />
         <meta property="og:description" content="Sudsy Co. is a local service establishment in Ocean Springs, MS offering washer and dryer rentals on the Mississippi Gulf Coast. Starting at $59.99/mo." />
-        <meta property="og:url" content="https://sudsycorentals.com/services" />
+        <meta property="og:url" content="https://www.sudsycorentals.com/services" />
         <meta property="og:type" content="website" />
         <meta name="geo.region" content="US-MS" />
         <meta name="geo.placename" content="Ocean Springs, Mississippi" />
         <meta name="robots" content="index, follow" />
-        <meta property="og:image" content="https://sudsycorentals.com/og-image.png" />
+        <meta property="og:image" content="https://www.sudsycorentals.com/og-image.png" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Washer & Dryer Rental Service | Sudsy Co. Ocean Springs MS" />
         <meta name="twitter:description" content="Sudsy Co. is a local service establishment in Ocean Springs, MS offering washer and dryer rentals on the Mississippi Gulf Coast. Starting at $59.99/mo." />
-        <meta name="twitter:image" content="https://sudsycorentals.com/og-image.png" />
+        <meta name="twitter:image" content="https://www.sudsycorentals.com/og-image.png" />
         <script type="application/ld+json">
           {JSON.stringify(serviceSchema)}
         </script>

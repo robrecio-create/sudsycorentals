@@ -12,7 +12,7 @@ const ReviewSchema = ({ reviews, overallRating, totalReviews }: ReviewSchemaProp
   const aggregateRatingSchema = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
-    "@id": "https://sudsycorentals.com/#reviews",
+    "@id": "https://www.sudsycorentals.com/#reviews",
     "name": "Sudsy Co. Rentals",
     "aggregateRating": {
       "@type": "AggregateRating",

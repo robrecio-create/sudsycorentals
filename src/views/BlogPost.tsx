@@ -38,12 +38,12 @@ const BlogPost = () => {
       "name": "Sudsy Co. Rentals",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://sudsycorentals.com/og-image.png"
+        "url": "https://www.sudsycorentals.com/og-image.png"
       }
     },
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": `https://sudsycorentals.com/blog/${post.slug}`
+      "@id": `https://www.sudsycorentals.com/blog/${post.slug}`
     }
   };
 
@@ -195,13 +195,13 @@ const BlogPost = () => {
       <Helmet>
         <title>{post.metaTitle}</title>
         <meta name="description" content={post.metaDescription} />
-        <link rel="canonical" href={`https://sudsycorentals.com/blog/${post.slug}`} />
+        <link rel="canonical" href={`https://www.sudsycorentals.com/blog/${post.slug}`} />
         
         <meta property="og:title" content={post.title} />
         <meta property="og:description" content={post.excerpt} />
         <meta property="og:type" content="article" />
-        <meta property="og:url" content={`https://sudsycorentals.com/blog/${post.slug}`} />
-        <meta property="og:image" content="https://sudsycorentals.com/og-image.png" />
+        <meta property="og:url" content={`https://www.sudsycorentals.com/blog/${post.slug}`} />
+        <meta property="og:image" content="https://www.sudsycorentals.com/og-image.png" />
         
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={post.title} />

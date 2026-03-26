@@ -13,7 +13,7 @@ const PrivacyPolicy = () => {
           name="description"
           content="Sudsy Co. Rentals privacy policy. Learn how we collect, use, and protect your personal information when you use our washer and dryer rental services."
         />
-        <link rel="canonical" href="https://sudsycorentals.com/privacy-policy" />
+        <link rel="canonical" href="https://www.sudsycorentals.com/privacy-policy" />
         <meta name="robots" content="index, follow" />
       </Helmet>
 
@@ -37,7 +37,7 @@ const PrivacyPolicy = () => {
               <h2 className="text-2xl font-semibold text-foreground">Who We Are</h2>
               <p>
                 Sudsy Co. Rentals ("we," "our," or "us") operates the website{" "}
-                <a href="https://sudsycorentals.com" className="text-primary underline">
+                <a href="https://www.sudsycorentals.com" className="text-primary underline">
                   sudsycorentals.com
                 </a>{" "}
                 and provides washer and dryer rental services on the Mississippi Gulf Coast,
@@ -195,7 +195,7 @@ const PrivacyPolicy = () => {
                 </li>
                 <li>
                   <strong>Website:</strong>{" "}
-                  <a href="https://sudsycorentals.com" className="text-primary underline">
+                  <a href="https://www.sudsycorentals.com" className="text-primary underline">
                     sudsycorentals.com
                   </a>
                 </li>
