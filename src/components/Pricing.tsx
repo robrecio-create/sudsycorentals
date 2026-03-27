@@ -59,7 +59,8 @@ const Pricing = () => {
 
   const handleCheckout = async (priceKey: string, packageName: string) => {
     if (!user) {
-      navigate("/auth");
+      // Use window.location for Astro page navigation (not React Router)
+      window.location.href = "/auth";
       return;
     }
 
