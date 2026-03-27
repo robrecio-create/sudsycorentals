@@ -1,0 +1,12 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import MonthlyApplianceRentalIsland from '../components/islands/MonthlyApplianceRentalIsland';
+---
+
+<BaseLayout
+  title="Monthly Appliance Rental Ocean Springs MS | No Contract | Sudsy Co."
+  description="Monthly appliance rental in Ocean Springs, MS. Rent a washer and dryer month-to-month starting at $59.99/mo. Free delivery. No credit check. Cancel anytime."
+>
+  <h1 class="sr-only">Monthly Appliance Rental in Ocean Springs, MS</h1>
+  <MonthlyApplianceRentalIsland client:only="react" />
+</BaseLayout>

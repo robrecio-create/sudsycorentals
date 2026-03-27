@@ -1,0 +1,12 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ShortTermApplianceRentalIsland from '../components/islands/ShortTermApplianceRentalIsland';
+---
+
+<BaseLayout
+  title="Short-Term Appliance Rental Ocean Springs MS | Sudsy Co."
+  description="Short-term appliance rental in Ocean Springs, MS. Rent a washer and dryer for weeks or months with free delivery and no credit check. Cancel anytime."
+>
+  <h1 class="sr-only">Short-Term Appliance Rental in Ocean Springs, MS</h1>
+  <ShortTermApplianceRentalIsland client:only="react" />
+</BaseLayout>

@@ -1,0 +1,12 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import WashingMachineRentalIsland from '../components/islands/WashingMachineRentalIsland';
+---
+
+<BaseLayout
+  title="Washing Machine Rental Ocean Springs MS | Sudsy Co."
+  description="Rent a washing machine in Ocean Springs, MS starting at $59.99/mo. Free next-day delivery, free installation, no credit check. Serving the Mississippi Gulf Coast."
+>
+  <h1 class="sr-only">Washing Machine Rental in Ocean Springs, MS</h1>
+  <WashingMachineRentalIsland client:only="react" />
+</BaseLayout>

@@ -1,0 +1,12 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import UsedApplianceRentalIsland from '../components/islands/UsedApplianceRentalIsland';
+---
+
+<BaseLayout
+  title="Used Appliance Rental Ocean Springs MS | Sudsy Co."
+  description="Used appliance rental in Ocean Springs, MS. Rent a washer and dryer starting at $59.99/mo. Free delivery and installation. No credit check. Serving the Mississippi Gulf Coast."
+>
+  <h1 class="sr-only">Used Appliance Rental in Ocean Springs, MS</h1>
+  <UsedApplianceRentalIsland client:only="react" />
+</BaseLayout>
