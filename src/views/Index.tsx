@@ -14,6 +14,7 @@ import CTA from "@/components/CTA";
 import Footer from "@/components/Footer";
 import ServiceArea from "@/components/ServiceArea";
 import { FloatingChatButtons } from "@/components/FloatingChatButtons";
+import CheckAvailability from "@/components/CheckAvailability";
 import HomePageSchema from "@/components/seo/HomePageSchema";
 import FAQSchema from "@/components/seo/FAQSchema";
 
@@ -82,6 +83,11 @@ const Index = () => {
         <Header />
         <main>
           <Hero />
+          <section id="check-availability" className="py-12 bg-muted/30">
+            <div className="container mx-auto px-4">
+              <CheckAvailability />
+            </div>
+          </section>
           <Benefits />
           <Pricing />
           <HowItWorks />
