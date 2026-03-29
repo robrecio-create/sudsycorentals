@@ -1,20 +1,23 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Phone, CheckCircle2 } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import washerDryerImageImport from "@/assets/washer-dryer-hero.png";
 
 // Handle both Vite (string) and Astro (object with src property) image imports
-const washerDryerImage = typeof washerDryerImageImport === 'string' 
-  ? washerDryerImageImport 
+const washerDryerImage = typeof washerDryerImageImport === 'string'
+  ? washerDryerImageImport
   : (washerDryerImageImport as { src: string })?.src || washerDryerImageImport;
 
-const benefits = [
-  "No Credit Check",
-  "Free Delivery",
-  "Locally Owned",
-];
-
 const Hero = () => {
+  const { t } = useTranslation();
+
+  const benefits = [
+    t("hero.benefits.noCreditCheck"),
+    t("hero.benefits.freeDelivery"),
+    t("hero.benefits.locallyOwned"),
+  ];
+
   const handleRentOnlineClick = () => {
     const pricingSection = document.getElementById('pricing');
     if (pricingSection) {
@@ -27,7 +30,7 @@ const Hero = () => {
       {/* Background gradient */}
       <div className="absolute inset-0 hero-gradient opacity-95" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-white/10 via-transparent to-transparent" />
-      
+
       <div className="container mx-auto px-4 py-16 md:py-24 relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Content */}
@@ -39,18 +42,18 @@ const Hero = () => {
           >
             <div className="inline-flex items-center gap-2 bg-accent/90 text-accent-foreground px-4 py-2 rounded-full font-semibold text-sm mb-6 shadow-md">
               <span>🎉</span>
-              <span>Never Go to the Laundromat Again!</span>
+              <span>{t("hero.tagline")}</span>
             </div>
-            
+
             <h1 className="font-display font-bold text-4xl md:text-5xl lg:text-6xl text-primary-foreground leading-tight mb-4">
-              Washer & Dryer Rentals in Ocean Springs, MS
+              {t("hero.title")}
             </h1>
             <h2 className="font-display font-semibold text-2xl md:text-3xl text-accent mb-6">
-              The Best Laundromat Alternative in Gulfport & Biloxi
+              {t("hero.subtitle")}
             </h2>
-            
+
             <p className="text-lg md:text-xl text-primary-foreground/90 mb-8 max-w-lg mx-auto lg:mx-0">
-              Affordable Washer and Dryer Rentals in Gulfport, Biloxi, Diberville, Ocean Springs, Gautier and Pascagoula.
+              {t("hero.description")}
             </p>
 
             {/* Benefits */}
@@ -73,7 +76,7 @@ const Hero = () => {
                 className="bg-accent hover:bg-accent/90 text-accent-foreground font-bold text-lg px-8 py-6 shadow-lg hover:shadow-xl transition-all"
                 onClick={handleRentOnlineClick}
               >
-                Rent Online
+                {t("hero.rentOnline")}
               </Button>
               <Button
                 size="lg"
@@ -99,14 +102,14 @@ const Hero = () => {
             {/* Decorative circles */}
             <div className="absolute -top-10 -right-10 w-40 h-40 bg-accent/30 rounded-full blur-3xl" />
             <div className="absolute -bottom-10 -left-10 w-60 h-60 bg-white/10 rounded-full blur-3xl" />
-            
+
             <div className="relative">
               <img
                 src={washerDryerImage}
-                alt="White washer and dryer set available for rent in Gulfport, Biloxi, and Ocean Springs Mississippi - Sudsy Co. Rentals"
+                alt={t("hero.imageAlt")}
                 className="w-full max-w-lg animate-float drop-shadow-2xl"
               />
-              
+
               {/* Price badge */}
               <motion.div
                 initial={{ scale: 0 }}
@@ -114,8 +117,8 @@ const Hero = () => {
                 transition={{ delay: 0.5, type: "spring" }}
                 className="absolute -top-4 -right-4 md:top-0 md:right-0 bg-accent rounded-full w-32 h-32 flex flex-col items-center justify-center shadow-xl text-white text-center p-2"
               >
-                <span className="text-lg font-bold">$59.99/mo</span>
-                <span className="text-lg font-bold leading-tight">Washer & Dryer Set</span>
+                <span className="text-lg font-bold">{t("hero.priceBadge")}</span>
+                <span className="text-lg font-bold leading-tight">{t("hero.priceBadgeLabel")}</span>
               </motion.div>
             </div>
           </motion.div>

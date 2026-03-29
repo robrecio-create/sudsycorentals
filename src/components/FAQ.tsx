@@ -1,12 +1,7 @@
 import { motion } from "framer-motion";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
+import { useTranslation } from "react-i18next";
 
-// FAQ data exported for schema usage
+// FAQ data exported for schema usage (English only for structured data)
 export const faqs = [
   {
     question: "What are the lease terms?",
@@ -43,6 +38,9 @@ export const faqs = [
 ];
 
 const FAQ = () => {
+  const { t } = useTranslation();
+  const faqItems = t("faq.items", { returnObjects: true }) as Array<{ question: string; answer: string }>;
+
   return (
     <section id="faq" className="py-20 bg-muted/30">
       <div className="container mx-auto px-4">
@@ -54,13 +52,13 @@ const FAQ = () => {
           className="text-center mb-16"
         >
           <span className="inline-block bg-accent/10 text-accent px-4 py-1.5 rounded-full text-sm font-semibold mb-4">
-            FAQ
+            {t("faq.badge")}
           </span>
           <h2 className="font-display font-bold text-3xl md:text-4xl lg:text-5xl text-foreground mb-4">
-            Frequently Asked <span className="text-primary">Questions</span>
+            {t("faq.title")} <span className="text-primary">{t("faq.titleHighlight")}</span>
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Everything you need to know about our washer and dryer rental service.
+            {t("faq.subtitle")}
           </p>
         </motion.div>
 
@@ -72,7 +70,7 @@ const FAQ = () => {
           className="max-w-3xl mx-auto"
         >
           <div className="space-y-4">
-            {faqs.map((faq, index) => (
+            {faqItems.map((faq, index) => (
               <div
                 key={index}
                 className="bg-background rounded-xl border border-border/50 px-6 py-5 shadow-soft"

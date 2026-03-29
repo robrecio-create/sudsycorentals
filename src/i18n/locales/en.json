@@ -1,0 +1,265 @@
+{
+  "hero": {
+    "tagline": "Never Go to the Laundromat Again!",
+    "title": "Washer & Dryer Rentals in Ocean Springs, MS",
+    "subtitle": "The Best Laundromat Alternative in Gulfport & Biloxi",
+    "description": "Affordable Washer and Dryer Rentals in Gulfport, Biloxi, Diberville, Ocean Springs, Gautier and Pascagoula.",
+    "benefits": {
+      "noCreditCheck": "No Credit Check",
+      "freeDelivery": "Free Delivery",
+      "locallyOwned": "Locally Owned"
+    },
+    "rentOnline": "Rent Online",
+    "priceBadge": "$59.99/mo",
+    "priceBadgeLabel": "Washer & Dryer Set",
+    "imageAlt": "White washer and dryer set available for rent in Gulfport, Biloxi, and Ocean Springs Mississippi - Sudsy Co. Rentals"
+  },
+  "header": {
+    "brand": "SUDSY CO.",
+    "tagline": "WASHER AND DRYER RENTALS",
+    "nav": {
+      "home": "Home",
+      "pricing": "Pricing",
+      "howItWorks": "How It Works",
+      "areasWeServe": "Areas We Serve",
+      "faq": "FAQ",
+      "contact": "Contact"
+    },
+    "admin": "Admin",
+    "myDashboard": "My Dashboard",
+    "login": "Login",
+    "logout": "Logout"
+  },
+  "pricing": {
+    "badge": "PRICING",
+    "title": "Simple, Affordable",
+    "titleHighlight": "Pricing",
+    "subtitle": "Choose the rental option that works best for you. No hidden fees, no surprises.",
+    "ourMonthlyRental": "Our Monthly Rental",
+    "avgLaundromatCost": "Avg. Laundromat Cost",
+    "save": "Save 30%+",
+    "vs": "vs",
+    "activeSubscription": "Active Subscription",
+    "activeUntil": "Your rental is active until",
+    "renewal": "renewal",
+    "manageSubscription": "Manage Subscription",
+    "perMonth": "/month",
+    "mostPopular": "Most Popular",
+    "rentOnline": "Rent Online",
+    "alreadySubscribed": "Already Subscribed",
+    "checkoutFailed": "Checkout failed",
+    "checkoutFailedDesc": "Unable to start checkout. Please try again.",
+    "portalFailed": "Unable to open portal",
+    "portalFailedDesc": "Please try again later.",
+    "packages": {
+      "washerOnly": {
+        "name": "Washer Only",
+        "description": "Perfect if you only need a washing machine.",
+        "features": [
+          "Top-loading washer",
+          "Standard washing capacity",
+          "Free delivery and installation",
+          "Maintenance included"
+        ]
+      },
+      "washerDryer": {
+        "name": "Washer & Dryer Set",
+        "description": "Most popular option for a complete laundry solution.",
+        "features": [
+          "Top-loading washer",
+          "Standard capacity dryer",
+          "Free delivery and installation",
+          "Maintenance included",
+          "Priority service"
+        ]
+      },
+      "dryerOnly": {
+        "name": "Dryer Only",
+        "description": "Perfect if you only need a dryer.",
+        "features": [
+          "Electric dryer",
+          "Standard drying capacity",
+          "Free delivery and installation",
+          "Maintenance included"
+        ]
+      }
+    }
+  },
+  "benefits": {
+    "badge": "WHY CHOOSE US",
+    "title": "Why Rent with",
+    "titleHighlight": "Sudsy Co?",
+    "subtitle": "We make renting appliances easy, affordable, and stress-free for families across the Mississippi Gulf Coast.",
+    "items": {
+      "freeDelivery": {
+        "title": "Free Delivery & Installation",
+        "description": "We deliver and professionally install your washer and dryer sets at no extra cost."
+      },
+      "repairs": {
+        "title": "Complimentary Repairs",
+        "description": "We will repair or replace any machine within 2 business days, guaranteed."
+      },
+      "noCommitment": {
+        "title": "No Long-Term Commitment",
+        "description": "Rent month to month after your initial term with no penalties for returning."
+      },
+      "quality": {
+        "title": "Quality Appliances",
+        "description": "We carry washers and dryers from trusted brands you know and love."
+      },
+      "locallyOwned": {
+        "title": "Locally Owned & Operated",
+        "description": "Proudly based in Ocean Springs, MS. We're your neighbors, committed to serving our Gulf Coast community with care."
+      }
+    }
+  },
+  "topBar": {
+    "hours": "Mon-Fri: 9AM - 6PM",
+    "servingFull": "Serving Mississippi Gulf Coast",
+    "servingShort": "MS Gulf Coast"
+  },
+  "howItWorks": {
+    "badge": "HOW IT WORKS",
+    "title": "Getting Started is",
+    "titleHighlight": "Easy",
+    "subtitle": "Three simple steps to fresh, clean laundry at home.",
+    "steps": {
+      "choose": {
+        "title": "Choose Your Package",
+        "description": "Select the washer, dryer, or combo package that fits your needs. No credit check required!"
+      },
+      "schedule": {
+        "title": "Schedule Delivery",
+        "description": "Pick a convenient delivery date. We'll deliver and professionally install your appliances for free."
+      },
+      "enjoy": {
+        "title": "Enjoy Clean Laundry",
+        "description": "Start enjoying the convenience of in-home laundry. We handle all maintenance and repairs."
+      }
+    }
+  },
+  "faq": {
+    "badge": "FAQ",
+    "title": "Frequently Asked",
+    "titleHighlight": "Questions",
+    "subtitle": "Everything you need to know about our washer and dryer rental service.",
+    "items": [
+      {
+        "question": "What are the lease terms?",
+        "answer": "We offer washer and dryer rentals on a month-to-month basis with a 6 month minimum. Keep the machines as long as you need them; just call us for a free pickup when you're done. We provide flexibility with no long-term contracts required."
+      },
+      {
+        "question": "Will I ever own the machines?",
+        "answer": "No, this is not a rent-to-own program. This is a lease program. You rent the appliances for as long as you need them, and we handle all maintenance and repairs."
+      },
+      {
+        "question": "Are there requirements to rent?",
+        "answer": "We don't require credit checks."
+      },
+      {
+        "question": "Can I choose my machines?",
+        "answer": "The appliances we deliver depend on what we have available on the delivery day. If you have specific space constraints, such as a narrow laundry area, please inform us so we can try to accommodate your needs with a suitable model."
+      },
+      {
+        "question": "What do the machines look like?",
+        "answer": "Our standard machines consist of side-by-side white washers and dryers with agitators. Typically, the washing machines have about 3.5 cubic feet of interior space. We strive to provide matching washer and dryer sets; however, you may receive units of different brands. Please note that as these are rental units, they may show signs of wear such as scratches and small dents."
+      },
+      {
+        "question": "How do payments work?",
+        "answer": "Your monthly rental fee will be automatically charged on the same day of the month as your initial delivery."
+      },
+      {
+        "question": "What if my machine breaks?",
+        "answer": "We typically provide service within one to two days of receiving a maintenance request. If we cannot resolve the issue during your maintenance appointment, we will replace your washer or dryer machine on that same day at no additional cost to minimize disruption."
+      },
+      {
+        "question": "What makes Sudsy Co. stand out?",
+        "answer": "We are a local business committed to operational efficiency and customer satisfaction. When you call or text us, you will reach a real person right away. We strive to make every customer experience smooth and hassle-free."
+      }
+    ]
+  },
+  "contact": {
+    "badge": "Get In Touch",
+    "title": "Contact Us",
+    "subtitle": "Have questions or need to schedule a service? Fill out the form below and we'll get back to you promptly.",
+    "phone": "Phone",
+    "email": "Email",
+    "serviceArea": "Service Area",
+    "serviceAreaDesc": "Mississippi Gulf Coast\nGulfport, Biloxi, D'Iberville, Ocean Springs, Long Beach, Gautier, Pascagoula, Pass Christian & Moss Point",
+    "form": {
+      "name": "Name *",
+      "namePlaceholder": "Your name",
+      "email": "Email *",
+      "emailPlaceholder": "your@email.com",
+      "phone": "Phone *",
+      "phonePlaceholder": "(xxx) xxx-xxxx",
+      "inquiryType": "Inquiry Type *",
+      "general": "General Questions",
+      "repair": "Schedule a Repair",
+      "pickup": "Schedule a Pick Up",
+      "appliance": "Which appliance needs repair? *",
+      "selectAppliance": "Select appliance",
+      "washer": "Washer",
+      "dryer": "Dryer",
+      "describeProblem": "Describe the problem *",
+      "problemPlaceholder": "Please describe the issue you're experiencing...",
+      "preferredDate": "Preferred Date *",
+      "selectDate": "Select a date",
+      "preferredTime": "Preferred Time *",
+      "selectTime": "Select a time",
+      "message": "Message",
+      "messagePlaceholder": "How can we help you?",
+      "submit": "Submit Inquiry",
+      "submitting": "Submitting..."
+    },
+    "toast": {
+      "success": "Your inquiry has been submitted! We'll contact you soon.",
+      "rateLimited": "Too many submissions. Please try again in an hour.",
+      "fillRequired": "Please fill in all required fields",
+      "selectAppliance": "Please select an appliance and describe the problem",
+      "selectDateTime": "Please select a date and time",
+      "error": "Failed to submit your inquiry. Please try again."
+    }
+  },
+  "cta": {
+    "title": "Ready to Ditch the Laundromat?",
+    "subtitle": "Get started today with free delivery and installation. No credit check required!",
+    "rentOnline": "Rent Online",
+    "servingAreas": "Serving Biloxi, Gulfport, Ocean Springs, and the entire Mississippi Gulf Coast"
+  },
+  "serviceArea": {
+    "badge": "SERVICE AREA",
+    "title": "Proudly Serving the",
+    "titleHighlight": "Mississippi Gulf Coast",
+    "subtitle": "We deliver and install washers and dryers throughout these communities."
+  },
+  "footer": {
+    "description": "Locally Owned & Operated in Ocean Springs, MS. Sudsy Co. is South Mississippi's premier alternative to the laundromat. We provide affordable washer and dryer rentals with free next-day delivery to the Mississippi Gulf Coast.",
+    "quickLinks": "Quick Links",
+    "serviceAreas": "Service Areas",
+    "rentalByCity": "Rental by City",
+    "contactUs": "Contact Us",
+    "familyOwned": "Family Owned & Operated",
+    "servingProudly": "Proudly serving: Biloxi, Gulfport, Ocean Springs, D'Iberville, Gautier, Pascagoula, and Long Beach, MS.",
+    "copyright": "© {{year}} Sudsy Co. Rentals. All rights reserved.",
+    "privacyPolicy": "Privacy Policy",
+    "termsOfService": "Terms of Service",
+    "home": "Home",
+    "pricing": "Pricing",
+    "howItWorks": "How It Works",
+    "faq": "FAQ",
+    "contact": "Contact",
+    "washerDryerRental": "Washer and Dryer Rental",
+    "applianceRental": "Appliance Rental Service",
+    "furnitureRental": "Furniture Rental Service",
+    "ourServices": "Our Services",
+    "areasWeServe": "Areas We Serve",
+    "blog": "Blog",
+    "resources": "Resources",
+    "promo": "$20 Off Promo"
+  },
+  "reviews": {
+    "badge": "[ES: REVIEWS]",
+    "title": "[ES: What Our Customers Say]"
+  }
+}

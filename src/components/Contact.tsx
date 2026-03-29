@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import { motion } from "framer-motion";
 import { Send, Phone, Mail, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -23,6 +23,7 @@ import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
+import { useTranslation } from "react-i18next";
 
 // Rate limiting constants
 const RATE_LIMIT_KEY = "contact_form_submissions";
@@ -68,6 +69,7 @@ const timeSlots = [
 ];
 
 const Contact = () => {
+  const { t } = useTranslation();
   const [inquiryType, setInquiryType] = useState<InquiryType>("");
   const [appliance, setAppliance] = useState<ApplianceType>("");
   const [problemDescription, setProblemDescription] = useState("");
@@ -78,10 +80,10 @@ const Contact = () => {
   const [phone, setPhone] = useState("");
   const [message, setMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  
+
   // Honeypot field - bots will fill this, humans won't see it
   const [honeypot, setHoneypot] = useState("");
-  
+
   // Track form render time to detect bots submitting too quickly
   const formLoadTime = useRef<number>(Date.now());
   const MIN_SUBMISSION_TIME_MS = 3000; // Minimum 3 seconds to submit
@@ -91,42 +93,42 @@ const Contact = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     // Bot detection: Check honeypot field
     if (honeypot) {
       // Silently reject - bot detected
       console.warn("Bot submission detected via honeypot");
-      toast.success("Your inquiry has been submitted! We'll contact you soon.");
+      toast.success(t("contact.toast.success"));
       return;
     }
-    
+
     // Bot detection: Check if form was submitted too quickly
     const submissionTime = Date.now() - formLoadTime.current;
     if (submissionTime < MIN_SUBMISSION_TIME_MS) {
       console.warn("Bot submission detected via timing");
-      toast.success("Your inquiry has been submitted! We'll contact you soon.");
+      toast.success(t("contact.toast.success"));
       return;
     }
-    
+
     // Rate limiting check
     if (isRateLimited()) {
-      toast.error("Too many submissions. Please try again in an hour.");
+      toast.error(t("contact.toast.rateLimited"));
       return;
     }
-    
+
     // Basic validation
     if (!name.trim() || !email.trim() || !phone.trim() || !inquiryType) {
-      toast.error("Please fill in all required fields");
+      toast.error(t("contact.toast.fillRequired"));
       return;
     }
 
     if (isRepair && (!appliance || !problemDescription.trim())) {
-      toast.error("Please select an appliance and describe the problem");
+      toast.error(t("contact.toast.selectAppliance"));
       return;
     }
 
     if (needsScheduling && (!selectedDate || !selectedTime)) {
-      toast.error("Please select a date and time");
+      toast.error(t("contact.toast.selectDateTime"));
       return;
     }
 
@@ -151,7 +153,7 @@ const Contact = () => {
 
       // Record successful submission for rate limiting
       recordSubmission();
-      
+
       // Reset form load time for potential next submission
       formLoadTime.current = Date.now();
 
@@ -162,8 +164,8 @@ const Contact = () => {
         console.error("Failed to send email notification:", err);
       });
 
-      toast.success("Your inquiry has been submitted! We'll contact you soon.");
-      
+      toast.success(t("contact.toast.success"));
+
       // Reset form
       setName("");
       setEmail("");
@@ -176,7 +178,7 @@ const Contact = () => {
       setSelectedTime("");
     } catch (error) {
       console.error("Error submitting form:", error);
-      toast.error("Failed to submit your inquiry. Please try again.");
+      toast.error(t("contact.toast.error"));
     } finally {
       setIsSubmitting(false);
     }
@@ -193,13 +195,13 @@ const Contact = () => {
           className="text-center mb-12"
         >
           <span className="inline-block px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-semibold mb-4">
-            Get In Touch
+            {t("contact.badge")}
           </span>
           <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Contact Us
+            {t("contact.title")}
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Have questions or need to schedule a service? Fill out the form below and we'll get back to you promptly.
+            {t("contact.subtitle")}
           </p>
         </motion.div>
 
@@ -218,7 +220,7 @@ const Contact = () => {
                   <Phone className="h-6 w-6 text-primary" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-foreground mb-1">Phone</h3>
+                  <h3 className="font-semibold text-foreground mb-1">{t("contact.phone")}</h3>
                   <a
                     href="tel:+12283383455"
                     className="text-muted-foreground hover:text-primary transition-colors"
@@ -235,7 +237,7 @@ const Contact = () => {
                   <Mail className="h-6 w-6 text-primary" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-foreground mb-1">Email</h3>
+                  <h3 className="font-semibold text-foreground mb-1">{t("contact.email")}</h3>
                   <a
                     href="mailto:info@sudsycorentals.com"
                     className="text-muted-foreground hover:text-primary transition-colors"
@@ -252,16 +254,15 @@ const Contact = () => {
                   <MapPin className="h-6 w-6 text-primary" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-foreground mb-1">Service Area</h3>
-                  <p className="text-muted-foreground">
-                    Mississippi Gulf Coast<br />
-                    Gulfport, Biloxi, D'Iberville, Ocean Springs, Long Beach, Gautier, Pascagoula, Pass Christian & Moss Point
+                  <h3 className="font-semibold text-foreground mb-1">{t("contact.serviceArea")}</h3>
+                  <p className="text-muted-foreground whitespace-pre-line">
+                    {t("contact.serviceAreaDesc")}
                   </p>
                 </div>
               </div>
             </div>
 
-            {/* Google Maps Embed — linked to GBP listing */}
+            {/* Google Maps Embed */}
             <div className="rounded-2xl overflow-hidden shadow-soft">
               <iframe
                 title="Sudsy Co. Rentals — Ocean Springs, MS"
@@ -290,14 +291,14 @@ const Contact = () => {
               autoComplete="off"
             >
               {/* Honeypot field - hidden from users, bots will fill it */}
-              <div 
-                aria-hidden="true" 
-                style={{ 
-                  position: 'absolute', 
-                  left: '-9999px', 
-                  opacity: 0, 
-                  height: 0, 
-                  overflow: 'hidden' 
+              <div
+                aria-hidden="true"
+                style={{
+                  position: 'absolute',
+                  left: '-9999px',
+                  opacity: 0,
+                  height: 0,
+                  overflow: 'hidden'
                 }}
               >
                 <label htmlFor="website">Website</label>
@@ -311,14 +312,14 @@ const Contact = () => {
                   onChange={(e) => setHoneypot(e.target.value)}
                 />
               </div>
-              
+
               {/* Basic Info */}
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="space-y-2">
-                  <Label htmlFor="name">Name *</Label>
+                  <Label htmlFor="name">{t("contact.form.name")}</Label>
                   <Input
                     id="name"
-                    placeholder="Your name"
+                    placeholder={t("contact.form.namePlaceholder")}
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     maxLength={100}
@@ -326,11 +327,11 @@ const Contact = () => {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="email">Email *</Label>
+                  <Label htmlFor="email">{t("contact.form.email")}</Label>
                   <Input
                     id="email"
                     type="email"
-                    placeholder="your@email.com"
+                    placeholder={t("contact.form.emailPlaceholder")}
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     maxLength={255}
@@ -341,11 +342,11 @@ const Contact = () => {
 
               <div className="grid md:grid-cols-2 gap-6">
                 <div className="space-y-2">
-                  <Label htmlFor="phone">Phone *</Label>
+                  <Label htmlFor="phone">{t("contact.form.phone")}</Label>
                   <Input
                     id="phone"
                     type="tel"
-                    placeholder="(xxx) xxx-xxxx"
+                    placeholder={t("contact.form.phonePlaceholder")}
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     maxLength={20}
@@ -353,12 +354,12 @@ const Contact = () => {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label>Inquiry Type *</Label>
+                  <Label>{t("contact.form.inquiryType")}</Label>
                   <div className="flex flex-wrap gap-3">
                     {[
-                      { value: "general", label: "General Questions" },
-                      { value: "repair", label: "Schedule a Repair" },
-                      { value: "pickup", label: "Schedule a Pick Up" },
+                      { value: "general", label: t("contact.form.general") },
+                      { value: "repair", label: t("contact.form.repair") },
+                      { value: "pickup", label: t("contact.form.pickup") },
                     ].map((option) => (
                       <button
                         key={option.value}
@@ -393,26 +394,26 @@ const Contact = () => {
                   className="space-y-6"
                 >
                   <div className="space-y-2">
-                    <Label htmlFor="appliance">Which appliance needs repair? *</Label>
+                    <Label htmlFor="appliance">{t("contact.form.appliance")}</Label>
                     <Select
                       value={appliance}
                       onValueChange={(value: ApplianceType) => setAppliance(value)}
                     >
                       <SelectTrigger id="appliance">
-                        <SelectValue placeholder="Select appliance" />
+                        <SelectValue placeholder={t("contact.form.selectAppliance")} />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="washer">Washer</SelectItem>
-                        <SelectItem value="dryer">Dryer</SelectItem>
+                        <SelectItem value="washer">{t("contact.form.washer")}</SelectItem>
+                        <SelectItem value="dryer">{t("contact.form.dryer")}</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="problem">Describe the problem *</Label>
+                    <Label htmlFor="problem">{t("contact.form.describeProblem")}</Label>
                     <Textarea
                       id="problem"
-                      placeholder="Please describe the issue you're experiencing..."
+                      placeholder={t("contact.form.problemPlaceholder")}
                       value={problemDescription}
                       onChange={(e) => setProblemDescription(e.target.value)}
                       maxLength={1000}
@@ -431,7 +432,7 @@ const Contact = () => {
                   className="grid md:grid-cols-2 gap-6"
                 >
                   <div className="space-y-2">
-                    <Label>Preferred Date *</Label>
+                    <Label>{t("contact.form.preferredDate")}</Label>
                     <Popover>
                       <PopoverTrigger asChild>
                         <Button
@@ -442,7 +443,7 @@ const Contact = () => {
                           )}
                         >
                           <CalendarIcon className="mr-2 h-4 w-4" />
-                          {selectedDate ? format(selectedDate, "PPP") : "Select a date"}
+                          {selectedDate ? format(selectedDate, "PPP") : t("contact.form.selectDate")}
                         </Button>
                       </PopoverTrigger>
                       <PopoverContent className="w-auto p-0" align="start">
@@ -461,10 +462,10 @@ const Contact = () => {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="time">Preferred Time *</Label>
+                    <Label htmlFor="time">{t("contact.form.preferredTime")}</Label>
                     <Select value={selectedTime} onValueChange={setSelectedTime}>
                       <SelectTrigger id="time">
-                        <SelectValue placeholder="Select a time" />
+                        <SelectValue placeholder={t("contact.form.selectTime")} />
                       </SelectTrigger>
                       <SelectContent>
                         {timeSlots.map((time) => (
@@ -478,7 +479,7 @@ const Contact = () => {
                 </motion.div>
               )}
 
-              {/* General message (for all inquiry types) */}
+              {/* General message */}
               {inquiryType === "general" && (
                 <motion.div
                   initial={{ opacity: 0, height: 0 }}
@@ -486,10 +487,10 @@ const Contact = () => {
                   exit={{ opacity: 0, height: 0 }}
                   className="space-y-2"
                 >
-                  <Label htmlFor="message">Message</Label>
+                  <Label htmlFor="message">{t("contact.form.message")}</Label>
                   <Textarea
                     id="message"
-                    placeholder="How can we help you?"
+                    placeholder={t("contact.form.messagePlaceholder")}
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     maxLength={1000}
@@ -505,11 +506,11 @@ const Contact = () => {
                 disabled={isSubmitting}
               >
                 {isSubmitting ? (
-                  "Submitting..."
+                  t("contact.form.submitting")
                 ) : (
                   <>
                     <Send className="mr-2 h-4 w-4" />
-                    Submit Inquiry
+                    {t("contact.form.submit")}
                   </>
                 )}
               </Button>

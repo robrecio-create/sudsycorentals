@@ -1,0 +1,16 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import HomeIsland from '../../components/islands/HomeIsland';
+---
+
+<BaseLayout
+  title="Alquiler de Lavadoras y Secadoras Ocean Springs MS | Sudsy Co."
+  description="Alquile lavadoras y secadoras en Ocean Springs, MS desde $59.99/mes. Entrega gratis, sin verificación de crédito. Sirviendo Biloxi, Gulfport y la Costa del Golfo."
+  canonical="https://www.sudsycorentals.com/es"
+  geoRegion="US-MS"
+  geoPlacename="Ocean Springs, Mississippi"
+>
+  <!-- Static H1 for SEO crawlers (visually hidden, replaced by React) -->
+  <h1 class="sr-only">Alquiler de Lavadoras y Secadoras en Ocean Springs, MS</h1>
+  <HomeIsland client:only="react" />
+</BaseLayout>

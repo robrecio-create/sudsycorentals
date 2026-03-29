@@ -1,8 +1,11 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Phone } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 const CTA = () => {
+  const { t } = useTranslation();
+
   return (
     <section className="py-20 hero-gradient relative overflow-hidden">
       {/* Decorative elements */}
@@ -18,10 +21,10 @@ const CTA = () => {
           className="text-center max-w-3xl mx-auto"
         >
           <h2 className="font-display font-bold text-3xl md:text-4xl lg:text-5xl text-primary-foreground mb-6">
-            Ready to Ditch the Laundromat?
+            {t("cta.title")}
           </h2>
           <p className="text-xl text-primary-foreground/90 mb-8">
-            Get started today with free delivery and installation. No credit check required!
+            {t("cta.subtitle")}
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -41,12 +44,12 @@ const CTA = () => {
               className="bg-white text-primary hover:bg-white/90 font-semibold text-lg px-8 py-6"
               asChild
             >
-              <a href="#pricing">Rent Online</a>
+              <a href="#pricing">{t("cta.rentOnline")}</a>
             </Button>
           </div>
 
           <p className="mt-8 text-primary-foreground/70 text-sm">
-            Serving Biloxi, Gulfport, Ocean Springs, and the entire Mississippi Gulf Coast
+            {t("cta.servingAreas")}
           </p>
         </motion.div>
       </div>

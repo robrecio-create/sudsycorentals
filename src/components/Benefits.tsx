@@ -1,42 +1,43 @@
 import { motion } from "framer-motion";
-import { Truck, Wrench, Calendar, Award } from "lucide-react";
-
-import { Heart } from "lucide-react";
-
-const benefits = [
-  {
-    icon: Truck,
-    title: "Free Delivery & Installation",
-    description: "We deliver and professionally install your washer and dryer sets at no extra cost.",
-    color: "bg-primary/10 text-primary",
-  },
-  {
-    icon: Wrench,
-    title: "Complimentary Repairs",
-    description: "We will repair or replace any machine within 2 business days, guaranteed.",
-    color: "bg-accent/10 text-accent",
-  },
-  {
-    icon: Calendar,
-    title: "No Long-Term Commitment",
-    description: "Rent month to month after your initial term with no penalties for returning.",
-    color: "bg-secondary text-secondary-foreground",
-  },
-  {
-    icon: Award,
-    title: "Quality Appliances",
-    description: "We carry washers and dryers from trusted brands you know and love.",
-    color: "bg-primary/10 text-primary",
-  },
-  {
-    icon: Heart,
-    title: "Locally Owned & Operated",
-    description: "Proudly based in Ocean Springs, MS. We're your neighbors, committed to serving our Gulf Coast community with care.",
-    color: "bg-accent/10 text-accent",
-  },
-];
+import { Truck, Wrench, Calendar, Award, Heart } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 const Benefits = () => {
+  const { t } = useTranslation();
+
+  const benefits = [
+    {
+      icon: Truck,
+      title: t("benefits.items.freeDelivery.title"),
+      description: t("benefits.items.freeDelivery.description"),
+      color: "bg-primary/10 text-primary",
+    },
+    {
+      icon: Wrench,
+      title: t("benefits.items.repairs.title"),
+      description: t("benefits.items.repairs.description"),
+      color: "bg-accent/10 text-accent",
+    },
+    {
+      icon: Calendar,
+      title: t("benefits.items.noCommitment.title"),
+      description: t("benefits.items.noCommitment.description"),
+      color: "bg-secondary text-secondary-foreground",
+    },
+    {
+      icon: Award,
+      title: t("benefits.items.quality.title"),
+      description: t("benefits.items.quality.description"),
+      color: "bg-primary/10 text-primary",
+    },
+    {
+      icon: Heart,
+      title: t("benefits.items.locallyOwned.title"),
+      description: t("benefits.items.locallyOwned.description"),
+      color: "bg-accent/10 text-accent",
+    },
+  ];
+
   return (
     <section id="about" className="py-20 bg-background">
       <div className="container mx-auto px-4">
@@ -48,20 +49,20 @@ const Benefits = () => {
           className="text-center mb-16"
         >
           <span className="inline-block bg-secondary text-secondary-foreground px-4 py-1.5 rounded-full text-sm font-semibold mb-4">
-            WHY CHOOSE US
+            {t("benefits.badge")}
           </span>
           <h2 className="font-display font-bold text-3xl md:text-4xl lg:text-5xl text-foreground mb-4">
-            Why Rent with <span className="text-primary">Sudsy Co?</span>
+            {t("benefits.title")} <span className="text-primary">{t("benefits.titleHighlight")}</span>
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            We make renting appliances easy, affordable, and stress-free for families across the Mississippi Gulf Coast.
+            {t("benefits.subtitle")}
           </p>
         </motion.div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-6">
           {benefits.map((benefit, index) => (
             <motion.div
-              key={benefit.title}
+              key={index}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}

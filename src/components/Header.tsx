@@ -4,44 +4,47 @@ import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAdminRole } from "@/hooks/useAdminRole";
 import { useAuth } from "@/contexts/AuthContext";
+import { useTranslation } from "react-i18next";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
+import { localizedPath } from "@/i18n";
 import logoImageImport from "@/assets/logo.png";
 
 // Handle both Vite (string) and Astro (object with src property) image imports
-const logoImage = typeof logoImageImport === 'string' 
-  ? logoImageImport 
+const logoImage = typeof logoImageImport === 'string'
+  ? logoImageImport
   : (logoImageImport as { src: string })?.src || logoImageImport;
-
-const navLinks = [
-  { name: "Home", href: "/#home" },
-  { name: "Pricing", href: "/#pricing" },
-  { name: "How It Works", href: "/#how-it-works" },
-  { name: "Areas We Serve", href: "/areas-we-serve" },
-  { name: "FAQ", href: "/#faq" },
-  { name: "Contact", href: "/#contact" },
-  
-];
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { isAdmin } = useAdminRole();
   const { user, signOut } = useAuth();
+  const { t } = useTranslation();
+
+  const navLinks = [
+    { name: t("header.nav.home"), href: localizedPath("/") + "#home" },
+    { name: t("header.nav.pricing"), href: localizedPath("/") + "#pricing" },
+    { name: t("header.nav.howItWorks"), href: localizedPath("/") + "#how-it-works" },
+    { name: t("header.nav.areasWeServe"), href: localizedPath("/areas-we-serve") },
+    { name: t("header.nav.faq"), href: localizedPath("/") + "#faq" },
+    { name: t("header.nav.contact"), href: localizedPath("/") + "#contact" },
+  ];
 
   return (
     <header className="sticky top-0 z-50 glass border-b border-border/50 shadow-soft">
       <div className="container mx-auto px-4 py-4">
         <nav className="flex items-center justify-between">
           {/* Logo */}
-          <a href="#home" className="flex items-center gap-3">
-            <img 
-              src={logoImage} 
-              alt="Sudsy Co. Rentals" 
+          <a href={localizedPath("/") + "#home"} className="flex items-center gap-3">
+            <img
+              src={logoImage}
+              alt="Sudsy Co. Rentals"
               className="h-12 w-auto"
             />
             <div>
               <div className="font-display font-bold text-xl text-foreground leading-tight">
-                SUDSY CO.
+                {t("header.brand")}
               </div>
-              <p className="text-xs font-medium text-primary tracking-wider">WASHER AND DRYER RENTALS</p>
+              <p className="text-xs font-medium text-primary tracking-wider">{t("header.tagline")}</p>
             </div>
           </a>
 
@@ -62,15 +65,16 @@ const Header = () => {
                 className="flex items-center gap-1.5 font-medium text-primary hover:text-primary/80 transition-colors"
               >
                 <Shield className="h-4 w-4" />
-                Admin
+                {t("header.admin")}
               </a>
             )}
+            <LanguageSwitcher />
             {user ? (
               <div className="flex items-center gap-3">
                 <a href="/dashboard">
                   <Button variant="outline" size="sm" className="flex items-center gap-1.5">
                     <LayoutDashboard className="h-4 w-4" />
-                    My Dashboard
+                    {t("header.myDashboard")}
                   </Button>
                 </a>
                 <Button
@@ -86,20 +90,23 @@ const Header = () => {
               <a href="/auth">
                 <Button variant="outline" size="sm" className="flex items-center gap-1.5">
                   <LogIn className="h-4 w-4" />
-                  Login
+                  {t("header.login")}
                 </Button>
               </a>
             )}
           </div>
 
           {/* Mobile Menu Button */}
-          <button
-            className="lg:hidden p-2 rounded-lg hover:bg-muted transition-colors"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            aria-label="Toggle menu"
-          >
-            {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </button>
+          <div className="flex lg:hidden items-center gap-3">
+            <LanguageSwitcher />
+            <button
+              className="p-2 rounded-lg hover:bg-muted transition-colors"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              aria-label="Toggle menu"
+            >
+              {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </button>
+          </div>
         </nav>
 
         {/* Mobile Menu */}
@@ -129,7 +136,7 @@ const Header = () => {
                     onClick={() => setIsMenuOpen(false)}
                   >
                     <Shield className="h-4 w-4" />
-                    Admin
+                    {t("header.admin")}
                   </a>
                 )}
                 {user ? (
@@ -140,7 +147,7 @@ const Header = () => {
                       onClick={() => setIsMenuOpen(false)}
                     >
                       <LayoutDashboard className="h-4 w-4" />
-                      My Dashboard
+                      {t("header.myDashboard")}
                     </a>
                     <button
                       onClick={() => {
@@ -150,7 +157,7 @@ const Header = () => {
                       className="flex items-center gap-1.5 font-medium text-muted-foreground hover:text-primary transition-colors py-2"
                     >
                       <LogOut className="h-4 w-4" />
-                      Logout
+                      {t("header.logout")}
                     </button>
                   </>
                 ) : (
@@ -160,7 +167,7 @@ const Header = () => {
                     onClick={() => setIsMenuOpen(false)}
                   >
                     <LogIn className="h-4 w-4" />
-                    Login
+                    {t("header.login")}
                   </a>
                 )}
               </div>

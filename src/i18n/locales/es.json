@@ -1,0 +1,265 @@
+{
+  "hero": {
+    "tagline": "¡Nunca Más Vaya a la Lavandería!",
+    "title": "Alquiler de Lavadoras y Secadoras en Ocean Springs, MS",
+    "subtitle": "La Mejor Alternativa a la Lavandería en Gulfport y Biloxi",
+    "description": "Alquiler Accesible de Lavadoras y Secadoras en Gulfport, Biloxi, Diberville, Ocean Springs, Gautier y Pascagoula.",
+    "benefits": {
+      "noCreditCheck": "Sin Verificación de Crédito",
+      "freeDelivery": "Entrega Gratis",
+      "locallyOwned": "Negocio Local"
+    },
+    "rentOnline": "Alquile en Línea",
+    "priceBadge": "$59.99/mes",
+    "priceBadgeLabel": "Lavadora y Secadora",
+    "imageAlt": "Lavadora y secadora blancas disponibles para alquiler en Gulfport, Biloxi y Ocean Springs Mississippi - Sudsy Co. Rentals"
+  },
+  "header": {
+    "brand": "SUDSY CO.",
+    "tagline": "ALQUILER DE LAVADORAS Y SECADORAS",
+    "nav": {
+      "home": "Inicio",
+      "pricing": "Precios",
+      "howItWorks": "Cómo Funciona",
+      "areasWeServe": "Áreas de Servicio",
+      "faq": "Preguntas Frecuentes",
+      "contact": "Contacto"
+    },
+    "admin": "Admin",
+    "myDashboard": "Mi Panel",
+    "login": "Iniciar Sesión",
+    "logout": "Cerrar Sesión"
+  },
+  "pricing": {
+    "badge": "PRECIOS",
+    "title": "Precios Simples y",
+    "titleHighlight": "Accesibles",
+    "subtitle": "Elija la opción de alquiler que mejor le funcione. Sin cargos ocultos, sin sorpresas.",
+    "ourMonthlyRental": "Nuestro Alquiler Mensual",
+    "avgLaundromatCost": "Costo Promedio de Lavandería",
+    "save": "Ahorre 30%+",
+    "vs": "vs",
+    "activeSubscription": "Suscripción Activa",
+    "activeUntil": "Su alquiler está activo hasta",
+    "renewal": "renovación",
+    "manageSubscription": "Administrar Suscripción",
+    "perMonth": "/mes",
+    "mostPopular": "Más Popular",
+    "rentOnline": "Alquile en Línea",
+    "alreadySubscribed": "Ya Suscrito",
+    "checkoutFailed": "Error en el pago",
+    "checkoutFailedDesc": "No se pudo iniciar el pago. Inténtelo de nuevo.",
+    "portalFailed": "No se pudo abrir el portal",
+    "portalFailedDesc": "Inténtelo más tarde.",
+    "packages": {
+      "washerOnly": {
+        "name": "Solo Lavadora",
+        "description": "Perfecto si solo necesita una lavadora.",
+        "features": [
+          "Lavadora de carga superior",
+          "Capacidad de lavado estándar",
+          "Entrega e instalación gratis",
+          "Mantenimiento incluido"
+        ]
+      },
+      "washerDryer": {
+        "name": "Lavadora y Secadora",
+        "description": "La opción más popular para una solución completa de lavandería.",
+        "features": [
+          "Lavadora de carga superior",
+          "Secadora de capacidad estándar",
+          "Entrega e instalación gratis",
+          "Mantenimiento incluido",
+          "Servicio prioritario"
+        ]
+      },
+      "dryerOnly": {
+        "name": "Solo Secadora",
+        "description": "Perfecto si solo necesita una secadora.",
+        "features": [
+          "Secadora eléctrica",
+          "Capacidad de secado estándar",
+          "Entrega e instalación gratis",
+          "Mantenimiento incluido"
+        ]
+      }
+    }
+  },
+  "benefits": {
+    "badge": "POR QUÉ ELEGIRNOS",
+    "title": "¿Por Qué Alquilar con",
+    "titleHighlight": "Sudsy Co?",
+    "subtitle": "Hacemos que alquilar electrodomésticos sea fácil, accesible y sin estrés para familias en toda la Costa del Golfo de Mississippi.",
+    "items": {
+      "freeDelivery": {
+        "title": "Entrega e Instalación Gratis",
+        "description": "Entregamos e instalamos profesionalmente su lavadora y secadora sin costo adicional."
+      },
+      "repairs": {
+        "title": "Reparaciones Sin Costo",
+        "description": "Repararemos o reemplazaremos cualquier máquina en 2 días hábiles, garantizado."
+      },
+      "noCommitment": {
+        "title": "Sin Compromiso a Largo Plazo",
+        "description": "Alquile mes a mes después de su período inicial sin penalidades por devolución."
+      },
+      "quality": {
+        "title": "Electrodomésticos de Calidad",
+        "description": "Ofrecemos lavadoras y secadoras de marcas confiables que usted conoce y ama."
+      },
+      "locallyOwned": {
+        "title": "Negocio Local",
+        "description": "Con orgullo basados en Ocean Springs, MS. Somos sus vecinos, comprometidos a servir a nuestra comunidad de la Costa del Golfo con cariño."
+      }
+    }
+  },
+  "topBar": {
+    "hours": "Lun-Vie: 9AM - 6PM",
+    "servingFull": "Sirviendo la Costa del Golfo de Mississippi",
+    "servingShort": "Costa del Golfo MS"
+  },
+  "howItWorks": {
+    "badge": "CÓMO FUNCIONA",
+    "title": "Comenzar es",
+    "titleHighlight": "Fácil",
+    "subtitle": "Tres simples pasos para ropa limpia y fresca en casa.",
+    "steps": {
+      "choose": {
+        "title": "Elija Su Paquete",
+        "description": "Seleccione el paquete de lavadora, secadora o combinación que se ajuste a sus necesidades. ¡Sin verificación de crédito!"
+      },
+      "schedule": {
+        "title": "Programe la Entrega",
+        "description": "Elija una fecha de entrega conveniente. Entregaremos e instalaremos profesionalmente sus electrodomésticos gratis."
+      },
+      "enjoy": {
+        "title": "Disfrute Ropa Limpia",
+        "description": "Comience a disfrutar la comodidad de lavar en casa. Nosotros nos encargamos de todo el mantenimiento y reparaciones."
+      }
+    }
+  },
+  "faq": {
+    "badge": "PREGUNTAS FRECUENTES",
+    "title": "Preguntas",
+    "titleHighlight": "Frecuentes",
+    "subtitle": "Todo lo que necesita saber sobre nuestro servicio de alquiler de lavadoras y secadoras.",
+    "items": [
+      {
+        "question": "¿Cuáles son los términos del contrato?",
+        "answer": "Ofrecemos alquiler de lavadoras y secadoras mes a mes con un mínimo de 6 meses. Conserve las máquinas el tiempo que las necesite; solo llámenos para una recogida gratuita cuando termine. Brindamos flexibilidad sin contratos a largo plazo."
+      },
+      {
+        "question": "¿Alguna vez seré dueño de las máquinas?",
+        "answer": "No, este no es un programa de renta con opción a compra. Es un programa de alquiler. Usted alquila los electrodomésticos el tiempo que los necesite, y nosotros nos encargamos de todo el mantenimiento y reparaciones."
+      },
+      {
+        "question": "¿Hay requisitos para alquilar?",
+        "answer": "No requerimos verificación de crédito."
+      },
+      {
+        "question": "¿Puedo elegir mis máquinas?",
+        "answer": "Los electrodomésticos que entregamos dependen de lo que tengamos disponible el día de la entrega. Si tiene limitaciones de espacio específicas, como un área de lavandería estrecha, infórmenos para que podamos intentar acomodar sus necesidades con un modelo adecuado."
+      },
+      {
+        "question": "¿Cómo se ven las máquinas?",
+        "answer": "Nuestras máquinas estándar consisten en lavadoras y secadoras blancas lado a lado con agitadores. Típicamente, las lavadoras tienen aproximadamente 3.5 pies cúbicos de espacio interior. Nos esforzamos por proporcionar juegos de lavadora y secadora que combinen; sin embargo, puede recibir unidades de diferentes marcas. Tenga en cuenta que como son unidades de alquiler, pueden mostrar signos de uso como rasguños y pequeñas abolladuras."
+      },
+      {
+        "question": "¿Cómo funcionan los pagos?",
+        "answer": "Su tarifa mensual de alquiler se cobrará automáticamente el mismo día del mes que su entrega inicial."
+      },
+      {
+        "question": "¿Qué pasa si mi máquina se descompone?",
+        "answer": "Normalmente proporcionamos servicio dentro de uno a dos días de recibir una solicitud de mantenimiento. Si no podemos resolver el problema durante su cita de mantenimiento, reemplazaremos su lavadora o secadora ese mismo día sin costo adicional para minimizar la interrupción."
+      },
+      {
+        "question": "¿Qué hace especial a Sudsy Co.?",
+        "answer": "Somos un negocio local comprometido con la eficiencia operativa y la satisfacción del cliente. Cuando nos llame o envíe un mensaje de texto, se comunicará con una persona real de inmediato. Nos esforzamos por hacer que la experiencia de cada cliente sea fluida y sin complicaciones."
+      }
+    ]
+  },
+  "contact": {
+    "badge": "Contáctenos",
+    "title": "Contáctenos",
+    "subtitle": "¿Tiene preguntas o necesita programar un servicio? Complete el formulario a continuación y nos comunicaremos con usted pronto.",
+    "phone": "Teléfono",
+    "email": "Correo Electrónico",
+    "serviceArea": "Área de Servicio",
+    "serviceAreaDesc": "Costa del Golfo de Mississippi\nGulfport, Biloxi, D'Iberville, Ocean Springs, Long Beach, Gautier, Pascagoula, Pass Christian y Moss Point",
+    "form": {
+      "name": "Nombre *",
+      "namePlaceholder": "Su nombre",
+      "email": "Correo Electrónico *",
+      "emailPlaceholder": "su@correo.com",
+      "phone": "Teléfono *",
+      "phonePlaceholder": "(xxx) xxx-xxxx",
+      "inquiryType": "Tipo de Consulta *",
+      "general": "Preguntas Generales",
+      "repair": "Programar Reparación",
+      "pickup": "Programar Recogida",
+      "appliance": "¿Qué electrodoméstico necesita reparación? *",
+      "selectAppliance": "Seleccionar electrodoméstico",
+      "washer": "Lavadora",
+      "dryer": "Secadora",
+      "describeProblem": "Describa el problema *",
+      "problemPlaceholder": "Por favor describa el problema que está experimentando...",
+      "preferredDate": "Fecha Preferida *",
+      "selectDate": "Seleccione una fecha",
+      "preferredTime": "Hora Preferida *",
+      "selectTime": "Seleccione una hora",
+      "message": "Mensaje",
+      "messagePlaceholder": "¿Cómo podemos ayudarle?",
+      "submit": "Enviar Consulta",
+      "submitting": "Enviando..."
+    },
+    "toast": {
+      "success": "¡Su consulta ha sido enviada! Nos comunicaremos con usted pronto.",
+      "rateLimited": "Demasiados envíos. Inténtelo de nuevo en una hora.",
+      "fillRequired": "Por favor complete todos los campos requeridos",
+      "selectAppliance": "Por favor seleccione un electrodoméstico y describa el problema",
+      "selectDateTime": "Por favor seleccione una fecha y hora",
+      "error": "No se pudo enviar su consulta. Inténtelo de nuevo."
+    }
+  },
+  "cta": {
+    "title": "¿Listo Para Dejar la Lavandería?",
+    "subtitle": "Comience hoy con entrega e instalación gratis. ¡Sin verificación de crédito!",
+    "rentOnline": "Alquile en Línea",
+    "servingAreas": "Sirviendo Biloxi, Gulfport, Ocean Springs y toda la Costa del Golfo de Mississippi"
+  },
+  "serviceArea": {
+    "badge": "ÁREA DE SERVICIO",
+    "title": "Orgullosamente Sirviendo la",
+    "titleHighlight": "Costa del Golfo de Mississippi",
+    "subtitle": "Entregamos e instalamos lavadoras y secadoras en todas estas comunidades."
+  },
+  "footer": {
+    "description": "Negocio Local en Ocean Springs, MS. Sudsy Co. es la principal alternativa a la lavandería en el sur de Mississippi. Proveemos alquiler accesible de lavadoras y secadoras con entrega gratis al siguiente día en la Costa del Golfo de Mississippi.",
+    "quickLinks": "Enlaces Rápidos",
+    "serviceAreas": "Áreas de Servicio",
+    "rentalByCity": "Alquiler por Ciudad",
+    "contactUs": "Contáctenos",
+    "familyOwned": "Negocio Familiar",
+    "servingProudly": "Orgullosamente sirviendo: Biloxi, Gulfport, Ocean Springs, D'Iberville, Gautier, Pascagoula y Long Beach, MS.",
+    "copyright": "© {{year}} Sudsy Co. Rentals. Todos los derechos reservados.",
+    "privacyPolicy": "Política de Privacidad",
+    "termsOfService": "Términos de Servicio",
+    "home": "Inicio",
+    "pricing": "Precios",
+    "howItWorks": "Cómo Funciona",
+    "faq": "Preguntas Frecuentes",
+    "contact": "Contacto",
+    "washerDryerRental": "[ES: Alquiler de Lavadora y Secadora]",
+    "applianceRental": "[ES: Servicio de Alquiler de Electrodomésticos]",
+    "furnitureRental": "[ES: Servicio de Alquiler de Muebles]",
+    "ourServices": "[ES: Nuestros Servicios]",
+    "areasWeServe": "[ES: Áreas que Servimos]",
+    "blog": "[ES: Blog]",
+    "resources": "[ES: Recursos]",
+    "promo": "[ES: $20 de Descuento]"
+  },
+  "reviews": {
+    "badge": "[ES: RESEÑAS]",
+    "title": "[ES: Lo Que Dicen Nuestros Clientes]"
+  }
+}

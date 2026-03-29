@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
 import { MapPin } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import { localizedPath } from "@/i18n";
 
 const cities = [
   { name: "Gulfport", slug: "gulfport" },
@@ -15,6 +17,8 @@ const cities = [
 ];
 
 const ServiceArea = () => {
+  const { t } = useTranslation();
+
   return (
     <section id="service-area" className="py-16 bg-muted/30">
       <div className="container mx-auto px-4">
@@ -26,13 +30,13 @@ const ServiceArea = () => {
           className="text-center mb-10"
         >
           <span className="inline-block bg-primary/10 text-primary px-4 py-1.5 rounded-full text-sm font-semibold mb-4">
-            SERVICE AREA
+            {t("serviceArea.badge")}
           </span>
           <h2 className="font-display font-bold text-2xl md:text-3xl text-foreground mb-3">
-            Proudly Serving the <span className="text-primary">Mississippi Gulf Coast</span>
+            {t("serviceArea.title")} <span className="text-primary">{t("serviceArea.titleHighlight")}</span>
           </h2>
           <p className="text-muted-foreground max-w-xl mx-auto">
-            We deliver and install washers and dryers throughout these communities.
+            {t("serviceArea.subtitle")}
           </p>
         </motion.div>
 
@@ -52,7 +56,7 @@ const ServiceArea = () => {
               transition={{ duration: 0.3, delay: index * 0.05 }}
             >
               <Link
-                to={`/locations/${city.slug}`}
+                to={localizedPath(`/locations/${city.slug}`)}
                 className="flex items-center gap-2 bg-card border border-border px-4 py-2.5 rounded-full shadow-sm hover:shadow-md hover:border-primary/30 hover:bg-primary/5 transition-all"
               >
                 <MapPin className="h-4 w-4 text-primary" />
