@@ -78,12 +78,13 @@ const CheckAvailability = () => {
     setLoading(true);
 
     try {
-      const { error } = await supabase.from("contact_submissions").insert({
+      const { error } = await supabase.from("leads").insert({
         name: formData.name,
         phone: formData.phone,
         email: formData.email,
-        inquiry_type: "availability_check",
-        message: `Zip code: ${formData.zip}`,
+        zip_code: formData.zip,
+        property_type: "apartment", // default, can add selector later
+        source: "check_availability_widget",
         status: "new",
       });
 
