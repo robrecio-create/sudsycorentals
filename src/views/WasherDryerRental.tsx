@@ -132,11 +132,11 @@ const WasherDryerRental = () => {
     <>
       <Helmet>
         <title>
-          Washer and Dryer Rental | Mississippi Gulf Coast | Sudsy Co.
+          Washer and Dryer Rental Ocean Springs MS | Free Delivery | Sudsy Co.
         </title>
         <meta
           name="description"
-          content="Washer and dryer rental on the Mississippi Gulf Coast starting at $40/mo. Free delivery, free installation, no credit check. Serving Gulfport, Biloxi, Ocean Springs and more."
+          content="Rent a washer and dryer in Ocean Springs, MS for $59.99/mo. Free delivery, free installation, no credit check. Serving the Mississippi Gulf Coast. Call (228) 338-3455."
         />
         <link
           rel="canonical"
@@ -183,7 +183,7 @@ const WasherDryerRental = () => {
                 transition={{ duration: 0.6 }}
               >
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-tight mb-6">
-                  Washer and Dryer Rental on the Mississippi Gulf Coast
+                  Washer & Dryer Rental in Ocean Springs, MS
                 </h1>
                 <p className="text-lg md:text-xl text-muted-foreground mb-8 leading-relaxed">
                   Skip the laundromat and stop overpaying for appliances. Rent a

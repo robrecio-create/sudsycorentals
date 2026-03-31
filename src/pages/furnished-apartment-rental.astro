@@ -1,0 +1,12 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import FurnishedApartmentRentalIsland from '../components/islands/FurnishedApartmentRentalIsland';
+---
+
+<BaseLayout
+  title="Furnished Apartment Rental Ocean Springs MS | Sudsy Co."
+  description="Furnished apartment rental support in Ocean Springs, MS. Furniture rental for apartments, short stays, relocations, and temporary housing. Call (228) 338-3455."
+>
+  <h1 class="sr-only">Furnished Apartment Rental in Ocean Springs, MS</h1>
+  <FurnishedApartmentRentalIsland client:only="react" />
+</BaseLayout>

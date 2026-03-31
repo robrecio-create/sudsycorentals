@@ -1,0 +1,12 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import TemporaryFurnitureRentalIsland from '../components/islands/TemporaryFurnitureRentalIsland';
+---
+
+<BaseLayout
+  title="Temporary Furniture Rental Ocean Springs MS | Sudsy Co."
+  description="Temporary furniture rental in Ocean Springs, MS for apartments, relocations, and short stays. Locally owned on the Mississippi Gulf Coast. Call (228) 338-3455."
+>
+  <h1 class="sr-only">Temporary Furniture Rental in Ocean Springs, MS</h1>
+  <TemporaryFurnitureRentalIsland client:only="react" />
+</BaseLayout>

@@ -148,8 +148,49 @@ const AreasWeServe = () => {
             </div>
           </section>
 
-          {/* Why Choose Us */}
+          {/* Washer & Dryer Rental by City */}
           <section className="py-16 md:py-24 bg-muted/30">
+            <div className="container mx-auto px-4">
+              <div className="max-w-4xl mx-auto">
+                <div className="text-center mb-8">
+                  <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-4">
+                    Washer & Dryer Rental by City
+                  </h2>
+                  <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                    Sudsy Co. delivers washer and dryer rentals across the Mississippi Gulf Coast. Explore our city-specific rental pages below to find service in your area.
+                  </p>
+                </div>
+
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {[
+                    { name: "Ocean Springs", slug: "ocean-springs" },
+                    { name: "Biloxi", slug: "biloxi" },
+                    { name: "Gulfport", slug: "gulfport" },
+                    { name: "D'Iberville", slug: "diberville" },
+                    { name: "Pascagoula", slug: "pascagoula" },
+                    { name: "Gautier", slug: "gautier" },
+                    { name: "Long Beach", slug: "long-beach" },
+                    { name: "Pass Christian", slug: "pass-christian" },
+                    { name: "Moss Point", slug: "moss-point" },
+                  ].map((city) => (
+                    <Link
+                      key={city.slug}
+                      to={`/washer-dryer-rental/${city.slug}`}
+                      className="flex items-center gap-3 bg-card border border-border rounded-xl p-4 hover:border-primary/50 hover:shadow-md transition-all group"
+                    >
+                      <MapPin className="h-5 w-5 text-primary shrink-0" />
+                      <span className="font-medium text-foreground group-hover:text-primary transition-colors">
+                        Washer & Dryer Rental {city.name}
+                      </span>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Why Choose Us */}
+          <section className="py-16 md:py-24">
             <div className="container mx-auto px-4">
               <div className="max-w-4xl mx-auto">
                 <div className="text-center mb-12">
