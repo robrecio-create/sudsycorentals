@@ -1,5 +1,11 @@
 {
   "framework": "astro",
+  "crons": [
+    {
+      "path": "/api/cron/review-requests",
+      "schedule": "0 15 * * *"
+    }
+  ],
   "redirects": [
     {
       "source": "/:path((?!api/).*)",
