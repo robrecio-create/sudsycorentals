@@ -7,6 +7,7 @@ import vercel from '@astrojs/vercel';
 export default defineConfig({
   site: 'https://www.sudsycorentals.com',
   output: 'static',
+  trailingSlash: 'always',
   adapter: vercel(),
   integrations: [
     react(),

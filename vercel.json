@@ -14,17 +14,17 @@
     },
     {
       "source": "/contact",
-      "destination": "/services",
+      "destination": "/services/",
       "permanent": true
     },
     {
       "source": "/about",
-      "destination": "/services",
+      "destination": "/services/",
       "permanent": true
     },
     {
       "source": "/faq",
-      "destination": "/resources",
+      "destination": "/resources/",
       "permanent": true
     },
     {
@@ -34,6 +34,7 @@
       "permanent": true
     }
   ],
+  "trailingSlash": true,
   "headers": [
     {
       "source": "/(.*)",
