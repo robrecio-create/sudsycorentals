@@ -26,18 +26,20 @@ const {
   geoPosition,
 } = Astro.props;
 
-// Always use www for canonical URLs
+// Always use www for canonical URLs with trailing slash
 const baseUrl = 'https://www.sudsycorentals.com';
-const canonicalURL = canonical || `${baseUrl}${Astro.url.pathname}`;
+const pathname = Astro.url.pathname.endsWith('/') ? Astro.url.pathname : `${Astro.url.pathname}/`;
+const canonicalURL = canonical || `${baseUrl}${pathname}`;
 
 // Detect language from URL path
 const isSpanish = Astro.url.pathname.startsWith('/es/') || Astro.url.pathname === '/es';
 const htmlLang = isSpanish ? 'es' : 'en';
 
-// Build hreflang URLs
-const pathWithoutLang = Astro.url.pathname.replace(/^\/es(\/|$)/, '/');
+// Build hreflang URLs with trailing slashes
+const rawPathWithoutLang = Astro.url.pathname.replace(/^\/es(\/|$)/, '/');
+const pathWithoutLang = rawPathWithoutLang.endsWith('/') ? rawPathWithoutLang : `${rawPathWithoutLang}/`;
 const enUrl = `${baseUrl}${pathWithoutLang}`;
-const esUrl = `${baseUrl}/es${pathWithoutLang === '/' ? '' : pathWithoutLang}`;
+const esUrl = `${baseUrl}/es${pathWithoutLang === '/' ? '/' : pathWithoutLang}`;
 ---
 
 <!doctype html>
