@@ -8,6 +8,26 @@
   ],
   "redirects": [
     {
+      "source": "/pricing",
+      "destination": "/#pricing",
+      "permanent": true
+    },
+    {
+      "source": "/contact",
+      "destination": "/services",
+      "permanent": true
+    },
+    {
+      "source": "/about",
+      "destination": "/services",
+      "permanent": true
+    },
+    {
+      "source": "/faq",
+      "destination": "/resources",
+      "permanent": true
+    },
+    {
       "source": "/:path((?!api/).*)",
       "has": [{ "type": "host", "value": "sudsycorentals.com" }],
       "destination": "https://www.sudsycorentals.com/:path",
