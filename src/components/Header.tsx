@@ -68,6 +68,14 @@ const Header = () => {
                 {t("header.admin")}
               </a>
             )}
+            <a
+              href="https://theseawallms.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground hover:bg-primary/90 transition-colors"
+            >
+              Newsletter
+            </a>
             <LanguageSwitcher />
             {user ? (
               <div className="flex items-center gap-3">
@@ -129,6 +137,15 @@ const Header = () => {
                     {link.name}
                   </a>
                 ))}
+                <a
+                  href="https://theseawallms.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block font-semibold text-primary bg-primary/10 hover:bg-primary/20 transition-colors py-2 px-3 rounded-md"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Newsletter
+                </a>
                 {isAdmin && (
                   <a
                     href="/admin"

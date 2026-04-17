@@ -82,6 +82,16 @@ const Footer = () => {
           <div>
             <h4 className="font-display font-semibold text-lg mb-6">{t("footer.quickLinks")}</h4>
             <ul className="space-y-3">
+              <li>
+                <a
+                  href="https://theseawallms.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-background/70 hover:text-primary transition-colors font-semibold"
+                >
+                  Newsletter
+                </a>
+              </li>
               {quickLinks.map((link) => (
                 <li key={link.label}>
                   <a
