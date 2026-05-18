@@ -17,7 +17,6 @@ interface DayAvailability {
 }
 
 const TIME_SLOTS = [
-  "Morning (8AM-12PM)",
   "Afternoon (12PM-4PM)",
   "Evening (4PM-7PM)",
 ];

@@ -25,7 +25,6 @@ import { supabase } from "@/integrations/supabase/client";
 import { useDeliveryAvailability, useBlackoutDates } from "@/hooks/useDeliveryAvailability";
 
 const timeSlots = [
-  "Morning (8AM-12PM)",
   "Afternoon (12PM-4PM)",
   "Evening (4PM-7PM)",
 ];
