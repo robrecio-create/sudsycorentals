@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import WasherAndDryerRentalIsland from '../components/islands/WasherAndDryerRentalIsland';
+import WasherDryerRentalIsland from '../components/islands/WasherDryerRentalIsland';
 
 const serviceSchema = {
   "@context": "https://schema.org",
@@ -56,5 +56,5 @@ const breadcrumbSchema = {
   <script type="application/ld+json" slot="head" set:html={JSON.stringify(serviceSchema)} />
   <script type="application/ld+json" slot="head" set:html={JSON.stringify(breadcrumbSchema)} />
   <h1 class="sr-only">Washer and Dryer Rental in Ocean Springs, MS</h1>
-  <WasherAndDryerRentalIsland client:only="react" />
+  <WasherDryerRentalIsland client:only="react" />
 </BaseLayout>
