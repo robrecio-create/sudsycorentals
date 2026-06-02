@@ -1,19 +1,60 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import TemporaryFurnitureRentalIsland from '../components/islands/TemporaryFurnitureRentalIsland';
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Temporary Furniture Rental",
+  "description": "Short-term and temporary furniture rental in Ocean Springs, MS for apartments and transitional housing. Month-to-month, no commitment.",
+  "provider": {
+    "@type": "LocalBusiness",
+    "@id": "https://www.sudsycorentals.com/#localbusiness",
+    "name": "Sudsy Co. Rentals",
+    "telephone": "+1-228-338-3455",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "1302 Fort St",
+      "addressLocality": "Ocean Springs",
+      "addressRegion": "MS",
+      "postalCode": "39564",
+      "addressCountry": "US"
+    }
+  },
+  "areaServed": {
+    "@type": "State",
+    "name": "Mississippi"
+  },
+  "url": "https://www.sudsycorentals.com/temporary-furniture-rental/",
+  "offers": {
+    "@type": "Offer",
+    "price": "59.99",
+    "priceCurrency": "USD",
+    "priceSpecification": {
+      "@type": "UnitPriceSpecification",
+      "price": "59.99",
+      "priceCurrency": "USD",
+      "unitText": "month"
+    }
+  }
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.sudsycorentals.com" },
+    { "@type": "ListItem", "position": 2, "name": "Temporary Furniture Rental" }
+  ]
+};
 ---
 
 <BaseLayout
   title="Temporary Furniture Rental Ocean Springs MS | Sudsy Co."
-  description="Temporary furniture rental in Ocean Springs, MS for apartments, relocations, and short stays. Locally owned on the Mississippi Gulf Coast. Call (228) 338-3455."
+  description="Temporary furniture rental in Ocean Springs, MS. Short-term appliance and furniture rentals for apartments and transitional housing. No credit check."
 >
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(serviceSchema)} />
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(breadcrumbSchema)} />
   <h1 class="sr-only">Temporary Furniture Rental in Ocean Springs, MS</h1>
-  <!-- SEO content for crawlers -->
-  <article class="sr-only" aria-hidden="true">
-    <p>Sudsy Co. offers temporary furniture rental in Ocean Springs, MS and across the Mississippi Gulf Coast for people who need a practical, short-term furnishing solution. Whether you're relocating, between homes, setting up a rental property, or need furniture for a temporary living situation, we can help.</p>
-    <p>Temporary furniture rental makes sense when buying doesn't. If you're only going to be somewhere for a few weeks or months, purchasing furniture creates a second problem: what to do with it when you leave. Renting lets you get settled fast without the commitment.</p>
-    <p>We serve Ocean Springs, Biloxi, Gulfport, D'Iberville, Pascagoula, Gautier, Long Beach, Pass Christian, and Moss Point. Our furniture rental works well for military families, corporate relocations, property staging, and anyone in transition on the Gulf Coast.</p>
-    <p>Call (228) 338-3455 to discuss temporary furniture rental options and current inventory.</p>
-  </article>
   <TemporaryFurnitureRentalIsland client:only="react" />
 </BaseLayout>

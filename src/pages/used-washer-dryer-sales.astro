@@ -1,20 +1,60 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import UsedWasherDryerSalesIsland from '../components/islands/UsedWasherDryerSalesIsland';
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Used Washer and Dryer Sales",
+  "description": "Buy or rent used washers and dryers in Ocean Springs, MS. All units cleaned, tested, and ready for use.",
+  "provider": {
+    "@type": "LocalBusiness",
+    "@id": "https://www.sudsycorentals.com/#localbusiness",
+    "name": "Sudsy Co. Rentals",
+    "telephone": "+1-228-338-3455",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "1302 Fort St",
+      "addressLocality": "Ocean Springs",
+      "addressRegion": "MS",
+      "postalCode": "39564",
+      "addressCountry": "US"
+    }
+  },
+  "areaServed": {
+    "@type": "State",
+    "name": "Mississippi"
+  },
+  "url": "https://www.sudsycorentals.com/used-washer-dryer-sales/",
+  "offers": {
+    "@type": "Offer",
+    "price": "59.99",
+    "priceCurrency": "USD",
+    "priceSpecification": {
+      "@type": "UnitPriceSpecification",
+      "price": "59.99",
+      "priceCurrency": "USD",
+      "unitText": "month"
+    }
+  }
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.sudsycorentals.com" },
+    { "@type": "ListItem", "position": 2, "name": "Used Washer and Dryer Sales" }
+  ]
+};
 ---
 
 <BaseLayout
   title="Used Washer and Dryer Sales Ocean Springs MS | Sudsy Co."
-  description="Used washer and dryer sales in Ocean Springs, MS. Locally inspected and serviced machines. Ask about current inventory. Call (228) 338-3455."
+  description="Buy used washers and dryers in Ocean Springs, MS. Cleaned, tested, and ready to use. Sudsy Co. also offers flexible rental options starting at $59.99/mo."
 >
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(serviceSchema)} />
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(breadcrumbSchema)} />
   <h1 class="sr-only">Used Washer and Dryer Sales in Ocean Springs, MS</h1>
-  <!-- SEO content for crawlers -->
-  <article class="sr-only" aria-hidden="true">
-    <p>Sudsy Co. periodically has used washers and dryers available for sale in Ocean Springs, MS. These machines come from our rental fleet and have been professionally inspected, serviced, and tested before being offered for purchase.</p>
-    <p>Unlike buying from a random seller on Facebook Marketplace or Craigslist, our used appliances come with documented maintenance history. We know exactly how each machine has been used and maintained because they've been in our rental program.</p>
-    <p>Inventory varies — we sell used machines as they rotate out of active rental service. If you're looking for a used washer or dryer to buy outright rather than rent, call us to ask what's currently available and pricing.</p>
-    <p>We can also deliver and install machines you purchase, and haul away your old appliances at the same time. Service area includes Ocean Springs, Biloxi, Gulfport, D'Iberville, Pascagoula, Gautier, Long Beach, Pass Christian, and Moss Point.</p>
-    <p>Call (228) 338-3455 to check current used washer and dryer inventory.</p>
-  </article>
   <UsedWasherDryerSalesIsland client:only="react" />
 </BaseLayout>

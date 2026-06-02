@@ -1,19 +1,60 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ShortTermApplianceRentalIsland from '../components/islands/ShortTermApplianceRentalIsland';
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Short-Term Appliance Rental",
+  "description": "Flexible short-term washer and dryer rental in Ocean Springs with free delivery and no long-term commitment required.",
+  "provider": {
+    "@type": "LocalBusiness",
+    "@id": "https://www.sudsycorentals.com/#localbusiness",
+    "name": "Sudsy Co. Rentals",
+    "telephone": "+1-228-338-3455",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "1302 Fort St",
+      "addressLocality": "Ocean Springs",
+      "addressRegion": "MS",
+      "postalCode": "39564",
+      "addressCountry": "US"
+    }
+  },
+  "areaServed": {
+    "@type": "State",
+    "name": "Mississippi"
+  },
+  "url": "https://www.sudsycorentals.com/short-term-appliance-rental/",
+  "offers": {
+    "@type": "Offer",
+    "price": "59.99",
+    "priceCurrency": "USD",
+    "priceSpecification": {
+      "@type": "UnitPriceSpecification",
+      "price": "59.99",
+      "priceCurrency": "USD",
+      "unitText": "month"
+    }
+  }
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.sudsycorentals.com" },
+    { "@type": "ListItem", "position": 2, "name": "Short-Term Appliance Rental" }
+  ]
+};
 ---
 
 <BaseLayout
   title="Short-Term Appliance Rental Ocean Springs MS | Sudsy Co."
   description="Short-term appliance rental in Ocean Springs, MS. Rent a washer and dryer for weeks or months with free delivery and no credit check. Cancel anytime."
 >
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(serviceSchema)} />
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(breadcrumbSchema)} />
   <h1 class="sr-only">Short-Term Appliance Rental in Ocean Springs, MS</h1>
-  <!-- SEO content for crawlers -->
-  <article class="sr-only" aria-hidden="true">
-    <p>Sudsy Co. offers short-term appliance rental in Ocean Springs, MS for people who need a washer and dryer for weeks or months rather than years. Whether you're in temporary housing, waiting for a home purchase to close, or just need appliances for a limited time, we have flexible rental options.</p>
-    <p>Short-term rental makes sense when your situation is temporary. Instead of buying appliances you'll need to sell or move later, rent from Sudsy Co. and we handle delivery, installation, and pickup when you're done.</p>
-    <p>All short-term rentals include free delivery, free installation, and free maintenance. No credit check required. We serve Ocean Springs, Biloxi, Gulfport, D'Iberville, Pascagoula, Gautier, Long Beach, Pass Christian, and Moss Point.</p>
-    <p>Call (228) 338-3455 to discuss short-term appliance rental options for your situation.</p>
-  </article>
   <ShortTermApplianceRentalIsland client:only="react" />
 </BaseLayout>

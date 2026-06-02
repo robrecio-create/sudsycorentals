@@ -1,6 +1,114 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import HomeIsland from '../components/islands/HomeIsland';
+
+const localBusinessSchema = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "LocalBusiness",
+      "@id": "https://www.sudsycorentals.com/#localbusiness",
+      "name": "Sudsy Co. Rentals",
+      "alternateName": "Sudsy Co. Washer and Dryer Rentals",
+      "description": "Locally owned washer and dryer rental service on the Mississippi Gulf Coast. Free delivery, free installation, no credit check. Starting at $59.99/mo.",
+      "url": "https://www.sudsycorentals.com",
+      "telephone": "+1-228-338-3455",
+      "email": "info@sudsycorentals.com",
+      "priceRange": "$$",
+      "image": "https://www.sudsycorentals.com/og-image.png",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://www.sudsycorentals.com/logo.png"
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "1302 Fort St",
+        "addressLocality": "Ocean Springs",
+        "addressRegion": "MS",
+        "postalCode": "39564",
+        "addressCountry": "US"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 30.4099,
+        "longitude": -88.8290
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+          "opens": "09:00",
+          "closes": "18:00"
+        }
+      ],
+      "areaServed": [
+        { "@type": "City", "name": "Ocean Springs", "containedInPlace": { "@type": "State", "name": "Mississippi" } },
+        { "@type": "City", "name": "Biloxi", "containedInPlace": { "@type": "State", "name": "Mississippi" } },
+        { "@type": "City", "name": "Gulfport", "containedInPlace": { "@type": "State", "name": "Mississippi" } },
+        { "@type": "City", "name": "D'Iberville", "containedInPlace": { "@type": "State", "name": "Mississippi" } },
+        { "@type": "City", "name": "Gautier", "containedInPlace": { "@type": "State", "name": "Mississippi" } },
+        { "@type": "City", "name": "Pascagoula", "containedInPlace": { "@type": "State", "name": "Mississippi" } },
+        { "@type": "City", "name": "Long Beach", "containedInPlace": { "@type": "State", "name": "Mississippi" } },
+        { "@type": "City", "name": "Pass Christian", "containedInPlace": { "@type": "State", "name": "Mississippi" } },
+        { "@type": "City", "name": "Moss Point", "containedInPlace": { "@type": "State", "name": "Mississippi" } }
+      ],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Washer & Dryer Rental Plans",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": { "@type": "Service", "name": "Washer Only Rental" },
+            "price": "39.99",
+            "priceCurrency": "USD",
+            "priceSpecification": {
+              "@type": "UnitPriceSpecification",
+              "price": "39.99",
+              "priceCurrency": "USD",
+              "unitText": "month"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": { "@type": "Service", "name": "Washer & Dryer Set Rental" },
+            "price": "59.99",
+            "priceCurrency": "USD",
+            "priceSpecification": {
+              "@type": "UnitPriceSpecification",
+              "price": "59.99",
+              "priceCurrency": "USD",
+              "unitText": "month"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": { "@type": "Service", "name": "Dryer Only Rental" },
+            "price": "29.99",
+            "priceCurrency": "USD",
+            "priceSpecification": {
+              "@type": "UnitPriceSpecification",
+              "price": "29.99",
+              "priceCurrency": "USD",
+              "unitText": "month"
+            }
+          }
+        ]
+      },
+      "sameAs": [
+        "https://www.facebook.com/profile.php?id=61583964994641",
+        "https://www.instagram.com/sudsycorentals/"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.sudsycorentals.com/#website",
+      "url": "https://www.sudsycorentals.com",
+      "name": "Sudsy Co. Rentals",
+      "description": "Washer and dryer rentals on the Mississippi Gulf Coast",
+      "publisher": { "@id": "https://www.sudsycorentals.com/#localbusiness" }
+    }
+  ]
+};
 ---
 
 <BaseLayout
@@ -10,6 +118,7 @@ import HomeIsland from '../components/islands/HomeIsland';
   geoRegion="US-MS"
   geoPlacename="Ocean Springs, Mississippi"
 >
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(localBusinessSchema)} />
   <!-- Static H1 for SEO crawlers (visually hidden, replaced by React) -->
   <h1 class="sr-only">Washer & Dryer Rentals in Ocean Springs, MS</h1>
   <HomeIsland client:only="react" />
