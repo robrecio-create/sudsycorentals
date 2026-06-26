@@ -239,6 +239,7 @@ const DeliveryScheduleForm = ({
                       return (
                         date < earliest ||
                         date.getDay() === 0 ||
+                        date.getDay() === 6 ||
                         date > new Date(today.getTime() + 30 * 24 * 60 * 60 * 1000) ||
                         blackoutDates.includes(dateStr)
                       );

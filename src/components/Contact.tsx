@@ -452,7 +452,7 @@ const Contact = () => {
                           selected={selectedDate}
                           onSelect={setSelectedDate}
                           disabled={(date) =>
-                            date < new Date() || date.getDay() === 0
+                            date < new Date() || date.getDay() === 0 || date.getDay() === 6
                           }
                           initialFocus
                           className={cn("p-3 pointer-events-auto")}
